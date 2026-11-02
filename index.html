@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b5470">
+<title>夏澄｜澎湖旅遊平台需求問卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: one section per screen; sea-colored section band on top, question cards below, fixed bottom action bar */
+:root{
+  --sea:#0b5470; --sea-2:#13789a; --sea-3:#d7ecf3; --sand:#f6f1e7; --card:#ffffff;
+  --ink:#16252d; --muted:#5a6a73; --line:#dde5e8; --chip:#f1f4f5; --pick:#e0f0f6;
+  --coral:#e8735a; --ok:#21825a; --warn-bg:#fff4dc; --warn-line:#d9a63a;
+  --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --r:18px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;color-scheme:light}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer}
+input,textarea{font:inherit}
+[hidden]{display:none!important}
+.gut{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.col{max-width:620px;margin:0 auto}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:20;background:var(--sea);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.top .row{display:flex;align-items:center;gap:10px;height:54px}
+.top .home{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:12px;height:38px;padding:0 12px;font-size:15px;font-weight:700;white-space:nowrap}
+.top .where{flex:1;min-width:0;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .saved{font-size:13px;opacity:.85;white-space:nowrap}
+.segs{display:flex;gap:4px;padding-bottom:10px}
+.segs i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}
+.segs i.on{background:#fff}
+.segs i.cur{background:#ffd8a8}
+
+/* ---------- section band ---------- */
+.band{background:linear-gradient(180deg,var(--sea) 0%,var(--sea-2) 100%);color:#fff;position:relative;padding-bottom:46px}
+.band .col{padding-top:22px}
+.kicker{font-size:15px;font-weight:700;opacity:.85;letter-spacing:.06em}
+.band h2{font-size:30px;line-height:1.25;margin:4px 0 8px;font-weight:900;text-wrap:balance}
+.band p{margin:0;font-size:16px;opacity:.92}
+.band .meta{display:inline-flex;gap:8px;margin-top:12px;font-size:14px;font-weight:700}
+.band .meta span{background:rgba(255,255,255,.16);border-radius:999px;padding:3px 12px}
+.wave{position:absolute;left:0;right:0;bottom:-1px;height:40px;width:100%;display:block}
+
+/* ---------- question cards ---------- */
+main{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+.qs{display:grid;gap:14px;margin-top:-22px;position:relative}
+.qc{background:var(--card);border-radius:var(--r);padding:18px 18px 20px;box-shadow:0 1px 2px rgba(11,84,112,.06),0 4px 14px rgba(11,84,112,.06)}
+.qt{display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:18px;line-height:1.45;margin-bottom:12px}
+.qt .n{flex:none;min-width:30px;height:30px;border-radius:15px;background:var(--sea-3);color:var(--sea);font-size:14px;display:grid;place-items:center;font-variant-numeric:tabular-nums;margin-top:-1px;padding:0 6px}
+.qt .multi{display:inline-block;font-size:13px;color:var(--sea-2);background:var(--pick);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px;font-weight:700}
+.qh{font-size:14px;color:var(--muted);margin:-6px 0 10px 40px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:48px;border:2px solid var(--line);background:var(--chip);border-radius:14px;padding:10px 16px;font-size:17px;text-align:left;line-height:1.35;transition:background .15s,border-color .15s}
+.chip small{display:block;font-size:13.5px;color:var(--muted);font-weight:400;margin-top:2px}
+.chip[aria-pressed="true"]{border-color:var(--sea);background:var(--pick);font-weight:700;color:var(--sea)}
+.chip[aria-pressed="true"]::before{content:"✓ "}
+.chips.stack{flex-direction:column}
+.chips.stack .chip{width:100%}
+input[type=text],textarea{width:100%;font-size:17px;color:var(--ink);background:#fbfcfc;border:2px solid var(--line);border-radius:14px;padding:12px 14px;outline:none;transition:border-color .15s}
+input[type=text]:focus,textarea:focus{border-color:var(--sea-2);background:#fff}
+textarea{min-height:96px;resize:vertical}
+.other{margin-top:10px}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.warn{background:var(--warn-bg);border:2px solid var(--warn-line);border-radius:14px;padding:12px 14px;font-size:15px;margin-top:12px}
+
+/* feature switches */
+.fx{display:grid;gap:0}
+.fr{display:grid;grid-template-columns:1fr;gap:8px;padding:14px 0;border-top:1px solid var(--line)}
+.fr:first-child{border-top:0;padding-top:2px}
+.fr b{font-size:17px;display:flex;align-items:center;gap:8px}
+.fr .fn{flex:none;min-width:26px;height:26px;border-radius:13px;background:var(--sea-3);color:var(--sea);font-size:12.5px;display:grid;place-items:center;font-variant-numeric:tabular-nums;padding:0 5px}
+.fr .d{font-size:14px;color:var(--muted);display:block;line-height:1.45}
+.seg3{display:grid;grid-template-columns:repeat(3,1fr);background:var(--chip);border-radius:12px;padding:4px;gap:4px}
+.seg3 button{border:0;background:transparent;border-radius:9px;min-height:42px;font-size:16px;color:var(--muted);font-weight:700}
+.seg3 button[aria-pressed="true"]{background:var(--card);color:var(--sea);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg3 button[data-v="不要"][aria-pressed="true"]{color:var(--coral)}
+
+/* activity categories */
+.cat+.cat{margin-top:16px}
+.cat h4{margin:0 0 8px;font-size:15px;color:var(--sea-2);letter-spacing:.04em}
+
+/* product detail cards */
+.pd{border:2px solid var(--line);border-radius:16px;overflow:hidden;background:#fbfcfc}
+.pd+.pd{margin-top:10px}
+.pd>button{width:100%;border:0;background:transparent;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:56px;padding:10px 16px;text-align:left;font-size:17px;font-weight:700}
+.pd .st{font-size:13.5px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap;background:var(--chip);color:var(--muted)}
+.pd .st.part{background:var(--pick);color:var(--sea)}
+.pd .st.ask{background:#fdeee9;color:#b5513b}
+.pd .body{padding:4px 16px 16px;display:grid;gap:12px;border-top:1px solid var(--line)}
+.pd label{display:grid;gap:6px;font-size:15px;font-weight:700;color:var(--ink)}
+.empty{color:var(--muted);font-size:16px;border:2px dashed var(--line);border-radius:14px;padding:16px;background:#fbfcfc}
+
+/* rooms */
+.room{border:2px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px;background:#fbfcfc}
+.room+.room{margin-top:10px}
+.room .rh{display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.room .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.room .grid label{display:grid;gap:4px;font-size:14px;font-weight:700}
+.room .grid label.w{grid-column:1/-1}
+.mini{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:6px 14px;font-size:15px;font-weight:700;min-height:40px}
+
+/* bottom bar */
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.bottom .col{display:flex;gap:10px}
+.btn{border:0;border-radius:16px;min-height:54px;padding:0 20px;font-size:18px;font-weight:900;background:var(--sea);color:#fff;flex:1}
+.btn.ghost{background:var(--chip);color:var(--ink);flex:0 0 auto;font-weight:700}
+.btn.coral{background:var(--coral)}
+.btn:disabled{opacity:.6}
+
+/* cover */
+.cover{background:linear-gradient(170deg,var(--sea) 0%,var(--sea-2) 70%,#3a9bb8 100%);color:#fff;position:relative;padding-top:calc(34px + env(safe-area-inset-top,0px));padding-bottom:70px}
+.cover .tag{display:inline-block;background:rgba(255,255,255,.16);border-radius:999px;padding:4px 14px;font-size:14px;font-weight:700}
+.cover h1{font-size:34px;line-height:1.25;font-weight:900;margin:14px 0 10px;text-wrap:balance}
+.cover p{margin:0;font-size:16.5px;opacity:.95}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.facts div{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 8px;text-align:center;font-size:13px}
+.facts b{display:block;font-size:20px}
+.toc{display:grid;gap:10px;margin-top:-34px;position:relative}
+.toc button{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border:0;border-radius:16px;padding:14px 16px;text-align:left;box-shadow:0 1px 2px rgba(11,84,112,.06),0 4px 14px rgba(11,84,112,.06);min-height:64px}
+.toc .no{flex:none;width:34px;height:34px;border-radius:17px;display:grid;place-items:center;background:var(--sea-3);color:var(--sea);font-weight:900;font-size:15px}
+.toc .no.done{background:var(--ok);color:#fff}
+.toc .tx{flex:1;min-width:0}
+.toc .tx b{display:block;font-size:17px}
+.toc .tx span{font-size:13.5px;color:var(--muted)}
+.toc .go{color:var(--muted);font-size:20px}
+.note{font-size:14px;color:var(--muted);margin:18px 2px 0}
+
+/* done */
+.done-wrap{padding-top:40px;text-align:center}
+.badge{width:84px;height:84px;border-radius:42px;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:44px;margin:0 auto 14px}
+.badge.err{background:var(--coral)}
+.done-wrap h2{font-size:26px;margin:0 0 8px}
+.done-wrap p{color:var(--muted);margin:0 0 18px}
+.card{background:var(--card);border-radius:var(--r);padding:18px;text-align:left;box-shadow:0 4px 14px rgba(11,84,112,.06)}
+#out{width:100%;min-height:200px;font-size:15px;margin-top:10px}
+.copyrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:15px;z-index:30;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:360px){.cover h1{font-size:29px}.band h2{font-size:26px}.room .grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ===================== 設定 ===================== */
+const API="https://ojybxatauyzrnybslfqy.supabase.co/rest/v1/xiacheng_survey";
+const KEYPUB="sb_publishable_N-5AhqdtOVbW9yiF0c1swA_49gX3brn";
+
+/* ===================== 題目 ===================== */
+const S=[
+ {id:"dir",t:"方向與目標",d:"先決定網站要做成什麼樣子。",min:2,q:[
+  {id:"who",k:"s",l:"網站要給誰用？",o:["只給夏澄住客","所有來澎湖的旅客","先給住客，之後開放"]},
+  {id:"role",k:"m",l:"網站要做到哪些事？",o:["行程介紹與玩法指南","線上預訂活動","幫客人排好整趟行程","住宿＋活動套裝","人在澎湖臨時加購"]},
+  {id:"why",k:"m",l:"希望客人選我們、不選 KKday 等大平台的理由？",o:["價格更便宜","行程幫你排好","在地即時資訊（天候、海況）","在地 LINE 客服","住宿套裝","獨家行程"],other:1},
+  {id:"goal",k:"t",l:"第一年目標",h:"例如：每月 30 筆訂單、每月營收 10 萬"},
+  {id:"bud1",k:"s",l:"網站建置預算",o:["5 千以下","5 千–3 萬","3 萬–10 萬","10 萬以上","還不確定"]},
+  {id:"bud2",k:"s",l:"每月維運預算（主機、金流、維護）",o:["1 千以下","1 千–5 千","5 千以上","還不確定"]},
+  {id:"staff",k:"s",l:"誰負責回覆客服、確認訂單、處理退改？",o:["民宿主人自己","民宿員工","另外找人","還沒想"]},
+  {id:"hours",k:"t",l:"客服可以回覆的時段",h:"例如：每天 9:00–21:00"},
+  {id:"when",k:"s",l:"希望多久上線？",o:["1 個月內","3 個月內","明年旺季前","不急"]}
+ ]},
+ {id:"brand",t:"品牌與素材",d:"網站的名字、風格和照片。",min:2,q:[
+  {id:"name",k:"s",l:"網站名稱要怎麼取？",o:["用「夏澄」名義","另取獨立品牌","請阿洋提案"],other:1,oh:"有想到的名字可以寫這裡"},
+  {id:"style",k:"m",l:"喜歡哪種感覺？",o:["清爽海島","文青質感","熱鬧活潑","高級度假"]},
+  {id:"logo",k:"s",l:"有 Logo 嗎？",o:["有","沒有","需要設計"]},
+  {id:"assets",k:"m",l:"現有哪些素材？",o:["民宿網站","房間照片","活動照片","影片","IG","FB","LINE 官方帳號"]},
+  {id:"links",k:"l",l:"上面素材的網址或帳號",h:"民宿網站、IG、FB 的連結貼這裡"},
+  {id:"photo",k:"s",l:"照片要怎麼給阿洋？",o:["給雲端資料夾連結","直接用 LINE 傳","需要找人拍"]},
+  {id:"feat",k:"l",l:"民宿最大的三個特色",h:"例如：海景第一排、清水模建築、走路 1 分鐘到沙灘"}
+ ]},
+ {id:"fn",t:"想要哪些功能",d:"每一項點「要、之後、不要」就好。看不懂的跳過，阿洋會再說明。",min:2,feat:[
+  ["玩法指南","依天數、季節、同行對象推薦路線"],["行程商品頁","照片、內容、時長、價格、集合點、取消規則"],
+  ["預約日曆","選日期、時段、人數，顯示剩餘名額"],["自動排行程","輸入日期與喜好，排好每日行程與路線"],
+  ["購物車結帳","多個行程一次付款"],["住宿套裝","住宿＋活動組合價"],["預算試算","邊排行程邊看總花費與人均"],
+  ["天候海況","顯示預報，停航自動通知與改期"],["訂單通知","下單確認、行前提醒"],["電子票券","手機出示就能報到"],
+  ["會員中心","查訂單、申請改期"],["優惠機制","早鳥、住客價、多人價、優惠碼"],["評價照片牆","旅客評價與照片"],
+  ["分享行程","行程傳給同行朋友，一起看、分攤費用"],["在地生活圈","美食地圖、伴手禮宅配、船班機班資訊"],
+  ["LINE 客服","每一頁都能一鍵詢問"],["多語版本","英文、日文"],["訂單後台","民宿查看、確認、取消訂單"],
+  ["業者後台","業者自己更新名額、價格、停航"],["推薦分潤","客人或網紅分享連結，成交拿回饋"],["數據報表","熱門行程、成交率、淡旺季分析"]
+ ],q:[{id:"fnx",k:"l",l:"其他想要的功能"}]},
+ {id:"act",t:"想賣哪些行程",d:"點選想放上網站的項目，下一段會幫每一項準備細節欄位。",min:1,cats:[
+  ["交通",["機車","電動機車","汽車","包車一日遊","腳踏車","機場或碼頭接送"]],
+  ["跳島",["南方四島","七美望安","北海（吉貝、目斗嶼、險礁）","東海（桶盤、虎井）","藍洞船"]],
+  ["水上",["浮潛","香蕉船","拖曳浮胎","水上摩托車","SUP 立槳","獨木舟","透明獨木舟","體驗潛水","水肺深潛"]],
+  ["海上體驗",["海洋牧場","夜釣小管"]],["生態文化",["潮間帶導覽","石滬導覽","玄武岩地質導覽","聚落散步"]],
+  ["冬季",["風箏衝浪","風浪板"]],["手作拍攝",["貝殼或文石 DIY","仙人掌冰製作","旅拍跟拍","空拍"]],
+  ["餐飲",["海鮮套餐","民宿 BBQ","伴手禮預訂與宅配"]],["季節活動",["花火節觀賞套票"]]
+ ],q:[{id:"actx",k:"t",l:"清單外想加的項目",h:"多個用頓號隔開，例如：夜遊、星空攝影"}]},
+ {id:"pd",t:"行程細節",d:"知道多少填多少。不清楚的，點「請業者直接提供」並留電話，阿洋會直接問業者，不再麻煩你。",min:3,pd:1,q:[
+  {id:"seat",k:"s",l:"業者的名額通常怎麼確認？",o:["業者即時回覆","要打電話問","可以固定保留名額","不清楚"]},
+  {id:"vok",k:"s",l:"業者願意被放上網站嗎？",o:["都願意","部分願意","還沒問"]},
+  {id:"self",k:"m",l:"民宿自己能提供哪些服務？",o:["接送","BBQ","導覽","機車出租","代訂餐廳","行李寄放"],other:1}
+ ]},
+ {id:"stay",t:"住宿",d:"讓網站能把住宿和活動搭在一起。",min:2,rooms:1,q:[
+  {id:"book",k:"s",l:"網站要整合訂房嗎？",o:["要，直接在網站訂","只放訂房連結","不需要"]},
+  {id:"chan",k:"m",l:"目前用哪些訂房管道？",o:["Booking","Agoda","Airbnb","民宿官網","LINE 或電話"],other:1},
+  {id:"inout",k:"t",l:"入住與退房時間",h:"例如：15:00 入住、11:00 退房"},
+  {id:"minn",k:"s",l:"最少要住幾晚？",o:["1 晚","2 晚","假日 2 晚","不限"]},
+  {id:"bf",k:"s",l:"有提供早餐嗎？",o:["有","沒有","可加購"]},
+  {id:"park",k:"s",l:"有停車位嗎？",o:["機車汽車都有","只有機車","沒有"]},
+  {id:"pet",k:"s",l:"可以帶寵物嗎？",o:["可以","不行","需事先詢問"]},
+  {id:"disc",k:"t",l:"住客訂活動要給多少折扣？",h:"例如：95 折、每人折 100 元、不打折"},
+  {id:"rcan",k:"l",l:"住宿取消與天候退訂規則"}
+ ]},
+ {id:"money",t:"收益與法規",d:"決定錢怎麼收，這會影響網站能不能一次結帳。",min:2,q:[
+  {id:"model",k:"s",stack:1,l:"收益模式選哪一個？",o:[["導購＋業者回饋","網站介紹行程，客人付款給業者，民宿向業者收回饋"],["與旅行社合作","網站一次結帳，旅行社承辦並開契約、保險，雙方分潤"],["自行申請旅行社","完全自主，需要資本、經理人與保證金"],["民宿自己收款、加價轉賣","也就是賺差價"],["想先聽阿洋說明",""]],warn:"法規參考：依《發展觀光條例》，未領旅行業執照而接待觀光旅客並安排旅遊、食宿及交通，罰新臺幣 35 萬元並勒令歇業，網路刊登也算招攬。選定後請會計師或律師確認。"},
+  {id:"agency",k:"s",l:"有認識可以合作的旅行社嗎？",o:["有","沒有","可以去問"]},
+  {id:"co",k:"s",l:"目前有公司或商號嗎？",o:["有公司","有商號","都沒有"]},
+  {id:"inv",k:"s",l:"能開發票或收據嗎？",o:["能開發票","只能開收據","都不行"]},
+  {id:"lic",k:"t",l:"民宿登記證號",h:"網站頁尾需要顯示"},
+  {id:"bank",k:"s",l:"有公司或商號名義的銀行帳戶嗎？",h:"申請刷卡金流會用到，不用寫帳號",o:["有","沒有"]},
+  {id:"pay",k:"m",l:"想收哪些付款方式？",o:["信用卡","LINE Pay","Apple Pay","轉帳","現場付款"]},
+  {id:"fee",k:"s",l:"刷卡手續費（約 2–3%）由誰吸收？",o:["我們吸收","加進售價","業者負擔","不確定"]}
+ ]},
+ {id:"ops",t:"營運與特殊狀況",d:"先想好，上線後才不會手忙腳亂。",min:3,q:[
+  {id:"storm",k:"s",l:"天候停航時怎麼處理？",o:["免費改期","全額退款","客人選改期或退款","依業者規定"]},
+  {id:"over",k:"l",l:"名額賣超、業者臨時無法出團，打算怎麼處理？"},
+  {id:"cheap",k:"l",l:"業者自己賣得比網站便宜，打算怎麼處理？"},
+  {id:"acc",k:"l",l:"水上活動出事時，責任怎麼分？"},
+  {id:"low",k:"l",l:"淡季（約 10–3 月）想主打什麼？"},
+  {id:"peak",k:"t",l:"旺季是哪幾個月？",h:"例如：5–9 月"},
+  {id:"crowd",k:"m",l:"主要客群是誰？",o:["情侶","家庭（有小孩）","朋友團","長輩","公司團","外國旅客"]},
+  {id:"faq",k:"l",l:"客人最常問你的問題",h:"想到幾個寫幾個，會做成網站的常見問題"},
+  {id:"secret",k:"l",l:"你的私房推薦（景點、餐廳、拍照點）"}
+ ]},
+ {id:"contact",t:"網站上的聯絡資料",d:"會顯示在網站上給客人看。",min:1,q:[
+  {id:"tel",k:"t",l:"對外電話",im:"tel"},
+  {id:"mail",k:"t",l:"對外 Email",im:"email"},
+  {id:"line",k:"t",l:"LINE 官方帳號 ID",h:"沒有的話留空"},
+  {id:"addr",k:"t",l:"民宿地址"},
+  {id:"dom",k:"s",l:"網址（網域）",o:["已經有","還沒有","請阿洋處理"],other:1,oh:"已經有的話寫這裡"}
+ ]}
+];
+const PDF=[["vendor","合作業者名稱與電話"],["price","給客人的售價（大人／小孩）"],["cost","我們拿到的價格或回饋比例"],["dur","活動時長"],["time","出發時段（例如 9:00、13:00）"],["pax","人數下限與上限"],["meet","集合地點"],["inc","費用包含（裝備、保險、接駁…）",1],["lim","限制（年齡、孕婦、身體狀況）",1],["bring","客人要帶什麼"],["cancel","取消、改期、停航規則",1],["season","可出團的月份"]];
+const RF=[["name","房型名稱",1],["ppl","可住人數"],["bed","床型"],["wd","平日價"],["we","假日價"],["pk","旺季價"],["note","特色（海景、浴缸…）",1]];
+
+/* ===================== 狀態 ===================== */
+const KEY="xiacheng-survey-v2";
+let A={},view={p:"cover"};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){A=s.A||{};view=s.view||view}}catch(e){}
+if(!A._sid)A._sid=Date.now().toString(36)+Math.random().toString(36).slice(2,10);
+let saveOK=true;
+function save(){try{localStorage.setItem(KEY,JSON.stringify({A,view}));saveOK=true}catch(e){saveOK=false}const s=document.getElementById("sv");if(s)s.textContent=saveOK?"已自動儲存":"無法自動儲存"}
+
+/* ===================== 小工具 ===================== */
+const $=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const has=id=>{const v=A[id];return Array.isArray(v)?v.length>0:!!(v&&String(v).trim())};
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
+const WAVE='<svg class="wave" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 22 C 60 6, 120 6, 200 20 S 340 36, 400 16 L400 40 L0 40 Z" fill="#f6f1e7"/><path d="M0 30 C 80 18, 150 20, 220 28 S 350 38, 400 26 L400 40 L0 40 Z" fill="#f6f1e7" opacity=".55"/></svg>';
+
+/* 每段的題數與完成數 */
+function selectedItems(){const s=(A.acts||[]).slice();(A.actx||"").split(/[、,，\s]+/).map(x=>x.trim()).filter(Boolean).forEach(x=>{if(!s.includes(x))s.push(x)});return s}
+function secIds(s){const ids=s.q.map(q=>q.id);(s.feat||[]).forEach(f=>ids.push("feat:"+f[0]));if(s.cats)ids.push("acts");return ids}
+function secStat(s){let ids=secIds(s);let done=ids.filter(has).length,tot=ids.length;
+  if(s.pd){selectedItems().forEach(it=>{tot++;const k="pd:"+it+":";if(A[k+"ask"]||PDF.some(f=>A[k+f[0]]))done++})}
+  if(s.rooms){tot++;if((A.rooms||[]).some(r=>Object.values(r).some(v=>v&&String(v).trim())))done++}
+  return {done,tot}}
+function totalStat(){let d=0,t=0;S.forEach(s=>{const x=secStat(s);d+=x.done;t+=x.tot});return {d,t}}
+
+/* ===================== 元件 ===================== */
+function chips(id,opts,multi,stack,after){
+  const w=$("div","chips"+(stack?" stack":""));
+  const lab=o=>Array.isArray(o)?o[0]:o;
+  const sync=()=>w.querySelectorAll(".chip").forEach((c,i)=>{const L=lab(opts[i]);c.setAttribute("aria-pressed",multi?(A[id]||[]).includes(L):A[id]===L)});
+  opts.forEach(o=>{const [L,sub]=Array.isArray(o)?o:[o];const b=$("button","chip",esc(L)+(sub?`<small>${esc(sub)}</small>`:""));b.type="button";
+    b.onclick=()=>{if(multi){let v=A[id]||[];A[id]=v.includes(L)?v.filter(x=>x!==L):[...v,L]}else A[id]=A[id]===L?undefined:L;sync();save();after&&after()};w.append(b)});
+  sync();return w}
+function field(id,long,ph,im){const e=long?$("textarea"):$("input");if(!long){e.type="text";if(im)e.inputMode=im}
+  e.id="f_"+id.replace(/[^\w-]/g,"_");e.autocomplete="off";e.value=A[id]||"";if(ph)e.placeholder=ph;e.oninput=()=>{A[id]=e.value;save()};return e}
+
+let qno=0;
+function qCard(q){
+  qno++;const c=$("div","qc");
+  c.append($("div","qt",`<span class="n">${qno}</span><span>${esc(q.l)}${q.k==="m"?'<span class="multi">可複選</span>':""}</span>`));
+  if(q.h&&(q.k==="s"||q.k==="m"))c.append($("div","qh",esc(q.h)));
+  if(q.k==="s"||q.k==="m"){c.append(chips(q.id,q.o,q.k==="m",q.stack));if(q.other){const f=field(q.id+"_x",false,q.oh||"其他：");f.classList.add("other");c.append(f)}}
+  else c.append(field(q.id,q.k==="l",q.h||"",q.im));
+  if(q.warn)c.append($("div","warn",esc(q.warn)));
+  return c}
+
+function featCard(s){
+  const c=$("div","qc");const fx=$("div","fx");
+  s.feat.forEach(([n,d])=>{qno++;const r=$("div","fr");r.append($("div","",`<b><span class="fn">${qno}</span>${esc(n)}</b><span class="d">${esc(d)}</span>`));
+    const g=$("div","seg3");["要","之後","不要"].forEach(v=>{const b=$("button","",v);b.type="button";b.dataset.v=v;b.setAttribute("aria-pressed",A["feat:"+n]===v);
+      b.onclick=()=>{A["feat:"+n]=A["feat:"+n]===v?undefined:v;g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",A["feat:"+n]===x.dataset.v));save()};g.append(b)});
+    r.append(g);fx.append(r)});
+  c.append(fx);return c}
+
+function actCard(s){
+  qno++;const c=$("div","qc");c.append($("div","qt",`<span class="n">${qno}</span><span>想放上網站的行程<span class="multi">可複選</span></span>`));
+  s.cats.forEach(([cat,items])=>{const d=$("div","cat");d.append($("h4","",esc(cat)));d.append(chips("acts",items,true));c.append(d)});
+  return c}
+
+function pdCard(){
+  const c=$("div","qc");c.append($("div","qt",`<span class="n">✎</span><span>你選的行程</span>`));
+  const items=selectedItems();
+  if(!items.length){c.append($("div","empty","上一段還沒選任何行程。可以點上方的「目錄」回到「想賣哪些行程」勾選。"));return c}
+  c.append($("div","qh",'點開每一項來填，不清楚就點「請業者直接提供」。').cloneNode(true));c.lastChild.style.marginLeft="0";
+  items.forEach(it=>{const k="pd:"+it+":";const box=$("div","pd");
+    const st=$("span","st");const upd=()=>{if(A[k+"ask"]){st.className="st ask";st.textContent="請業者提供"}else{const n=PDF.filter(f=>A[k+f[0]]&&String(A[k+f[0]]).trim()).length;st.className="st"+(n?" part":"");st.textContent=n?`已填 ${n} / ${PDF.length}`:"還沒填"}};
+    const head=$("button","",`<span>${esc(it)}</span>`);head.type="button";head.append(st);head.setAttribute("aria-expanded","false");
+    const body=$("div","body");body.hidden=true;
+    head.onclick=()=>{body.hidden=!body.hidden;head.setAttribute("aria-expanded",!body.hidden)};
+    body.append(chips(k+"ask",["我不清楚，請業者直接提供"],false,false,upd));
+    PDF.forEach(([f,lab,long])=>{const L=$("label","",esc(lab));const e=field(k+f,!!long);e.addEventListener("input",upd);L.append(e);body.append(L)});
+    upd();box.append(head,body);c.append(box)});
+  return c}
+
+function roomCard(){
+  qno++;const c=$("div","qc");c.append($("div","qt",`<span class="n">${qno}</span><span>各房型與價格</span>`));
+  const box=$("div");c.append(box);
+  const draw=()=>{box.innerHTML="";const R=A.rooms||(A.rooms=[{}]);
+    R.forEach((r,i)=>{const d=$("div","room");const h=$("div","rh",`<span>房型 ${i+1}</span>`);
+      if(R.length>1){const x=$("button","mini","刪除");x.type="button";x.onclick=()=>{R.splice(i,1);save();draw()};h.append(x)}
+      d.append(h);const g=$("div","grid");
+      RF.forEach(([f,lab,wide])=>{const L=$("label",wide?"w":"",esc(lab));const e=$("input");e.type="text";e.id=`room_${i}_${f}`;e.autocomplete="off";e.value=r[f]||"";e.oninput=()=>{r[f]=e.value;save()};L.append(e);g.append(L)});
+      d.append(g);box.append(d)});
+    const add=$("button","mini","＋ 新增房型");add.type="button";add.style.marginTop="12px";add.onclick=()=>{R.push({});save();draw()};box.append(add)};
+  draw();return c}
+
+/* ===================== 畫面 ===================== */
+const app=document.getElementById("app");
+function startNo(si){let n=0;for(let i=0;i<si;i++){const s=S[i];n+=s.q.length+(s.feat?s.feat.length:0)+(s.cats?1:0)+(s.rooms?1:0)}return n}
+
+function topBar(cur){
+  const t=$("header","top");const g=$("div","gut");const col=$("div","col");
+  const row=$("div","row");const home=$("button","home","☰ 目錄");home.type="button";home.onclick=()=>go({p:"cover"});
+  row.append(home,$("div","where",cur>=0?`第 ${cur+1} / ${S.length} 段・${esc(S[cur].t)}`:"夏澄問卷"),$("span","saved","已自動儲存"));row.lastChild.id="sv";
+  const segs=$("div","segs");S.forEach((s,i)=>{const x=secStat(s);segs.append($("i",i===cur?"cur":(x.done>0&&x.done>=Math.min(x.tot,s.min||1)?"on":"")))});
+  col.append(row,segs);g.append(col);t.append(g);return t}
+
+function renderCover(){
+  const {d,t}=totalStat();
+  const hero=$("section","cover gut",`<div class="col"><span class="tag">夏澄 × 澎湖旅遊平台</span><h1>幫我們一起打造<br>澎湖的旅遊網站</h1><p>你的回答會直接決定網站長什麼樣子。用手指點選就好，不知道的跳過，可以分好幾次填完。</p>
+  <div class="facts"><div><b>9</b>個段落</div><div><b>約 15</b>分鐘</div><div><b>${d}</b>已回答</div></div></div>`+WAVE);
+  const main=$("main","gut");const col=$("div","col");const toc=$("div","toc");
+  S.forEach((s,i)=>{const x=secStat(s);const ok=x.done>0;const b=$("button");b.type="button";
+    b.innerHTML=`<span class="no${ok?" done":""}">${ok?"✓":i+1}</span><span class="tx"><b>${esc(s.t)}</b><span>${ok?`已填 ${x.done} / ${x.tot}`:`約 ${s.min} 分鐘`}</span></span><span class="go">›</span>`;
+    b.onclick=()=>go({p:"sec",i});toc.append(b)});
+  col.append(toc,$("p","note","答案只存在你的手機，按下最後的「送出」才會傳給阿洋。填了一部分後，下方會出現「送出目前答案」，可以先交一部分。"));
+  main.append(col);
+  const bar=$("div","bottom gut");const bc=$("div","col");
+  const start=$("button","btn",d?"繼續填寫":"開始填寫");start.type="button";
+  start.onclick=()=>{let i=S.findIndex(s=>secStat(s).done===0);go({p:"sec",i:i<0?0:i})};
+  bc.append(start);
+  if(d){const sub=$("button","btn ghost","送出目前答案");sub.type="button";sub.onclick=()=>go({p:"done"});bc.append(sub)}
+  bar.append(bc);
+  app.append(hero,main,bar)}
+
+function renderSection(i){
+  const s=S[i];qno=startNo(i);
+  app.append(topBar(i));
+  const band=$("section","band gut",`<div class="col"><div class="kicker">PART ${i+1} / ${S.length}</div><h2>${esc(s.t)}</h2><p>${esc(s.d)}</p><div class="meta"><span>約 ${s.min} 分鐘</span><span>可以跳過</span></div></div>`+WAVE);
+  app.append(band);
+  const main=$("main","gut");const col=$("div","col qs");
+  if(s.feat)col.append(featCard(s));
+  if(s.cats)col.append(actCard(s));
+  if(s.pd)col.append(pdCard());
+  if(s.rooms)col.append(roomCard());
+  s.q.forEach(q=>col.append(qCard(q)));
+  main.append(col);app.append(main);
+  const bar=$("div","bottom gut");const bc=$("div","col");
+  const prev=$("button","btn ghost",i?"‹ 上一段":"‹ 目錄");prev.type="button";prev.onclick=()=>go(i?{p:"sec",i:i-1}:{p:"cover"});
+  const last=i===S.length-1;const next=$("button","btn"+(last?" coral":""),last?"完成並送出":"下一段 ›");next.type="button";
+  next.onclick=()=>go(last?{p:"done"}:{p:"sec",i:i+1});
+  bc.append(prev,next);bar.append(bc);app.append(bar)}
+
+/* ===================== 送出 ===================== */
+function compile(){
+  const L=["【夏澄｜澎湖旅遊平台需求問卷答案】",""];
+  const v=id=>{const x=A[id];return Array.isArray(x)?x.join("、"):(x||"").trim()};
+  S.forEach((s,si)=>{const st=L.length;L.push(`■ ${si+1}. ${s.t}`);
+    if(s.feat){const g={要:[],之後:[],不要:[]};s.feat.forEach(([n])=>{const x=A["feat:"+n];if(x)g[x].push(n)});Object.entries(g).forEach(([k,a])=>a.length&&L.push(`${k}：${a.join("、")}`))}
+    if(s.cats&&has("acts"))L.push("選擇的行程："+v("acts"));
+    if(s.pd)selectedItems().forEach(it=>{const k="pd:"+it+":";const lines=PDF.filter(([f])=>A[k+f]&&String(A[k+f]).trim()).map(([f,lab])=>`  ${lab}：${String(A[k+f]).trim()}`);
+      if(A[k+"ask"]||lines.length){L.push(`◆ ${it}`);if(A[k+"ask"])L.push("  （不清楚，請業者直接提供）");L.push(...lines)}});
+    if(s.rooms)(A.rooms||[]).forEach((r,i)=>{const t=RF.filter(([f])=>r[f]&&r[f].trim()).map(([f,lab])=>`${lab}：${r[f].trim()}`).join("；");if(t)L.push(`房型${i+1}｜${t}`)});
+    s.q.forEach(q=>{let a=v(q.id);const x=v(q.id+"_x");if(x)a=a?`${a}（${x}）`:x;if(a)L.push(/[？?]$/.test(q.l)?`${q.l} ${a}`:`${q.l}：${a}`)});
+    if(L.length===st+1)L.pop();else L.push("")});
+  const {d,t}=totalStat();L.push(`已回答 ${d} / ${t} 項`);return L.join("\n")}
+
+async function submit(){
+  const {d}=totalStat();const summary=compile();
+  const body={session_id:A._sid,answered:d,answers:A,summary};
+  const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),15000);
+  try{const r=await fetch(API,{method:"POST",headers:{"apikey":KEYPUB,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(body),signal:ctl.signal});
+    clearTimeout(tm);if(!r.ok)throw new Error("HTTP "+r.status);A._sentAt=new Date().toISOString();save();return true}
+  catch(e){clearTimeout(tm);return false}}
+
+function copyText(txt,ta){
+  return navigator.clipboard?navigator.clipboard.writeText(txt).then(()=>toast("已複製，請到 LINE 貼上給阿洋")).catch(()=>{ta.value=txt;ta.focus();ta.select();toast("請長按文字框，全選後複製")}):(ta.value=txt,ta.focus(),ta.select(),toast("請長按文字框，全選後複製"),Promise.resolve())}
+
+function renderDone(){
+  app.append(topBar(-1));
+  const main=$("main","gut");const col=$("div","col done-wrap");main.append(col);app.append(main);
+  col.append($("div","badge","…"),$("h2","","正在送出答案"),$("p","","請稍等幾秒，不要關閉畫面。"));
+  const bar=$("div","bottom gut");const bc=$("div","col");const back=$("button","btn ghost","‹ 回目錄");back.type="button";back.onclick=()=>go({p:"cover"});bc.append(back);bar.append(bc);app.append(bar);
+  submit().then(ok=>{
+    col.innerHTML="";
+    if(ok){col.append($("div","badge","✓"),$("h2","","答案已送給阿洋"),$("p","","謝謝你！之後想補充或修改，回到目錄改完再按一次送出就好，阿洋會以最新的為準。"))}
+    else{col.append($("div","badge err","!"),$("h2","","網路好像不太穩，還沒送出"),$("p","","可以按「再試一次」，或直接複製答案用 LINE 傳給阿洋。"));
+      const re=$("button","btn","再試一次");re.type="button";re.style.width="100%";re.style.marginBottom="16px";re.onclick=()=>go({p:"done"});col.append(re)}
+    const card=$("div","card");card.append($("b","",ok?"備份：也可以複製一份答案":"複製答案（用 LINE 傳）"));
+    const ta=$("textarea");ta.id="out";ta.readOnly=true;const all=compile();ta.value=all;
+    const row=$("div","copyrow");
+    const parts=[];let cur="";all.split("\n").forEach(l=>{if(cur&&(cur+"\n"+l).length>4000){parts.push(cur);cur=l}else cur=cur?cur+"\n"+l:l});if(cur)parts.push(cur);
+    parts.forEach((p,i)=>{const b=$("button","mini",parts.length>1?`複製第 ${i+1} / ${parts.length} 段`:"複製全部答案");b.type="button";b.onclick=()=>copyText(parts.length>1?`（${i+1}/${parts.length}）\n`+p:p,ta);row.append(b)});
+    card.append(row,ta);col.append(card)})}
+
+function go(v){view=v;save();render();window.scrollTo(0,0)}
+function render(){app.innerHTML="";
+  if(view.p==="sec"&&S[view.i])renderSection(view.i);
+  else if(view.p==="done")renderDone();
+  else renderCover();
+  save()}
+if(view.p==="done")view={p:"cover"};
+render();
+</script>
+</body>
+</html>
