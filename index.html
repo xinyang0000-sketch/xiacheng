@@ -56,13 +56,20 @@ main{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .qt .n{flex:none;min-width:30px;height:30px;border-radius:15px;background:var(--sea-3);color:var(--sea);font-size:14px;display:grid;place-items:center;font-variant-numeric:tabular-nums;margin-top:-1px;padding:0 6px}
 .qt .multi{display:inline-block;font-size:13px;color:var(--sea-2);background:var(--pick);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px;font-weight:700}
 .qh{font-size:14px;color:var(--muted);margin:-6px 0 10px 40px}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{min-height:48px;border:2px solid var(--line);background:var(--chip);border-radius:14px;padding:10px 16px;font-size:17px;text-align:left;line-height:1.35;transition:background .15s,border-color .15s}
-.chip small{display:block;font-size:13.5px;color:var(--muted);font-weight:400;margin-top:2px}
-.chip[aria-pressed="true"]{border-color:var(--sea);background:var(--pick);font-weight:700;color:var(--sea)}
-.chip[aria-pressed="true"]::before{content:"✓ "}
-.chips.stack{flex-direction:column}
-.chips.stack .chip{width:100%}
+.chips{display:grid;grid-template-columns:1fr;gap:10px}
+.chips.two{grid-template-columns:1fr 1fr}
+.chip{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;font-size:17px;line-height:1.35;transition:background .15s,border-color .15s,box-shadow .15s}
+.chip:active{transform:scale(.99)}
+.chip .lb{flex:1;min-width:0}
+.chip small{display:block;font-size:13.5px;color:var(--muted);font-weight:400;margin-top:3px}
+.chip .ind{flex:none;width:24px;height:24px;border:2px solid #b7c6cc;border-radius:50%;display:grid;place-items:center;background:#fff;transition:background .15s,border-color .15s}
+.chips.multi .chip .ind{border-radius:7px}
+.chip[aria-pressed="true"]{border-color:var(--sea);background:var(--pick);color:var(--sea);font-weight:700;box-shadow:0 2px 8px rgba(11,84,112,.12)}
+.chip[aria-pressed="true"] small{color:var(--sea-2)}
+.chip[aria-pressed="true"] .ind{background:var(--sea);border-color:var(--sea)}
+.chips.single .chip[aria-pressed="true"] .ind::after{content:"";width:10px;height:10px;border-radius:50%;background:#fff}
+.chips.multi .chip[aria-pressed="true"] .ind::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translate(0,-1px) rotate(45deg)}
+@media (max-width:340px){.chips.two{grid-template-columns:1fr}}
 input[type=text],textarea{width:100%;font-size:17px;color:var(--ink);background:#fbfcfc;border:2px solid var(--line);border-radius:14px;padding:12px 14px;outline:none;transition:border-color .15s}
 input[type=text]:focus,textarea:focus{border-color:var(--sea-2);background:#fff}
 textarea{min-height:96px;resize:vertical}
@@ -269,10 +276,11 @@ function totalStat(){let d=0,t=0;S.forEach(s=>{const x=secStat(s);d+=x.done;t+=x
 
 /* ===================== 元件 ===================== */
 function chips(id,opts,multi,stack,after){
-  const w=$("div","chips"+(stack?" stack":""));
   const lab=o=>Array.isArray(o)?o[0]:o;
+  const short=opts.length>=4&&opts.every(o=>!Array.isArray(o)||!o[1])&&opts.every(o=>lab(o).length<=8);
+  const w=$("div","chips "+(multi?"multi":"single")+(short&&!stack?" two":""));
   const sync=()=>w.querySelectorAll(".chip").forEach((c,i)=>{const L=lab(opts[i]);c.setAttribute("aria-pressed",multi?(A[id]||[]).includes(L):A[id]===L)});
-  opts.forEach(o=>{const [L,sub]=Array.isArray(o)?o:[o];const b=$("button","chip",esc(L)+(sub?`<small>${esc(sub)}</small>`:""));b.type="button";
+  opts.forEach(o=>{const [L,sub]=Array.isArray(o)?o:[o];const b=$("button","chip",`<span class="ind" aria-hidden="true"></span><span class="lb">${esc(L)}${sub?`<small>${esc(sub)}</small>`:""}</span>`);b.type="button";
     b.onclick=()=>{if(multi){let v=A[id]||[];A[id]=v.includes(L)?v.filter(x=>x!==L):[...v,L]}else A[id]=A[id]===L?undefined:L;sync();save();after&&after()};w.append(b)});
   sync();return w}
 function field(id,long,ph,im){const e=long?$("textarea"):$("input");if(!long){e.type="text";if(im)e.inputMode=im}
@@ -298,7 +306,7 @@ function featCard(s){
 
 function actCard(s){
   qno++;const c=$("div","qc");c.append($("div","qt",`<span class="n">${qno}</span><span>想放上網站的行程<span class="multi">可複選</span></span>`));
-  s.cats.forEach(([cat,items])=>{const d=$("div","cat");d.append($("h4","",esc(cat)));d.append(chips("acts",items,true));c.append(d)});
+  s.cats.forEach(([cat,items])=>{const d=$("div","cat");d.append($("h4","",esc(cat)));const g=chips("acts",items,true);g.classList.add("two");d.append(g);c.append(d)});
   return c}
 
 function pdCard(){
