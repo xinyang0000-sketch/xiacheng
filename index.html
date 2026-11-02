@@ -157,7 +157,7 @@ const KEYPUB="sb_publishable_N-5AhqdtOVbW9yiF0c1swA_49gX3brn";
 
 /* ===================== 題目 ===================== */
 const S=[
- {id:"dir",t:"方向與目標",d:"先決定網站要做成什麼樣子。",min:2,q:[
+ {id:"dir",t:"方向與目標",d:"網站的對象、目標、預算與人力。",min:2,q:[
   {id:"who",k:"s",l:"網站要給誰用？",o:["只給夏澄住客","所有來澎湖的旅客","先給住客，之後開放"]},
   {id:"role",k:"m",l:"網站要做到哪些事？",o:["行程介紹與玩法指南","線上預訂活動","幫客人排好整趟行程","住宿＋活動套裝","人在澎湖臨時加購"]},
   {id:"why",k:"m",l:"希望客人選我們、不選 KKday 等大平台的理由？",o:["價格更便宜","行程幫你排好","在地即時資訊（天候、海況）","在地 LINE 客服","住宿套裝","獨家行程"],other:1},
@@ -168,7 +168,7 @@ const S=[
   {id:"hours",k:"t",l:"客服可以回覆的時段",h:"例如：每天 9:00–21:00"},
   {id:"when",k:"s",l:"希望多久上線？",o:["1 個月內","3 個月內","明年旺季前","不急"]}
  ]},
- {id:"brand",t:"品牌與素材",d:"網站的名字、風格和照片。",min:2,q:[
+ {id:"brand",t:"品牌與素材",d:"名稱、風格與現有素材。",min:2,q:[
   {id:"name",k:"s",l:"網站名稱要怎麼取？",o:["用「夏澄」名義","另取獨立品牌","請阿洋提案"],other:1,oh:"有想到的名字可以寫這裡"},
   {id:"style",k:"m",l:"喜歡哪種感覺？",o:["清爽海島","文青質感","熱鬧活潑","高級度假"]},
   {id:"logo",k:"s",l:"有 Logo 嗎？",o:["有","沒有","需要設計"]},
@@ -177,7 +177,7 @@ const S=[
   {id:"photo",k:"s",l:"照片要怎麼給阿洋？",o:["給雲端資料夾連結","直接用 LINE 傳","需要找人拍"]},
   {id:"feat",k:"l",l:"民宿最大的三個特色",h:"例如：海景第一排、清水模建築、走路 1 分鐘到沙灘"}
  ]},
- {id:"fn",t:"想要哪些功能",d:"每一項點「要、之後、不要」就好。看不懂的跳過，阿洋會再說明。",min:2,feat:[
+ {id:"fn",t:"想要哪些功能",d:"每一項選「要、之後、不要」，不清楚的可以跳過。",min:2,feat:[
   ["玩法指南","依天數、季節、同行對象推薦路線"],["行程商品頁","照片、內容、時長、價格、集合點、取消規則"],
   ["預約日曆","選日期、時段、人數，顯示剩餘名額"],["自動排行程","輸入日期與喜好，排好每日行程與路線"],
   ["購物車結帳","多個行程一次付款"],["住宿套裝","住宿＋活動組合價"],["預算試算","邊排行程邊看總花費與人均"],
@@ -187,7 +187,7 @@ const S=[
   ["LINE 客服","每一頁都能一鍵詢問"],["多語版本","英文、日文"],["訂單後台","民宿查看、確認、取消訂單"],
   ["業者後台","業者自己更新名額、價格、停航"],["推薦分潤","客人或網紅分享連結，成交拿回饋"],["數據報表","熱門行程、成交率、淡旺季分析"]
  ],q:[{id:"fnx",k:"l",l:"其他想要的功能"}]},
- {id:"act",t:"想賣哪些行程",d:"點選想放上網站的項目，下一段會幫每一項準備細節欄位。",min:1,cats:[
+ {id:"act",t:"想賣哪些行程",d:"勾選要上架的項目，下一段會列出各項的細節欄位。",min:1,cats:[
   ["交通",["機車","電動機車","汽車","包車一日遊","腳踏車","機場或碼頭接送"]],
   ["跳島",["南方四島","七美望安","北海（吉貝、目斗嶼、險礁）","東海（桶盤、虎井）","藍洞船"]],
   ["水上",["浮潛","香蕉船","拖曳浮胎","水上摩托車","SUP 立槳","獨木舟","透明獨木舟","體驗潛水","水肺深潛"]],
@@ -195,12 +195,12 @@ const S=[
   ["冬季",["風箏衝浪","風浪板"]],["手作拍攝",["貝殼或文石 DIY","仙人掌冰製作","旅拍跟拍","空拍"]],
   ["餐飲",["海鮮套餐","民宿 BBQ","伴手禮預訂與宅配"]],["季節活動",["花火節觀賞套票"]]
  ],q:[{id:"actx",k:"t",l:"清單外想加的項目",h:"多個用頓號隔開，例如：夜遊、星空攝影"}]},
- {id:"pd",t:"行程細節",d:"知道多少填多少。不清楚的，點「請業者直接提供」並留電話，阿洋會直接問業者，不再麻煩你。",min:3,pd:1,q:[
+ {id:"pd",t:"行程細節",d:"知道的先填。不清楚的選「請業者直接提供」並留業者電話，由阿洋直接聯絡業者。",min:3,pd:1,q:[
   {id:"seat",k:"s",l:"業者的名額通常怎麼確認？",o:["業者即時回覆","要打電話問","可以固定保留名額","不清楚"]},
   {id:"vok",k:"s",l:"業者願意被放上網站嗎？",o:["都願意","部分願意","還沒問"]},
   {id:"self",k:"m",l:"民宿自己能提供哪些服務？",o:["接送","BBQ","導覽","機車出租","代訂餐廳","行李寄放"],other:1}
  ]},
- {id:"stay",t:"住宿",d:"讓網站能把住宿和活動搭在一起。",min:2,rooms:1,q:[
+ {id:"stay",t:"住宿",d:"房型、價格與入住規則。",min:2,rooms:1,q:[
   {id:"book",k:"s",l:"網站要整合訂房嗎？",o:["要，直接在網站訂","只放訂房連結","不需要"]},
   {id:"chan",k:"m",l:"目前用哪些訂房管道？",o:["Booking","Agoda","Airbnb","民宿官網","LINE 或電話"],other:1},
   {id:"inout",k:"t",l:"入住與退房時間",h:"例如：15:00 入住、11:00 退房"},
@@ -211,7 +211,7 @@ const S=[
   {id:"disc",k:"t",l:"住客訂活動要給多少折扣？",h:"例如：95 折、每人折 100 元、不打折"},
   {id:"rcan",k:"l",l:"住宿取消與天候退訂規則"}
  ]},
- {id:"money",t:"收益與法規",d:"決定錢怎麼收，這會影響網站能不能一次結帳。",min:2,q:[
+ {id:"money",t:"收益與法規",d:"收款方式會決定網站能不能一次結帳。",min:2,q:[
   {id:"model",k:"s",stack:1,l:"收益模式選哪一個？",o:[["導購＋業者回饋","網站介紹行程，客人付款給業者，民宿向業者收回饋"],["與旅行社合作","網站一次結帳，旅行社承辦並開契約、保險，雙方分潤"],["自行申請旅行社","完全自主，需要資本、經理人與保證金"],["民宿自己收款、加價轉賣","也就是賺差價"],["想先聽阿洋說明",""]],warn:"法規參考：依《發展觀光條例》，未領旅行業執照而接待觀光旅客並安排旅遊、食宿及交通，罰新臺幣 35 萬元並勒令歇業，網路刊登也算招攬。選定後請會計師或律師確認。"},
   {id:"agency",k:"s",l:"有認識可以合作的旅行社嗎？",o:["有","沒有","可以去問"]},
   {id:"co",k:"s",l:"目前有公司或商號嗎？",o:["有公司","有商號","都沒有"]},
@@ -221,7 +221,7 @@ const S=[
   {id:"pay",k:"m",l:"想收哪些付款方式？",o:["信用卡","LINE Pay","Apple Pay","轉帳","現場付款"]},
   {id:"fee",k:"s",l:"刷卡手續費（約 2–3%）由誰吸收？",o:["我們吸收","加進售價","業者負擔","不確定"]}
  ]},
- {id:"ops",t:"營運與特殊狀況",d:"先想好，上線後才不會手忙腳亂。",min:3,q:[
+ {id:"ops",t:"營運與特殊狀況",d:"停航、超賣、客訴等情況的處理方式。",min:3,q:[
   {id:"storm",k:"s",l:"天候停航時怎麼處理？",o:["免費改期","全額退款","客人選改期或退款","依業者規定"]},
   {id:"over",k:"l",l:"名額賣超、業者臨時無法出團，打算怎麼處理？"},
   {id:"cheap",k:"l",l:"業者自己賣得比網站便宜，打算怎麼處理？"},
@@ -232,7 +232,7 @@ const S=[
   {id:"faq",k:"l",l:"客人最常問你的問題",h:"想到幾個寫幾個，會做成網站的常見問題"},
   {id:"secret",k:"l",l:"你的私房推薦（景點、餐廳、拍照點）"}
  ]},
- {id:"contact",t:"網站上的聯絡資料",d:"會顯示在網站上給客人看。",min:1,q:[
+ {id:"contact",t:"網站上的聯絡資料",d:"會顯示在網站上。",min:1,q:[
   {id:"tel",k:"t",l:"對外電話",im:"tel"},
   {id:"mail",k:"t",l:"對外 Email",im:"email"},
   {id:"line",k:"t",l:"LINE 官方帳號 ID",h:"沒有的話留空"},
@@ -304,8 +304,8 @@ function actCard(s){
 function pdCard(){
   const c=$("div","qc");c.append($("div","qt",`<span class="n">✎</span><span>你選的行程</span>`));
   const items=selectedItems();
-  if(!items.length){c.append($("div","empty","上一段還沒選任何行程。可以點上方的「目錄」回到「想賣哪些行程」勾選。"));return c}
-  c.append($("div","qh",'點開每一項來填，不清楚就點「請業者直接提供」。').cloneNode(true));c.lastChild.style.marginLeft="0";
+  if(!items.length){c.append($("div","empty","還沒勾選行程。請回上一段「想賣哪些行程」勾選。"));return c}
+  c.append($("div","qh",'點開各項填寫。').cloneNode(true));c.lastChild.style.marginLeft="0";
   items.forEach(it=>{const k="pd:"+it+":";const box=$("div","pd");
     const st=$("span","st");const upd=()=>{if(A[k+"ask"]){st.className="st ask";st.textContent="請業者提供"}else{const n=PDF.filter(f=>A[k+f[0]]&&String(A[k+f[0]]).trim()).length;st.className="st"+(n?" part":"");st.textContent=n?`已填 ${n} / ${PDF.length}`:"還沒填"}};
     const head=$("button","",`<span>${esc(it)}</span>`);head.type="button";head.append(st);head.setAttribute("aria-expanded","false");
@@ -341,13 +341,13 @@ function topBar(cur){
 
 function renderCover(){
   const {d,t}=totalStat();
-  const hero=$("section","cover gut",`<div class="col"><span class="tag">夏澄 × 澎湖旅遊平台</span><h1>幫我們一起打造<br>澎湖的旅遊網站</h1><p>你的回答會直接決定網站長什麼樣子。用手指點選就好，不知道的跳過，可以分好幾次填完。</p>
+  const hero=$("section","cover gut",`<div class="col"><span class="tag">夏澄 × 澎湖旅遊平台</span><h1>夏澄網站<br>需求問卷</h1><p>網站的功能和內容會照這份問卷來做。不確定的題目可以跳過，可以分次填，關掉會自動保存。</p>
   <div class="facts"><div><b>9</b>個段落</div><div><b>約 15</b>分鐘</div><div><b>${d}</b>已回答</div></div></div>`+WAVE);
   const main=$("main","gut");const col=$("div","col");const toc=$("div","toc");
   S.forEach((s,i)=>{const x=secStat(s);const ok=x.done>0;const b=$("button");b.type="button";
     b.innerHTML=`<span class="no${ok?" done":""}">${ok?"✓":i+1}</span><span class="tx"><b>${esc(s.t)}</b><span>${ok?`已填 ${x.done} / ${x.tot}`:`約 ${s.min} 分鐘`}</span></span><span class="go">›</span>`;
     b.onclick=()=>go({p:"sec",i});toc.append(b)});
-  col.append(toc,$("p","note","答案只存在你的手機，按下最後的「送出」才會傳給阿洋。填了一部分後，下方會出現「送出目前答案」，可以先交一部分。"));
+  col.append(toc,$("p","note","按下「送出」後答案才會傳出。填了一部分也可以先送出，之後再補。"));
   main.append(col);
   const bar=$("div","bottom gut");const bc=$("div","col");
   const start=$("button","btn",d?"繼續填寫":"開始填寫");start.type="button";
@@ -407,10 +407,10 @@ function renderDone(){
   const bar=$("div","bottom gut");const bc=$("div","col");const back=$("button","btn ghost","‹ 回目錄");back.type="button";back.onclick=()=>go({p:"cover"});bc.append(back);bar.append(bc);app.append(bar);
   submit().then(ok=>{
     col.innerHTML="";
-    if(ok){col.append($("div","badge","✓"),$("h2","","答案已送給阿洋"),$("p","","謝謝你！之後想補充或修改，回到目錄改完再按一次送出就好，阿洋會以最新的為準。"))}
-    else{col.append($("div","badge err","!"),$("h2","","網路好像不太穩，還沒送出"),$("p","","可以按「再試一次」，或直接複製答案用 LINE 傳給阿洋。"));
+    if(ok){col.append($("div","badge","✓"),$("h2","","已送出"),$("p","","之後要補充或修改，回到目錄改完再送出一次，以最新一次為準。"))}
+    else{col.append($("div","badge err","!"),$("h2","","送出失敗"),$("p","","請檢查網路後按「再試一次」，或複製答案用 LINE 傳給阿洋。"));
       const re=$("button","btn","再試一次");re.type="button";re.style.width="100%";re.style.marginBottom="16px";re.onclick=()=>go({p:"done"});col.append(re)}
-    const card=$("div","card");card.append($("b","",ok?"備份：也可以複製一份答案":"複製答案（用 LINE 傳）"));
+    const card=$("div","card");card.append($("b","",ok?"複製一份答案備份":"複製答案"));
     const ta=$("textarea");ta.id="out";ta.readOnly=true;const all=compile();ta.value=all;
     const row=$("div","copyrow");
     const parts=[];let cur="";all.split("\n").forEach(l=>{if(cur&&(cur+"\n"+l).length>4000){parts.push(cur);cur=l}else cur=cur?cur+"\n"+l:l});if(cur)parts.push(cur);
