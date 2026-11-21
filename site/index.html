@@ -54,7 +54,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.35;margin:0;text
 h1{font-size:clamp(32px,4.6vw,50px)}
 h2{font-size:clamp(24px,2.6vw,30px)}
 h3{font-size:20px}
-.eyebrow{font-size:13px;letter-spacing:.22em;color:var(--muted)}
+
 .lead{color:var(--muted);font-size:17.5px;margin:0}
 .sec{padding-top:56px}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}
@@ -72,7 +72,7 @@ h3{font-size:20px}
 .hero .photo{position:relative;aspect-ratio:3/2;background:#c6c2b9 center/cover no-repeat;max-width:100%}
 .tag-demo{position:absolute;left:12px;bottom:12px;background:rgba(247,246,243,.92);font-size:12.5px;padding:3px 10px}
 .hero .txt{display:flex;flex-direction:column;gap:18px;justify-content:center}
-@media (min-width:900px){.hero{grid-template-columns:5fr 7fr;gap:48px;padding-top:56px}.hero .photo{order:2}}
+@media (min-width:900px){.hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center;gap:48px;padding-top:56px}.hero .photo{order:2}}
 .quick{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 .quick label{display:flex;flex-direction:column;padding:12px 14px 12px 0;font-size:13px;color:var(--muted);gap:2px;min-width:0}
 .quick label+label{border-left:1px solid var(--line);padding-left:14px}
@@ -218,6 +218,91 @@ details.cfg[open]>summary::after{content:"收起"}
 @media (min-width:980px){details.cfg>summary{pointer-events:none}details.cfg>summary::after{display:none}}
 .sheet-top{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center}
 .sheet-top .th{width:72px;height:72px;background:#c9c5bc center/cover no-repeat}
+/* ===== v3：引導式排行程 ===== */
+::selection{background:#cfe2e7;color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:22px 0 26px}
+.steps button{display:flex;align-items:center;gap:10px;min-height:56px;padding:8px 12px;border:1px solid var(--line);background:var(--surface);text-align:left;color:var(--muted);font-size:15px;line-height:1.3}
+.steps button i{font-style:normal;flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor;font-weight:700;font-size:15px}
+.steps button.done[aria-current="step"],.steps button[aria-current="step"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+.steps button.done{color:var(--ink)}
+.steps button:disabled{cursor:default;opacity:.6}
+@media (max-width:600px){.steps button{flex-direction:column;justify-content:center;text-align:center;gap:4px;font-size:13.5px;padding:8px 4px}}
+.stage{background:var(--card);border:1px solid var(--line2);padding:28px;max-width:760px}
+@media (max-width:600px){.stage{padding:20px 16px}}
+.stage h2{margin-bottom:6px}
+.field{margin-top:24px}
+.field>.lab{display:block;font-size:16px;font-weight:700;margin-bottom:10px}
+.seg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.seg button{min-height:52px;border:1px solid var(--line);background:#fff;font-size:17px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+.dateinput{height:54px;border:1px solid var(--line);background:#fff;padding:0 14px;font-size:17px;width:100%;max-width:320px}
+.next{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+@media (min-width:760px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{position:relative;display:flex;flex-direction:column;text-align:left;background:#fff;border:2px solid var(--line2);padding:0;color:var(--ink);overflow:hidden}
+.tile .ph{aspect-ratio:4/3;background:#c9c5bc center/cover no-repeat}
+.tile .tx{padding:12px 14px 14px}
+.tile b{font-size:18px;display:block}
+.tile small{font-size:14px;color:var(--muted);display:block;line-height:1.5}
+.tile .ck{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.95);border:2px solid var(--line);display:grid;place-items:center}
+.tile .ck svg{width:20px;height:20px;opacity:0}
+.tile[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 6px 18px rgba(31,95,115,.18)}
+.tile[aria-pressed="true"] .ck{background:var(--accent);border-color:var(--accent);color:#fff}
+.tile[aria-pressed="true"] .ck svg{opacity:1}
+.trip{display:grid;grid-template-columns:1fr;gap:24px}
+@media (min-width:980px){.trip{grid-template-columns:minmax(0,1fr) 400px;align-items:start}.side{position:sticky;top:88px;display:flex;flex-direction:column;gap:16px}}
+.dayhead2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:6px 0 16px}
+.dayhead2 h2{font-size:26px}
+.dayhead2 .note{font-size:15px}
+.stop{display:grid;grid-template-columns:58px minmax(0,1fr);gap:12px}
+.stop .tm{font-weight:700;font-size:16px;padding-top:14px;font-variant-numeric:tabular-nums}
+.pcard{background:#fff;border:1px solid var(--line2);display:grid;grid-template-columns:120px minmax(0,1fr)}
+.pcard .ph{background:#c9c5bc center/cover no-repeat;min-height:120px}
+.pcard .bd{padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.pcard .bd b{font-size:18px;line-height:1.4}
+.pcard .bd .meta{font-size:15px;color:var(--muted)}
+.pcard .ops{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.op{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1px solid var(--line);background:#fff;font-size:15.5px;color:var(--ink);text-decoration:none}
+.op svg{width:18px;height:18px}
+.op.main{border-color:var(--accent);color:var(--accent);font-weight:700;background:var(--accent-soft)}
+.op.del{color:var(--bad)}
+@media (max-width:600px){.stop{grid-template-columns:1fr;gap:6px}.stop .tm{padding-top:0}.pcard{grid-template-columns:1fr}.pcard .ph{min-height:0;aspect-ratio:16/8}.pcard .bd{padding:14px}.pcard .ops{display:grid;grid-template-columns:1.3fr 1fr 1fr}.op{padding:0 8px;justify-content:center;white-space:nowrap}}
+main.has-dock~.toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+@media (min-width:980px){main.has-dock~.toast{bottom:32px}}
+.fcard{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px dashed var(--line);padding:12px 14px}
+.fcard .ic{flex:none;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted)}
+.fcard .ic svg{width:20px;height:20px}
+.fcard b{font-size:17px;display:block;line-height:1.4}
+.fcard .meta{font-size:14.5px;color:var(--muted)}
+.leg{display:flex;align-items:center;gap:8px;margin-left:70px;padding:6px 0;font-size:14.5px;color:var(--muted)}
+.leg::before{content:"";height:28px;border-left:2px dashed var(--accent)}
+@media (max-width:600px){.leg{margin-left:18px}}
+.addrow{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.total{background:var(--card);border:1px solid var(--line2);padding:22px;display:flex;flex-direction:column;gap:10px}
+.total .big{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.total .sm{font-size:15px;color:var(--muted);line-height:1.6}
+.total .free{font-size:15px;color:var(--ok);font-weight:700}
+.dockbar{position:fixed;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom,0px));z-index:29;background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+.dockbar b{font-size:22px;font-variant-numeric:tabular-nums;display:block;line-height:1.2}
+.dockbar small{font-size:13px;color:var(--muted)}
+.dockbar .btn{min-height:48px;padding:0 18px;font-size:16px;letter-spacing:0}
+@media (min-width:980px){.dockbar{display:none}}
+main.has-dock{padding-bottom:calc(170px + env(safe-area-inset-bottom,0px))}
+.howto{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line);margin-top:6px}
+.howto div{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.howto i{font-style:normal;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700}
+.howto b{display:block;font-size:16.5px}.howto span{font-size:14.5px;color:var(--muted)}
+.cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:900px){.cats{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
+.cat{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line2);text-decoration:none;color:var(--ink)}
+.cat:hover{border-color:var(--accent)}
+.cat .ph{aspect-ratio:3/2;background:#c9c5bc center/cover no-repeat}
+.cat .tx{padding:12px 14px}
+.cat b{font-size:18px}.cat small{display:block;font-size:14px;color:var(--muted);line-height:1.5}
+.catsec{padding-top:36px;scroll-margin-top:90px}
+.catsec h2{display:flex;align-items:baseline;gap:10px}
+.catsec h2 small{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--muted)}
+.altgrp{font-size:15px;font-weight:700;color:var(--muted);margin:14px 0 2px}
 </style>
 </head>
 <body>
@@ -272,6 +357,8 @@ const ACTS=[
 const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"免費機場接送待確認",at:"home",dur:1},sunset:{name:"觀音亭看夕陽",meta:"免費景點",at:"guanyin",dur:1},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐",at:"town",dur:1.5},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿",at:"home",dur:0.5},leave:{name:"前往機場或碼頭",meta:"回家囉",at:"airport",dur:0},market:{name:"逛北辰市場買伴手禮",meta:"免費",at:"beichen",dur:1}};
 const CATS=["全部","交通","跳島","水上","海上體驗","生態文化","餐飲","季節活動"];
 const INTERESTS=["玩水","跳島","導覽","美食","輕鬆"];
+const INTINFO={玩水:["snorkel","浮潛、SUP、香蕉船，夏天必玩"],跳島:["heart","南方四島、七美雙心石滬、北海"],導覽:["basalt","玄武岩、潮間帶、石滬，有老師帶"],美食:["sunset","海鮮餐、夜釣小管、民宿 BBQ"],輕鬆:["room","不趕路，長輩小孩也輕鬆"]};
+const CATINFO={交通:["scooter","機車、汽車、接送"],跳島:["heart","搭船去離島，一次半天到一天"],水上:["snorkel","浮潛、立槳、獨木舟、刺激水上活動"],海上體驗:["squid","海洋牧場、夜釣小管"],生態文化:["basalt","有老師帶的導覽"],餐飲:["sunset","海鮮、BBQ、伴手禮"],季節活動:["sunset","花火節等限定活動"]};
 const A=id=>ACTS.find(a=>a.id===id);
 
 /* ===================== 狀態 ===================== */
@@ -283,7 +370,7 @@ function nextSat(){/* 預設下一個旺季週末：淡季（10–3 月）時改
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 let plan=fixPax(LS.get("xc-plan",null));
 let reqs=LS.get("xc-reqs",[]);
-let ui={cat:"全部",day:0,qpax:null};
+let ui={cat:"全部",day:0,qpax:null,step:0};
 const save=()=>{LS.set("xc-plan",plan);LS.set("xc-reqs",reqs)};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money=n=>n==null?"洽詢":"NT$ "+n.toLocaleString("en-US");
@@ -363,16 +450,18 @@ function alts(it){const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.ite
   const veh=["scooter","car","transfer"];
   return ACTS.filter(b=>b.id!==a.id&&!inPlan.has(b.id)&&b.months.includes(m)&&(veh.includes(a.id)?veh.includes(b.id):!veh.includes(b.id)&&b.cat!=="季節活動"))
     .map(b=>({b,same:b.cat===a.cat?0:1,fit:Math.abs((b.dur||0)-(a.dur||0))>2?1:0,t:travel(prev,AT[b.id]),w:ageWarn(b.id)}))
-    .sort((p,q)=>p.w.length-q.w.length||p.same-q.same||p.fit-q.fit||p.t-q.t).slice(0,8)}
+    .sort((p,q)=>p.w.length-q.w.length||p.same-q.same||p.fit-q.fit||p.t-q.t).slice(0,12)}
 function openItem(uid){const it=plan.items.find(x=>x.uid===uid);if(!it||!it.id)return;const a=A(it.id),list=alts(it);
   document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet">
   <div class="sheet-top"><span class="th" style="background-image:url(${IMG(a.img)})"></span><div><span class="note">第 ${it.day+1} 天 ${it.time}</span><h2 id="mt" style="font-size:22px;margin:2px 0">${esc(a.name)}</h2><span class="where">${PIN}${esc(PLACES[AT[a.id]].n)}</span></div></div>
   <div class="row2" style="margin-top:14px"><a class="btn small ghost" href="#/tour/${a.id}" data-act="close">看介紹</a><button class="btn small ghost" type="button" data-act="del" data-v="${uid}">從行程刪除</button></div>
-  <h3 style="margin-top:22px;font-size:18px">換成這些</h3><p class="note" style="margin:2px 0 0">依「同類型、時間差不多、離上一站近」排好，點一下就換。</p>
-  <div class="alts">${list.length?list.map(({b,t,w})=>`<button type="button" class="alt" data-act="swapto" data-v="${uid}" data-to="${b.id}"><span class="th" style="background-image:url(${IMG(b.img)})"></span><span><b>${esc(b.name)}</b><span class="note">${b.dur?"約 "+b.dur+" 小時｜":""}${esc(PLACES[AT[b.id]].n)}・${ride()} ${t} 分鐘</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="price" style="font-weight:700;font-size:15px">${money(b.price)}</span></button>`).join(""):`<div class="empty">這個月份沒有可以替換的行程</div>`}</div>
+  <h3 style="margin-top:22px;font-size:20px">想換成哪一個？</h3><p class="note" style="margin:2px 0 0">已經依類別分好，同類型的排最前面，點一下就換。</p>
+  <div class="alts">${list.length?CATS.slice(1).filter(c=>list.some(x=>x.b.cat===c)).sort((c1,c2)=>(c1===a.cat?-1:c2===a.cat?1:0)).map(c=>`<div class="altgrp">${c}</div>`+list.filter(x=>x.b.cat===c).map(({b,t,w})=>`<button type="button" class="alt" data-act="swapto" data-v="${uid}" data-to="${b.id}"><span class="th" style="background-image:url(${IMG(b.img)})"></span><span><b>${esc(b.name)}</b><span class="note">${b.dur?"約 "+b.dur+" 小時｜":""}${esc(PLACES[AT[b.id]].n)}・${ride()} ${t} 分鐘</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="price" style="font-weight:700;font-size:15px">${money(b.price)}</span></button>`).join("")).join(""):`<div class="empty">這個月份沒有可以替換的行程</div>`}</div>
   <button class="btn block ghost" type="button" data-act="close" style="margin-top:16px">關閉</button></div></div>`}
 function openPax(){const x=ui.qpax=ui.qpax||Object.assign({},plan?plan.pax:defPax());
   document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:22px">幾位一起去？</h2><p class="note">分年齡是為了算兒童價，和避開小孩、長輩不能玩的行程。</p>${paxEditor(x,"q")}<button class="btn block" type="button" data-act="paxdone" style="margin-top:16px">完成</button></div></div>`}
+const ICON={swap:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>`,info:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>`,del:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>`,check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`,plane:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14l18-7-6 13-3-6z"/></svg>`,sun:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 18h16M7 18a5 5 0 0 1 10 0M12 6v3M5.6 9.6l2 2M18.4 9.6l-2 2"/></svg>`,home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/></svg>`,bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"/></svg>`,food:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 7h3v11"/></svg>`};
+const FREEICON={arrive:"home",checkout:"home",leave:"plane",sunset:"sun",market:"bag",dinner:"food"};
 const PIN=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`;
 const SWAPI=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>`;
 /* 地圖：Leaflet + CARTO 淺色底圖 */
@@ -391,78 +480,85 @@ function itemRow(a){return `<a class="item" href="#/tour/${a.id}"><span class="t
 
 /* ===================== 頁面 ===================== */
 function pageHome(){
-  const pop=["south","snorkel","squid","scooter","ranch","tidal"].map(A);
+  const px=ui.qpax||(plan?plan.pax:defPax());
   return `<div class="wrap">
   <section class="hero">
     <div class="photo" style="background-image:url(${IMG("room")})" role="img" aria-label="清水模客廳望海示意照片"><span class="tag-demo">示意照片</span></div>
     <div class="txt">
-      <span class="eyebrow">PENGHU · 澎湖</span>
-      <h1>住在海邊，<br>玩法也安排好了</h1>
-      <p class="lead">選好日期，我們把跳島、玩水、夜釣排成你的行程。看得到每天的安排和總花費，確定後一鍵送給民宿。</p>
+      <h1>住在海邊，<br>行程也幫你排好</h1>
+      <p class="lead">填好日期和人數，挑想怎麼玩，我們自動排出每天的行程、地圖和總花費。</p>
       <form class="quick" id="quick">
         <label>出發日期<input type="date" id="q-start" value="${plan?plan.start:nextSat()}" required></label>
         <label>天數<select id="q-days">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(plan?plan.days:3)===n?"selected":""}>${n} 天</option>`).join("")}</select></label>
-        <label>人數<button type="button" class="paxbtn" data-act="paxopen" id="q-ppl">${heads(ui.qpax||(plan?plan.pax:defPax()))} 人</button></label>
+        <label>人數<button type="button" class="paxbtn" data-act="paxopen" id="q-ppl" style="border:0;background:transparent;padding:2px 0;height:auto;font-weight:500">${heads(px)} 人 ▾</button></label>
       </form>
-      <div><button class="btn" data-act="quickgo" type="button">排我的行程</button></div>
+      <div><button class="btn" data-act="quickgo" type="button">開始排行程</button></div>
+      <div class="howto">
+        <div><i>1</i><span><b>填日期和人數</b><span>大人、長輩、小孩分開算</span></span></div>
+        <div><i>2</i><span><b>選想怎麼玩</b><span>玩水、跳島、導覽、美食都可以複選</span></span></div>
+        <div><i>3</i><span><b>自動排好，送給民宿確認</b><span>不用先付錢，確認後再付給業者</span></span></div>
+      </div>
     </div>
   </section>
-  <section class="sec"><div class="sec-head"><div><span class="eyebrow">THINGS TO DO</span><h2>熱門玩法</h2></div><a class="more" href="#/tours">看全部 23 項 →</a></div>
-    <div class="list grid2">${pop.map(itemRow).join("")}</div></section>
+  <section class="sec"><div class="sec-head"><h2>玩法分類</h2><a class="more" href="#/tours">看全部 ${ACTS.length} 項 →</a></div>
+    <div class="cats">${CATS.slice(1,7).map(c=>`<a class="cat" href="#/tours" data-act="gocat" data-v="${c}"><span class="ph" style="background-image:url(${IMG(CATINFO[c][0])})"></span><span class="tx"><b>${c}</b> <small>${ACTS.filter(a=>a.cat===c).length} 項・${CATINFO[c][1]}</small></span></a>`).join("")}</div></section>
   <section class="sec"><div class="stay"><div class="pic" style="background-image:url(${IMG("sunset")})" role="img" aria-label="夏澄頂樓夕陽示意照片"></div>
-    <div class="in"><span class="eyebrow">STAY WITH US</span><h2>住在夏澄</h2><p class="lead">海邊清水模別墅，1 晚起住。住宿請在下面的平台訂，排好的行程再送給我們安排。</p>
+    <div class="in"><h2>住在夏澄</h2><p class="lead">海邊清水模別墅，1 晚起住。住宿請在下面的平台訂，排好的行程再送給我們安排。</p>
     <div class="links"><a class="btn small ghost" href="#/line">Booking</a><a class="btn small ghost" href="#/line">Agoda</a><a class="btn small ghost" href="#/line">民宿官網</a><a class="btn small" href="#/line">LINE 直接訂</a></div>
     <span class="note">訂房連結待民宿提供。無早餐、有機車與汽車停車位、寵物請先詢問。</span></div></div></section>
-  <section class="sec"><div class="sec-head"><div><span class="eyebrow">TODAY</span><h2>今日海況</h2></div><span class="note">示意資料，正式版接中央氣象署</span></div>
+  <section class="sec"><div class="sec-head"><h2>今日海況</h2><span class="note">示意資料，正式版接中央氣象署</span></div>
     <div class="weather"><div class="box"><span>天氣</span><b>晴時多雲</b></div><div class="box"><span>氣溫</span><b>26–30°C</b></div><div class="box"><span>風力</span><b>3–4 級</b></div><div class="box"><span>南方四島</span><b style="color:var(--ok)">照常出航</b></div></div></section>
   <section class="sec"><div class="grid3">
-    <a class="box" href="#/guide" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">GUIDE</span><h3 style="margin:6px 0">玩法指南</h3><span class="note">1 天、2 天、3 天怎麼玩，民宿主人的私房路線。</span></a>
-    <a class="box" href="#/local" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">LOCAL</span><h3 style="margin:6px 0">在地生活圈</h3><span class="note">吃什麼、買什麼、船班怎麼查。</span></a>
-    <a class="box" href="#/line" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">ASK US</span><h3 style="margin:6px 0">LINE 問民宿主人</h3><span class="note">不知道怎麼排？直接問最快。</span></a>
+    <a class="box" href="#/guide" style="text-decoration:none;color:var(--ink)"><h3 style="margin:0 0 6px">玩法指南</h3><span class="note">1 天、2 天、3 天怎麼玩，民宿主人的私房路線。</span></a>
+    <a class="box" href="#/local" style="text-decoration:none;color:var(--ink)"><h3 style="margin:0 0 6px">在地生活圈</h3><span class="note">吃什麼、買什麼、船班怎麼查。</span></a>
+    <a class="box" href="#/line" style="text-decoration:none;color:var(--ink)"><h3 style="margin:0 0 6px">LINE 問民宿主人</h3><span class="note">不知道怎麼排？直接問最快。</span></a>
   </div></section></div>`}
 
+function stepsBar(){const lab=["日期和人數","想怎麼玩","你的行程"];
+  return `<nav class="steps" aria-label="排行程步驟">${lab.map((t,i)=>`<button type="button" data-act="step" data-v="${i+1}" ${ui.step===i+1?'aria-current="step"':""} class="${ui.step>i+1||plan.made?"done":""}" ${!plan.made&&i+1>ui.step?"disabled":""}><i>${i+1}</i>${t}</button>`).join("")}</nav>`}
 function pagePlan(){
   if(!plan){plan=generate({start:nextSat(),days:3,pax:defPax(),interests:["玩水","美食"]});save()}
+  if(!ui.step)ui.step=plan.made?3:1;
   ui.day=Math.min(ui.day,plan.days-1);
-  const items=plan.items.filter(it=>it.day===ui.day);
-  return `<div class="wrap"><div style="padding-top:28px"><span class="eyebrow">PLAN</span><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>
-  <div class="planner">
-    <aside class="panel sticky"><details class="cfg" id="cfg" ${ui.cfgOpen||matchMedia("(min-width:980px)").matches?"open":""}><summary><span>行程條件<br><span class="note">${fmtDay(dayDate(0))}出發・${plan.days} 天・${people()} 人・${plan.interests.join("、")||"未選"}</span></span></summary><form class="form" id="pf" style="margin-top:14px">
-      <label>出發日期<input type="date" id="p-start" value="${plan.start}"></label>
-      <label>天數<select id="p-days">${[1,2,3,4,5].map(n=>`<option ${plan.days===n?"selected":""} value="${n}">${n} 天</option>`).join("")}</select></label>
-      <div><span style="font-size:14px;color:var(--muted)">人數（共 ${people()} 人）</span><div style="margin-top:6px">${paxEditor(plan.pax,"p")}</div></div>
-      <div><span style="font-size:14px;color:var(--muted)">想怎麼玩（可複選）</span><div class="chips" style="margin-top:6px">${INTERESTS.map(t=>`<button type="button" class="chip" data-act="int" data-v="${t}" aria-pressed="${plan.interests.includes(t)}">${t}</button>`).join("")}</div></div>
-      <button class="btn block" type="button" data-act="regen">重新排一次</button>
-      ${[10,11,12,1,2,3].includes(monthOf(plan.start))?`<p class="note" style="margin:0">10–3 月東北季風季，跳島和水上活動多數停駛，已自動改排導覽和海洋牧場。</p>`:""}
-    </form></details></aside>
-    <section>
-      <div class="days" role="tablist">${Array.from({length:plan.days},(_,i)=>`<button type="button" role="tab" data-act="day" data-v="${i}" aria-pressed="${ui.day===i}">第 ${i+1} 天 ${fmtDay(dayDate(i))}</button>`).join("")}</div>
-      <div class="dayhead"><span class="note">今天${ride()}移動共約 <b style="color:var(--ink)">${dayTravel(ui.day)} 分鐘</b>（估算）</span><button class="btn small ghost" type="button" data-act="opt">幫我排最順</button></div>
-      <div class="map" id="daymap" role="img" aria-label="第 ${ui.day+1} 天路線地圖"></div>
-      <div class="hint">${SWAPI}<span>點有照片的行程卡，可以換成別的、看介紹或刪除</span></div>
-      <div class="tl">${items.length?items.map((it,i)=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null,pl=PLACES[placeOf(it)],nx=items[i+1];
-        const mv=nx?travel(placeOf(it),placeOf(nx)):0,w=a?ageWarn(a.id):[];
-        const body=a?`<button type="button" class="card" data-act="item" data-v="${it.uid}" aria-label="${esc(a.name)}，點一下換行程或看介紹"><span class="th" style="background-image:url(${IMG(a.img)})"></span><span><b>${esc(a.name)}</b><span class="meta">${a.dur?"約 "+a.dur+" 小時｜":""}${costText(a)}</span><span class="where">${PIN}${esc(pl.n)}</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="swapcue">${SWAPI}換</span></button>`
-          :`<div class="freecard"><b>${esc(f.name)}</b><span class="meta">${esc(f.meta)}</span><span class="where">${PIN}${esc(pl.n)}</span></div>`;
-        return `<div class="tl-row"><span class="t">${it.time}</span><div class="c ${a?"paid":""}">${body}${nx?`<div class="move">↓ ${mv?ride()+"約 "+mv+" 分鐘到下一站":"同一個地點"}</div>`:""}</div></div>`}).join(""):`<div class="empty">這一天還沒有安排，到「玩法」挑行程加進來。</div>`}
-        <div style="margin-top:14px"><a class="btn small ghost" href="#/tours">＋ 加一個行程</a></div></div>
-    </section>
-    <aside class="sticky"><div class="sum">
-      <span class="sm">${plan.days} 天｜${people()} 人（${paxText(plan.pax)}）</span>
-      <span class="big">${money(total())}</span>
-      <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}・示意價格<br>兒童示意 8 折、幼兒免費${hasAsk()?"，另有洽詢項目":""}<br>住宿另外在訂房平台付款</span>
+  const head=`<div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>${stepsBar()}`;
+  if(ui.step===1)return `<div class="wrap">${head}<section class="stage">
+    <h2>什麼時候去？幾個人？</h2><p class="lead">大人、長輩、小孩分開填，才會算對價錢，也會避開小孩、長輩不能玩的項目。</p>
+    <div class="field"><label class="lab" for="p-start">出發日期</label><input class="dateinput" type="date" id="p-start" value="${plan.start}"></div>
+    <div class="field"><span class="lab">玩幾天</span><div class="seg">${[1,2,3,4,5].map(n=>`<button type="button" data-act="setdays" data-v="${n}" aria-pressed="${plan.days===n}">${n} 天</button>`).join("")}</div></div>
+    <div class="field"><span class="lab">誰要去（共 ${people()} 人）</span>${paxEditor(plan.pax,"p")}</div>
+    <div class="next"><button class="btn" type="button" data-act="step" data-v="2">下一步：選想怎麼玩</button></div></section></div>`;
+  if(ui.step===2)return `<div class="wrap">${head}<section class="stage" style="max-width:980px">
+    <h2>想怎麼玩？</h2><p class="lead">可以選好幾個，選好按「幫我排好」。${[10,11,12,1,2,3].includes(monthOf(plan.start))?"你選的是冬天（10–3 月），跳島和水上活動多數沒開，會改排導覽和海洋牧場。":""}</p>
+    <div class="tiles">${INTERESTS.map(t=>`<button type="button" class="tile" data-act="int" data-v="${t}" aria-pressed="${plan.interests.includes(t)}"><span class="ph" style="background-image:url(${IMG(INTINFO[t][0])})"></span><span class="ck">${ICON.check}</span><span class="tx"><b>${t}</b><small>${INTINFO[t][1]}</small></span></button>`).join("")}</div>
+    <div class="next"><button class="btn" type="button" data-act="make">幫我排好行程</button><button class="btn ghost" type="button" data-act="step" data-v="1">上一步</button></div></section></div>`;
+  const items=dayItems(ui.day);
+  const stops=items.map((it,i)=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null,pl=PLACES[placeOf(it)],nx=items[i+1],mv=nx?travel(placeOf(it),placeOf(nx)):0,w=a?ageWarn(a.id):[];
+    const card=a?`<div class="pcard"><span class="ph" style="background-image:url(${IMG(a.img)})" role="img" aria-label="${esc(a.name)}示意照片"></span><div class="bd"><b>${esc(a.name)}</b><span class="meta">${a.dur?"約 "+a.dur+" 小時・":""}${esc(pl.n)}</span><span class="meta">${costText(a)}</span>${w.map(s=>`<span class="warn" style="align-self:flex-start">${s}</span>`).join("")}
+      <div class="ops"><button type="button" class="op main" data-act="item" data-v="${it.uid}">${ICON.swap}換別的</button><a class="op" href="#/tour/${a.id}">${ICON.info}介紹</a><button type="button" class="op del" data-act="del" data-v="${it.uid}" aria-label="刪除${esc(a.name)}">${ICON.del}刪除</button></div></div></div>`
+      :`<div class="fcard"><span class="ic">${ICON[FREEICON[it.free]]}</span><span><b>${esc(f.name)}</b><span class="meta">${esc(f.meta)}・${esc(pl.n)}</span></span></div>`;
+    return `<div class="stop"><span class="tm">${it.time}</span>${card}</div>${nx?`<div class="leg">${mv?ride()+"約 "+mv+" 分鐘":"同一個地方，不用移動"}</div>`:""}`}).join("");
+  const sum=`<div class="total"><span class="sm">${plan.days} 天・${people()} 人（${paxText(plan.pax)}）</span><span class="big">${money(total())}</span>
+      <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}，價格為示意${hasAsk()?"，另有洽詢項目":""}<br>兒童 8 折、幼兒免費（示意）；住宿另外在訂房平台付款</span>
+      <span class="free">${ICON.check.replace('stroke-width="3"','stroke-width="3" width="18" height="18" style="vertical-align:-3px"')} 現在不用付錢，民宿確認後才付</span>
       <button class="btn block" type="button" data-act="send">送出給民宿安排</button>
-      <button class="btn block ghost" type="button" data-act="share">分享給同行朋友</button>
-      <span class="sm">送出後民宿主人會用 LINE 確認名額和報價，確認後再付款給業者。</span>
-    </div></aside>
-  </div></div>`}
+      <button class="btn block ghost" type="button" data-act="share">分享給同行朋友</button></div>`;
+  return `<div class="wrap">${head}
+  <div class="trip"><section>
+    <div class="days" role="tablist">${Array.from({length:plan.days},(_,i)=>`<button type="button" role="tab" data-act="day" data-v="${i}" aria-pressed="${ui.day===i}">第 ${i+1} 天 ${fmtDay(dayDate(i))}</button>`).join("")}</div>
+    <div class="dayhead2"><div><h2>第 ${ui.day+1} 天・${fmtDay(dayDate(ui.day))}</h2><span class="note">${items.filter(x=>x.id).length} 個行程・今天${ride()}約 ${dayTravel(ui.day)} 分鐘</span></div><button class="btn small ghost" type="button" data-act="opt">排成最順路</button></div>
+    <div class="map" id="daymap" role="img" aria-label="第 ${ui.day+1} 天路線地圖"></div>
+    ${items.length?stops:`<div class="empty">這一天還沒有安排</div>`}
+    <div class="addrow"><a class="btn small ghost" href="#/tours">＋ 從玩法分類加行程</a><button class="btn small ghost" type="button" data-act="remake">全部重排</button></div>
+  </section>
+  <aside class="side">${sum}</aside></div></div>
+  <div class="dockbar"><span><b>${money(total())}</b><small>${people()} 人・現在不用付錢</small></span><button class="btn" type="button" data-act="send">送出給民宿</button></div>`}
 
 function pageTours(){
-  const list=ACTS.filter(a=>ui.cat==="全部"||a.cat===ui.cat);
-  return `<div class="wrap"><div style="padding-top:28px;display:flex;flex-direction:column;gap:12px"><span class="eyebrow">THINGS TO DO</span><h1 style="font-size:clamp(28px,3.6vw,40px)">在地玩法</h1>
-    <div class="chips">${CATS.map(c=>`<button type="button" class="chip" data-act="cat" data-v="${c}" aria-pressed="${ui.cat===c}">${c}</button>`).join("")}</div></div>
-    <div class="list grid2" style="margin-top:12px">${list.map(itemRow).join("")}</div>
-    <p class="note" style="margin-top:16px">共 ${ACTS.length} 項。價格為示意，合作業者確認後更新。</p></div>`}
+  const cats=ui.cat==="全部"?CATS.slice(1):[ui.cat];
+  return `<div class="wrap"><div style="padding-top:28px;display:flex;flex-direction:column;gap:12px"><h1 style="font-size:clamp(28px,3.6vw,40px)">在地玩法</h1><p class="lead">${ACTS.length} 項玩法已經分成 ${CATS.length-1} 類，點上面的類別可以只看那一類。</p>
+    <div class="chips">${CATS.map(c=>`<button type="button" class="chip" data-act="cat" data-v="${c}" aria-pressed="${ui.cat===c}">${c}${c==="全部"?"":" "+ACTS.filter(a=>a.cat===c).length}</button>`).join("")}</div></div>
+    ${cats.map(c=>`<section class="catsec" id="cat-${c}"><h2>${c} <small>${ACTS.filter(a=>a.cat===c).length} 項・${CATINFO[c][1]}</small></h2><div class="list grid2" style="margin-top:8px">${ACTS.filter(a=>a.cat===c).map(itemRow).join("")}</div></section>`).join("")}
+    <p class="note" style="margin-top:20px">價格為示意，合作業者確認後更新。</p></div>`}
 
 function pageTour(id){
   const a=A(id);if(!a)return `<div class="wrap"><p style="padding-top:40px">找不到這個行程。<a href="#/tours">回玩法清單</a></p></div>`;
@@ -494,7 +590,7 @@ function pageTour(id){
 
 function pageMine(){
   const mine=reqs.slice().reverse();
-  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">MY TRIPS</span><h1 style="font-size:clamp(28px,3.6vw,40px)">我的行程</h1></div>
+  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">我的行程</h1></div>
   <div class="box" style="margin-top:20px;background:var(--warn-bg);border-color:#e3c27a"><b style="color:var(--warn)">停航通知會出現在這裡（示意）</b><div class="note" style="color:var(--warn)">例：明天南方四島因風浪停航，民宿主人會提供改期或退款選項，並同步傳 LINE。</div></div>
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${mine.length?mine.map(r=>`<div class="box"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><b style="font-size:18px">${esc(r.title)}</b>${pill(r.status)}</div>
     <div class="note">送出時間 ${esc(r.created)}｜${r.days} 天 ${r.people} 人｜示意總價 ${money(r.total)}</div>
@@ -503,16 +599,16 @@ function pageMine(){
 function pill(s){return `<span class="pill ${s==="已確認"?"ok":s==="取消"?"bad":"wait"}">${s}</span>`}
 function lineUrl(r){return "https://line.me/R/msg/text/?"+encodeURIComponent(["【夏澄行程需求】",r.title,`${r.days} 天 ${r.people} 人`,...r.lines,"聯絡人："+r.name+" "+r.phone].join("\n"))}
 
-function pageLine(){return `<div class="wrap" style="max-width:760px"><div style="padding-top:28px"><span class="eyebrow">ASK US</span><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
+function pageLine(){return `<div class="wrap" style="max-width:760px"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
   <div class="box" style="margin-top:20px;display:flex;flex-direction:column;gap:14px"><p style="margin:0">不知道怎麼排、想問海況、要改期，直接用 LINE 問最快。</p>
   <div class="panel"><b>LINE 官方帳號 ID</b><div style="font-size:22px;font-family:var(--serif)">@待填</div><div class="note">民宿提供 ID 後，這裡會放「加好友」按鈕和 QR Code。</div></div>
   <p class="note" style="margin:0">回覆時段：待填。電話、Email、地址：待填。</p></div></div>`}
 
 function pageGuide(){const r=[["1 天","第一次來、時間不多","上午玄武岩導覽或藍洞船 → 中午海鮮 → 下午浮潛 → 觀音亭看夕陽"],["2 天","最多人選","第 1 天玩水和夕陽、晚上夜釣小管；第 2 天上午潮間帶、中午買伴手禮"],["3 天","想跳島的人","第 1 天玩水、夜釣；第 2 天南方四島一整天；第 3 天石滬導覽和伴手禮"]];
-  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">GUIDE</span><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">民宿主人的私房路線待補，以下是常見排法示意。</p></div>
+  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">民宿主人的私房路線待補，以下是常見排法示意。</p></div>
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${r.map(([t,w,d])=>`<div class="box"><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><h3>${t}</h3><span class="pill info">${w}</span></div><p style="margin:8px 0 12px">${d}</p><button class="btn small" type="button" data-act="guide" data-v="${parseInt(t)}">照這個排</button></div>`).join("")}
   <div class="box"><h3>冬天（10–3 月）</h3><p style="margin:8px 0 0">東北季風季，跳島和水上活動多數停駛。可以安排海洋牧場、導覽、美食和室內景點，淡季主打待民宿決定。</p></div></div></div>`}
-function pageLocal(){return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">LOCAL</span><h1 style="font-size:clamp(28px,3.6vw,40px)">在地生活圈</h1><p class="lead">店家清單由民宿主人提供後補上。</p></div>
+function pageLocal(){return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">在地生活圈</h1><p class="lead">店家清單由民宿主人提供後補上。</p></div>
   <div class="grid3" style="margin-top:20px"><div class="box"><h3>吃什麼</h3><p class="note">海鮮餐廳、早餐店、仙人掌冰（待補推薦店家）</p></div><div class="box"><h3>買什麼</h3><p class="note">黑糖糕、鹹餅、干貝醬；可在「玩法」預訂伴手禮宅配</p></div><div class="box"><h3>交通與船班</h3><p class="note">船班與機班查詢連結（待補）；停航時民宿會通知</p></div></div></div>`}
 
 function pageAdmin(){
@@ -520,7 +616,7 @@ function pageAdmin(){
   const rows=reqs.slice().reverse().concat(demo);
   const cnt={};rows.forEach(r=>(r.ids||[]).forEach(id=>cnt[id]=(cnt[id]||0)+1));
   const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,6),mx=top.length?top[0][1]:1;
-  return `<div class="wrap"><div style="padding-top:28px"><span class="eyebrow">ADMIN</span><h1 style="font-size:clamp(28px,3.6vw,40px)">民宿主人後台</h1><p class="lead">正式版要登入才能看。目前顯示這台裝置送出的需求，加上兩筆示意資料。</p></div>
+  return `<div class="wrap"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">民宿主人後台</h1><p class="lead">正式版要登入才能看。目前顯示這台裝置送出的需求，加上兩筆示意資料。</p></div>
   <div class="weather" style="margin-top:20px"><div class="box"><span>待確認</span><b>${rows.filter(r=>r.status==="待確認").length} 筆</b></div><div class="box"><span>已確認</span><b>${rows.filter(r=>r.status==="已確認").length} 筆</b></div><div class="box"><span>取消</span><b>${rows.filter(r=>r.status==="取消").length} 筆</b></div><div class="box"><span>全部</span><b>${rows.length} 筆</b></div></div>
   <h2 style="margin-top:36px;font-size:24px">需求單</h2>
   <div class="scroll" style="margin-top:12px"><table class="tbl"><thead><tr><th>聯絡人</th><th>行程</th><th>人數</th><th>示意總價</th><th>狀態</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.name)}</b><br><span class="note">${esc(r.phone)}${r.line?"｜LINE "+esc(r.line):""}</span></td><td>${esc(r.title)}<br><span class="note">${r.lines.map(esc).join("、")}</span></td><td>${r.people} 人</td><td>${money(r.total)}</td><td>${r.demo?pill(r.status):`<select data-act="status" data-v="${r.id}" aria-label="修改狀態" style="height:42px;border:1px solid var(--line);background:#fff;padding:0 8px">${["待確認","已確認","取消"].map(s=>`<option ${r.status===s?"selected":""}>${s}</option>`).join("")}</select>`}</td></tr>`).join("")}</tbody></table></div>
@@ -544,7 +640,7 @@ function closeModal(){document.getElementById("modal").innerHTML=""}
 /* ===================== 事件 ===================== */
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const act=b.dataset.act,v=b.dataset.v;
-  if(act==="quickgo"){const px=Object.assign({},ui.qpax||(plan?plan.pax:defPax()));plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,pax:px,interests:plan?plan.interests:["玩水","美食"]});ui.day=0;ui.qpax=null;save();location.hash="#/plan";return}
+  if(act==="quickgo"){const px=Object.assign({},ui.qpax||(plan?plan.pax:defPax()));plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,pax:px,interests:plan?plan.interests:["玩水","美食"]});plan.made=false;ui.step=2;ui.day=0;ui.qpax=null;save();location.hash="#/plan";return}
   if(act==="paxopen"){openPax();return}
   if(act==="paxdone"){closeModal();render();return}
   if(act==="pax"){const sc=b.dataset.s,x=sc==="q"?ui.qpax:sc==="t"?ui.tour.pax:plan.pax,k=b.dataset.k;x[k]=Math.max(0,x[k]+ +b.dataset.d);if(x.adult+x.senior<1)x.adult=1;
@@ -553,6 +649,10 @@ document.addEventListener("click",e=>{
   if(act==="swapto"){const it=plan.items.find(x=>x.uid===v);if(it){it.id=b.dataset.to;retime(it.day);save();closeModal();render();toast("已換成「"+A(it.id).name+"」")}return}
   if(act==="opt"){const s=optimize(ui.day);save();render();toast(s>0?"已依距離重排，少騎約 "+s+" 分鐘":"目前已經是最順的排法");return}
   if(act==="int"){const i=plan.interests;plan.interests=i.includes(v)?i.filter(x=>x!==v):[...i,v];save();render();return}
+  if(act==="step"){const n=+v;if(n===3&&!plan.made)return;ui.step=n;render();window.scrollTo(0,0);return}
+  if(act==="setdays"){plan.days=+v;if(plan.made){generate(plan);ui.day=0}save();render();return}
+  if(act==="make"||act==="remake"){generate(plan);plan.made=true;ui.step=3;ui.day=0;save();render();window.scrollTo(0,0);toast("行程排好了");return}
+  if(act==="gocat"){ui.cat=v;return}
   if(act==="regen"){readForm();generate(plan);ui.day=0;save();render();toast("已重新排好");return}
   if(act==="day"){ui.day=+v;render();return}
   if(act==="del"){plan.items=plan.items.filter(x=>x.uid!==v);closeModal();save();render();toast("已刪除");return}
@@ -563,27 +663,28 @@ document.addEventListener("click",e=>{
   if(act==="cat"){ui.cat=v;render();return}
   if(act==="tday"){ui.tour.day=+v;render();return}
   if(act==="slot"){ui.tour.slot=+v;render();return}
-  if(act==="addtour"){const t=b.dataset.slot==="整天"?"09:00":b.dataset.slot;plan.items.push({day:ui.tour.day,time:t,id:v,uid:Math.random().toString(36).slice(2,9)});retime(ui.tour.day);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));ui.day=ui.tour.day;save();toast("已加入第 "+(ui.tour.day+1)+" 天");location.hash="#/plan";return}
-  if(act==="guide"){const n=+v;plan=generate({start:plan?plan.start:nextSat(),days:n,pax:plan?plan.pax:defPax(),interests:n===3?["玩水","跳島","美食"]:["玩水","美食","導覽"]});ui.day=0;save();location.hash="#/plan";return}
+  if(act==="addtour"){const t=b.dataset.slot==="整天"?"09:00":b.dataset.slot;plan.items.push({day:ui.tour.day,time:t,id:v,uid:Math.random().toString(36).slice(2,9)});retime(ui.tour.day);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));plan.made=true;ui.step=3;ui.day=ui.tour.day;save();toast("已加入第 "+(ui.tour.day+1)+" 天");location.hash="#/plan";return}
+  if(act==="guide"){const n=+v;plan=generate({start:plan?plan.start:nextSat(),days:n,pax:plan?plan.pax:defPax(),interests:n===3?["玩水","跳島","美食"]:["玩水","美食","導覽"]});plan.made=true;ui.step=3;ui.day=0;save();location.hash="#/plan";return}
 });
 document.addEventListener("toggle",e=>{if(e.target.id==="cfg")ui.cfgOpen=e.target.open},true);
 document.addEventListener("change",e=>{
   const t=e.target;
   if(t.dataset&&t.dataset.act==="status"){const r=reqs.find(x=>x.id===t.dataset.v);if(r){r.status=t.value;save();render();toast("狀態已改成「"+t.value+"」")}return}
-  if(t.closest&&t.closest("#pf")){readForm();if(t.id==="p-days"||t.id==="p-start"){generate(plan);ui.day=0}save();render()}
+  if(t.id==="p-start"){plan.start=t.value||plan.start;if(plan.made){generate(plan);ui.day=0}save();render()}
 });
-function readForm(){const g=id=>document.getElementById(id);if(!g("p-start"))return;plan.start=g("p-start").value||plan.start;plan.days=+g("p-days").value}
+function readForm(){}
 
 /* ===================== 路由 ===================== */
 const app=document.getElementById("app");
 function render(){
   let h=location.hash||"#/";const [path,query]=h.slice(1).split("?");
-  if(query&&path==="/plan"){const d=new URLSearchParams(query).get("d");if(d){try{plan=fixPax(JSON.parse(decodeURIComponent(escape(atob(d)))));save();toast("已載入朋友分享的行程")}catch(e){}}history.replaceState(null,"","#/plan");}
+  if(query&&path==="/plan"){const d=new URLSearchParams(query).get("d");if(d){try{plan=fixPax(JSON.parse(decodeURIComponent(escape(atob(d)))));plan.made=true;ui.step=3;save();toast("已載入朋友分享的行程")}catch(e){}}history.replaceState(null,"","#/plan");}
   const parts=path.split("/").filter(Boolean);
   const r=parts[0]||"";
   app.innerHTML=r===""?pageHome():r==="plan"?pagePlan():r==="tours"?pageTours():r==="tour"?pageTour(parts[1]):r==="mine"?pageMine():r==="line"?pageLine():r==="guide"?pageGuide():r==="local"?pageLocal():r==="admin"?pageAdmin():pageHome();
   const dm=document.getElementById("daymap");if(dm){const its=dayItems(ui.day),pts=[];let n=0;its.forEach(it=>{const k=placeOf(it),pl=PLACES[k];if(pts.length&&pts.at(-1).k===k)return;pts.push({k,ll:pl.ll,home:k==="home",n:k==="home"?0:++n,label:it.time+" "+(it.id?A(it.id).name:FREE[it.free].name)+"｜"+pl.n})});drawMap(dm,pts)}
   const tm=document.getElementById("tourmap");if(tm&&parts[1]&&AT[parts[1]]){const k=AT[parts[1]];drawMap(tm,k==="home"?[{ll:PLACES.home.ll,home:1,label:PLACES.home.n}]:[{ll:PLACES.home.ll,home:1,label:PLACES.home.n},{ll:PLACES[k].ll,n:"集",label:PLACES[k].n}])}
+  app.classList.toggle("has-dock",!!document.querySelector(".dockbar"));
   navs(path);document.title=({"":"夏澄｜澎湖玩法與行程",plan:"排行程｜夏澄",tours:"在地玩法｜夏澄",mine:"我的行程｜夏澄",admin:"後台｜夏澄"})[r]||"夏澄";
 }
 let lastPath="";
