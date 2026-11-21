@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#eceae5">
+<title>夏澄｜澎湖玩法與行程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* A 清水模極簡：混凝土灰底、墨黑文字、海藍點綴；明體標題＋黑體內文 */
+:root{
+  --bg:#eceae5; --surface:#f7f6f3; --card:#ffffff; --ink:#1e1f1f; --muted:#55595a; --line:#cfcbc2; --line2:#e2dfd8;
+  --accent:#1f5f73; --accent-soft:#e3eef1; --warn-bg:#fff4dc; --warn:#6b4e0f; --ok:#1f6a45; --ok-bg:#e2f0e7; --bad:#8a3b26; --bad-bg:#f8e3dc;
+  --serif:"Noto Serif TC","Songti TC",serif; --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;color-scheme:light}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.serif{font-family:var(--serif)}
+.demo{background:var(--warn-bg);color:var(--warn);font-size:14px;text-align:center;padding:6px 12px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
+
+/* header */
+header.site{position:sticky;top:0;z-index:30;background:rgba(236,234,229,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:.16em;text-decoration:none;color:var(--ink)}
+nav.top{display:flex;gap:6px}
+nav.top a{text-decoration:none;color:var(--ink);padding:10px 16px;font-size:16px;border-bottom:2px solid transparent}
+nav.top a.on{border-bottom-color:var(--ink);font-weight:700}
+.line-btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:1px solid var(--ink);text-decoration:none;color:var(--ink);font-size:15px;background:transparent}
+@media (max-width:899px){nav.top,header.site .line-btn{display:none} header.site .wrap{height:58px}}
+
+/* bottom tabs (phone) */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;font-size:12.5px;text-decoration:none;color:var(--muted);min-height:58px}
+nav.tabs a svg{width:24px;height:24px}
+nav.tabs a.on{color:var(--ink);font-weight:700}
+@media (min-width:900px){nav.tabs{display:none}}
+main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+@media (min-width:900px){main{padding-bottom:40px}}
+
+/* type */
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.35;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,4.6vw,50px)}
+h2{font-size:clamp(24px,2.6vw,30px)}
+h3{font-size:20px}
+.eyebrow{font-size:13px;letter-spacing:.22em;color:var(--muted)}
+.lead{color:var(--muted);font-size:17.5px;margin:0}
+.sec{padding-top:56px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}
+.more{font-size:16px;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:3px;white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border:1px solid var(--ink);background:var(--ink);color:#f7f6f3;text-decoration:none;font-size:17px;letter-spacing:.06em}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.small{min-height:40px;padding:0 14px;font-size:15px;letter-spacing:0}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr;gap:28px;padding-top:28px}
+.hero .photo{position:relative;aspect-ratio:3/2;background:#c6c2b9 center/cover no-repeat;max-width:100%}
+.tag-demo{position:absolute;left:12px;bottom:12px;background:rgba(247,246,243,.92);font-size:12.5px;padding:3px 10px}
+.hero .txt{display:flex;flex-direction:column;gap:18px;justify-content:center}
+@media (min-width:900px){.hero{grid-template-columns:5fr 7fr;gap:48px;padding-top:56px}.hero .photo{order:2}}
+.quick{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.quick label{display:flex;flex-direction:column;padding:12px 14px 12px 0;font-size:13px;color:var(--muted);gap:2px;min-width:0}
+.quick label+label{border-left:1px solid var(--line);padding-left:14px}
+.quick input,.quick select{border:0;background:transparent;font-size:16px;font-weight:500;color:var(--ink);padding:2px 0;width:100%;min-width:0}
+
+/* cards / lists */
+.list{display:flex;flex-direction:column;background:transparent}
+.item{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.item .th{width:96px;height:96px;background:#c9c5bc center/cover no-repeat}
+.item b{font-size:18px;display:block}
+.item .meta{font-size:14.5px;color:var(--muted)}
+.price{font-size:16px;font-weight:700;white-space:nowrap}
+.price small{display:block;font-size:12px;color:var(--muted);font-weight:400;text-align:right}
+@media (min-width:900px){.list.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 16px;border:1px solid var(--line);background:var(--surface);font-size:15.5px}
+.chip[aria-pressed="true"]{background:var(--ink);color:#f7f6f3;border-color:var(--ink)}
+.panel{background:var(--surface);padding:24px}
+.box{background:var(--card);padding:20px;border:1px solid var(--line2)}
+.grid3{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:900px){.grid3{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}}
+.stay{display:grid;grid-template-columns:1fr;background:var(--surface)}
+.stay .pic{aspect-ratio:16/10;background:#b1aea6 center/cover no-repeat}
+.stay .in{padding:26px;display:flex;flex-direction:column;gap:12px}
+@media (min-width:900px){.stay{grid-template-columns:1fr 1fr}.stay .pic{aspect-ratio:auto;min-height:320px}.stay .in{padding:44px}}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.weather{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:900px){.weather{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.weather .box b{display:block;font-size:20px}
+.weather .box span{font-size:14px;color:var(--muted)}
+.pill{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px}
+.pill.wait{background:var(--warn-bg);color:var(--warn)}.pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.bad{background:var(--bad-bg);color:var(--bad)}.pill.info{background:var(--accent-soft);color:var(--accent)}
+
+/* planner */
+.planner{display:grid;grid-template-columns:1fr;gap:24px;padding-top:28px}
+@media (min-width:980px){.planner{grid-template-columns:330px minmax(0,1fr) 300px;align-items:start}.sticky{position:sticky;top:88px}}
+.form{display:flex;flex-direction:column;gap:16px}
+.form label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--muted)}
+.form input,.form select,.form textarea{height:48px;border:1px solid var(--line);background:#fff;padding:0 12px;font-size:16px;color:var(--ink)}
+.form textarea{height:96px;padding:10px 12px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.days{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.days button{min-height:46px;padding:0 18px;border:1px solid var(--line);background:transparent;font-size:15.5px}
+.days button[aria-pressed="true"]{background:var(--ink);color:#f7f6f3;border-color:var(--ink)}
+.tl{background:var(--surface);padding:20px 22px}
+.tl-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px}
+.tl-row .t{font-weight:700;font-size:15.5px;padding-top:1px}
+.tl-row .c{border-left:2px solid var(--ink);padding:0 0 22px 18px;position:relative}
+.tl-row .c.paid{border-left-color:var(--accent)}
+.tl-row:last-child .c{padding-bottom:4px}
+.tl-row b{font-size:17px;display:block}
+.tl-row .meta{font-size:14px;color:var(--muted)}
+.tl-row .acts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.sum{background:var(--ink);color:#f7f6f3;padding:22px;display:flex;flex-direction:column;gap:12px}
+.sum .big{font-size:30px;font-weight:700}
+.sum .sm{font-size:14px;color:#d9d6cf}
+.sum .btn{background:#f7f6f3;color:var(--ink);border-color:#f7f6f3}
+.sum .btn.ghost{background:transparent;color:#f7f6f3;border-color:#8c8a85}
+.empty{border:1px dashed var(--line);padding:22px;color:var(--muted);text-align:center}
+
+/* detail */
+.detail{display:grid;grid-template-columns:1fr;gap:28px;padding-top:24px}
+@media (min-width:980px){.detail{grid-template-columns:minmax(0,1fr) 400px;align-items:start}}
+.dphoto{aspect-ratio:16/9;background:#c9c5bc center/cover no-repeat;position:relative}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.facts span{border:1px solid var(--line);padding:4px 12px;font-size:14.5px;background:var(--surface)}
+.dates{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.dates button{min-height:62px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--muted);line-height:1.3}
+.dates button b{display:block;font-size:17px;color:var(--ink)}
+.dates button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#d9d6cf}
+.dates button[aria-pressed="true"] b{color:#fff}
+.slots{display:flex;gap:8px}
+.slots button{flex:1;min-height:50px;border:1px solid var(--line);background:#fff;font-size:15.5px}
+.slots button[aria-pressed="true"]{border:2px solid var(--accent);background:var(--accent-soft);font-weight:700}
+.stepper{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);padding:8px 12px}
+.stepper button{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:22px;line-height:1}
+.stepper b{font-size:18px}
+
+/* tables (admin) */
+.tbl{width:100%;border-collapse:collapse;background:#fff;font-size:15.5px}
+.tbl th,.tbl td{padding:12px 14px;border-bottom:1px solid var(--line2);text-align:left;vertical-align:top}
+.tbl th{background:var(--surface);font-weight:700;font-size:14px;color:var(--muted)}
+.scroll{overflow-x:auto}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:120px minmax(0,1fr) 36px;gap:10px;align-items:center;font-size:15px}
+.bar i{display:block;height:14px;background:var(--accent)}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding:28px 0;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+.modal{position:fixed;inset:0;z-index:50;background:rgba(30,31,31,.45);display:flex;align-items:flex-end;justify-content:center}
+@media (min-width:700px){.modal{align-items:center}}
+.modal .sheet{background:var(--surface);width:100%;max-width:560px;max-height:88vh;overflow:auto;padding:24px;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;padding:10px 18px;font-size:15px;z-index:60;white-space:nowrap}
+@media (min-width:900px){.toast{bottom:32px}}
+.note{font-size:13.5px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="demo">這是第一版示意網站：照片是 AI 示意圖，價格與海況都是示意，正式版會換成真實資料。</div>
+<header class="site"><div class="wrap">
+  <a class="logo" href="#/">夏澄</a>
+  <nav class="top" id="topnav"></nav>
+  <a class="line-btn" href="#/line">LINE 客服</a>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span>LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><a href="#/admin">民宿主人後台</a></div></footer>
+<nav class="tabs" id="tabs"></nav>
+<div class="toast" id="toast" hidden></div>
+<div id="modal"></div>
+
+<script>
+/* ===================== 資料（價格皆為示意） ===================== */
+const IMG=n=>`img/${n}.webp`;
+const ALL=[1,2,3,4,5,6,7,8,9,10,11,12], SUMMER=[4,5,6,7,8,9,10];
+const ACTS=[
+ {id:"scooter",cat:"交通",name:"機車租借",dur:0,price:400,unit:"台／天",img:"scooter",months:ALL,desc:"民宿門口交車，騎著環島最自由。",inc:"安全帽、雨衣",limit:"需持有效機車駕照"},
+ {id:"car",cat:"交通",name:"汽車租借",dur:0,price:2000,unit:"台／天",img:"scooter",months:ALL,desc:"帶長輩、小孩或下雨天最方便。",inc:"基本保險",limit:"需持有效汽車駕照"},
+ {id:"transfer",cat:"交通",name:"機場或碼頭接送",dur:0.5,price:300,unit:"趟",img:"room",months:ALL,desc:"抵達就有人接，行李直接送到民宿。",inc:"車資",limit:"請提供航班或船班時間"},
+ {id:"south",cat:"跳島",name:"南方四島",dur:7,price:1500,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"東吉、西吉、東西嶼坪與藍洞，一天走完四座島。",inc:"船票、導覽、保險",limit:"風浪過大會停航"},
+ {id:"north",cat:"跳島",name:"北海（吉貝、目斗嶼、險礁）",dur:6,price:1000,unit:"人",img:"snorkel",months:SUMMER,tags:["跳島","玩水"],desc:"白沙灘和淺海，玩水跳島一次滿足。",inc:"船票、保險",limit:"風浪過大會停航"},
+ {id:"east",cat:"跳島",name:"東海（桶盤、虎井）",dur:4,price:800,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","導覽"],desc:"看玄武岩柱和沉城傳說，半天就能來回。",inc:"船票、保險",limit:"風浪過大會停航"},
+ {id:"qimei",cat:"跳島",name:"七美望安",dur:8,price:1200,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"雙心石滬就在七美，望安有綠蠵龜。",inc:"船票、島上交通、保險",limit:"風浪過大會停航"},
+ {id:"bluecave",cat:"跳島",name:"藍洞船",dur:2,price:600,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","輕鬆"],desc:"搭船進海蝕洞看藍色的光。",inc:"船票、保險",limit:"海況決定能否入洞"},
+ {id:"snorkel",cat:"水上",name:"浮潛",dur:2,price:800,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"教練帶下水，不會游泳也能看珊瑚和魚。",inc:"面鏡、救生衣、教練、保險",limit:"年齡限制待業者確認"},
+ {id:"banana",cat:"水上",name:"香蕉船",dur:0.5,price:400,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"朋友一起尖叫最好玩。",inc:"救生衣、保險",limit:"孕婦不建議"},
+ {id:"jetski",cat:"水上",name:"水上摩托車",dur:0.5,price:800,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"教練駕駛，海上衝浪的速度感。",inc:"救生衣、保險",limit:"孕婦、心臟病不建議"},
+ {id:"tube",cat:"水上",name:"拖曳浮胎",dur:0.5,price:500,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"坐在浮胎上被快艇拖著跑。",inc:"救生衣、保險",limit:"孕婦不建議"},
+ {id:"sup",cat:"水上",name:"SUP 立槳",dur:2,price:900,unit:"人",img:"sunset",months:SUMMER,tags:["玩水","輕鬆"],desc:"站在板子上划過平靜海面，夕陽場最美。",inc:"板子、槳、救生衣、教練",limit:"需能自行站立"},
+ {id:"kayak",cat:"水上",name:"透明獨木舟",dur:2,price:900,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水","輕鬆"],desc:"從透明船底看見海裡的魚。",inc:"獨木舟、救生衣、教練",limit:"兒童需大人陪同"},
+ {id:"ranch",cat:"海上體驗",name:"海洋牧場",dur:2.5,price:600,unit:"人",img:"squid",months:ALL,tags:["美食","輕鬆","導覽"],desc:"烤蚵吃到飽、釣魚、餵魚，長輩小孩都喜歡。",inc:"烤蚵、釣具、船票",limit:"風浪過大會停航"},
+ {id:"squid",cat:"海上體驗",name:"夜釣小管",dur:3,price:700,unit:"人",img:"squid",months:SUMMER,tags:["美食","玩水"],desc:"晚上出海，釣上來的小管直接煮成宵夜。",inc:"釣具、宵夜、保險",limit:"容易暈船者請先服藥"},
+ {id:"tidal",cat:"生態文化",name:"潮間帶導覽",dur:2,price:400,unit:"人",img:"basalt",months:ALL,tags:["導覽","輕鬆"],desc:"退潮時跟著老師找螃蟹、海膽和寄居蟹。",inc:"導覽、雨鞋",limit:"依潮汐時間出發"},
+ {id:"weir",cat:"生態文化",name:"石滬導覽",dur:2,price:500,unit:"人",img:"heart",months:ALL,tags:["導覽"],desc:"認識澎湖人用石頭圍出來的捕魚陷阱。",inc:"導覽",limit:"依潮汐時間出發"},
+ {id:"basalt",cat:"生態文化",name:"玄武岩地質導覽",dur:3,price:600,unit:"人",img:"basalt",months:ALL,tags:["導覽"],desc:"火山留下的柱狀玄武岩，壯觀又好拍。",inc:"導覽、交通",limit:"需步行約 1 公里"},
+ {id:"seafood",cat:"餐飲",name:"海鮮套餐",dur:1.5,price:800,unit:"人",img:"sunset",months:ALL,tags:["美食"],desc:"合作餐廳的在地海鮮，替你先訂好位子。",inc:"套餐",limit:"海鮮過敏請先告知"},
+ {id:"bbq",cat:"餐飲",name:"民宿 BBQ",dur:2,price:600,unit:"人",img:"sunset",months:ALL,tags:["美食","輕鬆"],desc:"在民宿頂樓邊看夕陽邊烤肉，住客限定。",inc:"食材、烤具",limit:"需前一天預訂"},
+ {id:"souvenir",cat:"餐飲",name:"伴手禮預訂與宅配",dur:0.5,price:null,unit:"份",img:"room",months:ALL,desc:"黑糖糕、鹹餅、干貝醬，回家前一次訂好直接宅配。",inc:"代訂、宅配",limit:"價格依商品"},
+ {id:"fireworks",cat:"季節活動",name:"花火節觀賞套票",dur:2,price:null,unit:"人",img:"sunset",months:[4,5,6],desc:"花火節期間的觀賞位置與接駁。",inc:"依當年活動公告",limit:"日期每年不同"}
+];
+const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"免費機場接送待確認"},sunset:{name:"觀音亭看夕陽",meta:"免費景點，騎車約 15 分鐘（示意）"},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐"},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿"},leave:{name:"前往機場或碼頭",meta:"回家囉"},market:{name:"逛北辰市場買伴手禮",meta:"免費"}};
+const CATS=["全部","交通","跳島","水上","海上體驗","生態文化","餐飲","季節活動"];
+const INTERESTS=["玩水","跳島","導覽","美食","輕鬆"];
+const A=id=>ACTS.find(a=>a.id===id);
+
+/* ===================== 狀態 ===================== */
+const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function nextSat(){/* 預設下一個旺季週末：淡季（10–3 月）時改成明年 6 月第二個週六 */
+  const now=new Date(),m=now.getMonth()+1;let d;
+  if(m>=10||m<=3){const y=m>=10?now.getFullYear()+1:now.getFullYear();d=new Date(y,5,8);while(d.getDay()!==6)d.setDate(d.getDate()+1)}
+  else{d=new Date(now);d.setDate(d.getDate()+((6-d.getDay()+7)%7||7))}
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+let plan=LS.get("xc-plan",null);
+let reqs=LS.get("xc-reqs",[]);
+let ui={cat:"全部",day:0};
+const save=()=>{LS.set("xc-plan",plan);LS.set("xc-reqs",reqs)};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>n==null?"洽詢":"NT$ "+n.toLocaleString("en-US");
+const people=()=>plan?plan.adults+plan.kids:2;
+const monthOf=iso=>Number(iso.slice(5,7));
+const dayDate=i=>{const d=new Date(plan.start+"T00:00:00");d.setDate(d.getDate()+i);return d};
+const fmtDay=d=>`${d.getMonth()+1}/${d.getDate()}（${"日一二三四五六"[d.getDay()]}）`;
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
+
+/* ===================== 自動排行程 ===================== */
+function available(id,m){return A(id).months.includes(m)}
+function generate(p){
+  const m=monthOf(p.start),want=p.interests.length?p.interests:["輕鬆"],used=new Set(),items=[];
+  const pick=(pool)=>{for(const id of pool){if(!used.has(id)&&available(id,m)){used.add(id);return id}}return null};
+  const byTag=t=>ACTS.filter(a=>(a.tags||[]).includes(t)).map(a=>a.id);
+  const pref=(order)=>{for(const t of order){if(want.includes(t)){const id=pick(byTag(t));if(id)return id}}return pick(byTag("輕鬆").concat(byTag("導覽")))};
+  const add=(day,time,o)=>items.push(Object.assign({day,time,uid:Math.random().toString(36).slice(2,9)},o));
+  for(let d=0;d<p.days;d++){
+    const first=d===0,last=d===p.days-1&&p.days>1;
+    if(first){add(d,"10:30",{free:"arrive"});add(d,"11:30",{id:p.kids||p.adults>4?"car":"scooter"});used.add("scooter");used.add("car");
+      const a=pref(["玩水","輕鬆","導覽","美食"]);if(a)add(d,"14:00",{id:a});
+      add(d,"17:30",{free:"sunset"});
+      if(want.includes("美食")&&pick(["seafood"]))add(d,"19:00",{id:"seafood"});else add(d,"19:00",{free:"dinner"});
+      if(p.days>1&&(want.includes("美食")||want.includes("玩水"))&&!p.kids&&pick(["squid"]))add(d,"20:30",{id:"squid"});
+    }else if(last){
+      const a=pick(["tidal","weir","bluecave","basalt"]);if(a)add(d,"08:30",{id:a});
+      add(d,"11:00",{free:"checkout"});add(d,"12:00",{free:"market"});
+      if(pick(["souvenir"]))add(d,"12:30",{id:"souvenir"});
+      add(d,"14:30",{free:"leave"});
+    }else{
+      const isl=want.includes("跳島")?pick(["south","qimei","north","east"]):null;
+      if(isl){add(d,"08:00",{id:isl});}
+      else{const a=pref(["導覽","輕鬆","美食"]);if(a)add(d,"09:00",{id:a});const b=pref(["玩水","輕鬆","導覽"]);if(b)add(d,"14:00",{id:b});}
+      if(want.includes("美食")&&pick(["bbq"]))add(d,"18:00",{id:"bbq"});
+      else if(pick(["ranch"]))add(d,"16:00",{id:"ranch"});
+    }
+  }
+  if(p.days===1){/* 一日遊：去掉入住 */items.splice(0,1)}
+  p.items=items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));return p;
+}
+function qty(a){if(a.unit==="台／天")return a.id==="car"?plan.days:Math.ceil(people()/2)*plan.days;if(a.unit==="趟"||a.unit==="份")return 1;return people()}
+function cost(it){if(!it.id)return 0;const a=A(it.id);return a.price==null?0:a.price*qty(a)}
+function total(){return plan?plan.items.reduce((s,it)=>s+cost(it),0):0}
+function hasAsk(){return plan&&plan.items.some(it=>it.id&&A(it.id).price==null)}
+function swap(uid){const it=plan.items.find(x=>x.uid===uid);if(!it||!it.id)return;const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.items.map(x=>x.id));
+  const pool=ACTS.filter(b=>b.cat===a.cat&&b.id!==a.id&&!inPlan.has(b.id)&&b.months.includes(m)&&b.dur>0);
+  const alt=pool[0]||ACTS.find(b=>(b.tags||[]).some(t=>(a.tags||[]).includes(t))&&!inPlan.has(b.id)&&b.months.includes(m)&&b.dur>0);
+  if(!alt){toast("目前沒有可以替換的行程");return}it.id=alt.id;save();render();toast("已換成「"+alt.name+"」")}
+
+/* ===================== 版面元件 ===================== */
+const NAV=[["#/","首頁","M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"],["#/plan","排行程","M4 5h16M4 12h16M4 19h10"],["#/tours","玩法","M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 10.5a2 2 0 1 0 0-.1"],["#/mine","我的行程","M5 4h14v17l-7-4-7 4z"],["#/line","客服","M4 5h16v11H8l-4 4z"]];
+function navs(route){const k="#/"+(route.split("/")[1]||"");
+  document.getElementById("topnav").innerHTML=NAV.slice(0,4).map(([h,t])=>`<a href="${h}" class="${h===k?"on":""}">${t}</a>`).join("");
+  document.getElementById("tabs").innerHTML=NAV.map(([h,t,d])=>`<a href="${h}" class="${h===k?"on":""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>${t}</a>`).join("")}
+function itemRow(a){return `<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMG(a.img)})" role="img" aria-label="${esc(a.name)}示意照片"></span><span><b>${esc(a.name)}</b><span class="meta">${esc(a.cat)}${a.dur?"｜約 "+a.dur+" 小時":""}${a.months.length<12?"｜"+a.months[0]+"–"+a.months.at(-1)+" 月":""}</span></span><span class="price">${money(a.price)}<small>／${a.unit}・示意</small></span></a>`}
+
+/* ===================== 頁面 ===================== */
+function pageHome(){
+  const pop=["south","snorkel","squid","scooter","ranch","tidal"].map(A);
+  return `<div class="wrap">
+  <section class="hero">
+    <div class="photo" style="background-image:url(${IMG("room")})" role="img" aria-label="清水模客廳望海示意照片"><span class="tag-demo">示意照片</span></div>
+    <div class="txt">
+      <span class="eyebrow">PENGHU · 澎湖</span>
+      <h1>住在海邊，<br>玩法也安排好了</h1>
+      <p class="lead">選好日期，我們把跳島、玩水、夜釣排成你的行程。看得到每天的安排和總花費，確定後一鍵送給民宿。</p>
+      <form class="quick" id="quick">
+        <label>出發日期<input type="date" id="q-start" value="${plan?plan.start:nextSat()}" required></label>
+        <label>天數<select id="q-days">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(plan?plan.days:3)===n?"selected":""}>${n} 天</option>`).join("")}</select></label>
+        <label>人數<select id="q-ppl">${[1,2,3,4,5,6,8,10].map(n=>`<option value="${n}" ${people()===n?"selected":""}>${n} 人</option>`).join("")}</select></label>
+      </form>
+      <div><button class="btn" data-act="quickgo" type="button">排我的行程</button></div>
+    </div>
+  </section>
+  <section class="sec"><div class="sec-head"><div><span class="eyebrow">THINGS TO DO</span><h2>熱門玩法</h2></div><a class="more" href="#/tours">看全部 23 項 →</a></div>
+    <div class="list grid2">${pop.map(itemRow).join("")}</div></section>
+  <section class="sec"><div class="stay"><div class="pic" style="background-image:url(${IMG("sunset")})" role="img" aria-label="夏澄頂樓夕陽示意照片"></div>
+    <div class="in"><span class="eyebrow">STAY WITH US</span><h2>住在夏澄</h2><p class="lead">海邊清水模別墅，1 晚起住。住宿請在下面的平台訂，排好的行程再送給我們安排。</p>
+    <div class="links"><a class="btn small ghost" href="#/line">Booking</a><a class="btn small ghost" href="#/line">Agoda</a><a class="btn small ghost" href="#/line">民宿官網</a><a class="btn small" href="#/line">LINE 直接訂</a></div>
+    <span class="note">訂房連結待民宿提供。無早餐、有機車與汽車停車位、寵物請先詢問。</span></div></div></section>
+  <section class="sec"><div class="sec-head"><div><span class="eyebrow">TODAY</span><h2>今日海況</h2></div><span class="note">示意資料，正式版接中央氣象署</span></div>
+    <div class="weather"><div class="box"><span>天氣</span><b>晴時多雲</b></div><div class="box"><span>氣溫</span><b>26–30°C</b></div><div class="box"><span>風力</span><b>3–4 級</b></div><div class="box"><span>南方四島</span><b style="color:var(--ok)">照常出航</b></div></div></section>
+  <section class="sec"><div class="grid3">
+    <a class="box" href="#/guide" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">GUIDE</span><h3 style="margin:6px 0">玩法指南</h3><span class="note">1 天、2 天、3 天怎麼玩，民宿主人的私房路線。</span></a>
+    <a class="box" href="#/local" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">LOCAL</span><h3 style="margin:6px 0">在地生活圈</h3><span class="note">吃什麼、買什麼、船班怎麼查。</span></a>
+    <a class="box" href="#/line" style="text-decoration:none;color:var(--ink)"><span class="eyebrow">ASK US</span><h3 style="margin:6px 0">LINE 問民宿主人</h3><span class="note">不知道怎麼排？直接問最快。</span></a>
+  </div></section></div>`}
+
+function pagePlan(){
+  if(!plan){plan=generate({start:nextSat(),days:3,adults:2,kids:0,interests:["玩水","美食"]});save()}
+  ui.day=Math.min(ui.day,plan.days-1);
+  const items=plan.items.filter(it=>it.day===ui.day);
+  return `<div class="wrap"><div style="padding-top:28px"><span class="eyebrow">PLAN</span><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>
+  <div class="planner">
+    <aside class="panel sticky"><form class="form" id="pf">
+      <label>出發日期<input type="date" id="p-start" value="${plan.start}"></label>
+      <div class="row2"><label>天數<select id="p-days">${[1,2,3,4,5].map(n=>`<option ${plan.days===n?"selected":""} value="${n}">${n} 天</option>`).join("")}</select></label>
+      <label>大人<select id="p-ad">${[1,2,3,4,5,6,8,10].map(n=>`<option ${plan.adults===n?"selected":""} value="${n}">${n} 位</option>`).join("")}</select></label></div>
+      <label>小孩<select id="p-kid">${[0,1,2,3,4].map(n=>`<option ${plan.kids===n?"selected":""} value="${n}">${n} 位</option>`).join("")}</select></label>
+      <div><span style="font-size:14px;color:var(--muted)">想怎麼玩（可複選）</span><div class="chips" style="margin-top:6px">${INTERESTS.map(t=>`<button type="button" class="chip" data-act="int" data-v="${t}" aria-pressed="${plan.interests.includes(t)}">${t}</button>`).join("")}</div></div>
+      <button class="btn block" type="button" data-act="regen">重新排一次</button>
+      ${[10,11,12,1,2,3].includes(monthOf(plan.start))?`<p class="note" style="margin:0">10–3 月東北季風季，跳島和水上活動多數停駛，已自動改排導覽和海洋牧場。</p>`:""}
+    </form></aside>
+    <section>
+      <div class="days" role="tablist">${Array.from({length:plan.days},(_,i)=>`<button type="button" role="tab" data-act="day" data-v="${i}" aria-pressed="${ui.day===i}">第 ${i+1} 天 ${fmtDay(dayDate(i))}</button>`).join("")}</div>
+      <div class="tl">${items.length?items.map(it=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null;
+        return `<div class="tl-row"><span class="t">${it.time}</span><div class="c ${a?"paid":""}"><b>${esc(a?a.name:f.name)}</b><span class="meta">${a?(a.dur?"約 "+a.dur+" 小時｜":"")+money(a.price)+(a.price!=null?" × "+qty(a)+" "+a.unit.replace(/／.*/,""):"")+"・示意":esc(f.meta)}</span>
+        ${a?`<div class="acts"><a class="btn small ghost" href="#/tour/${a.id}">看介紹</a><button class="btn small ghost" type="button" data-act="swap" data-v="${it.uid}">換一個</button><button class="btn small ghost" type="button" data-act="del" data-v="${it.uid}">刪除</button></div>`:""}</div></div>`}).join(""):`<div class="empty">這一天還沒有安排，到「玩法」挑行程加進來。</div>`}
+        <div style="margin-top:14px"><a class="btn small ghost" href="#/tours">＋ 加一個行程</a></div></div>
+    </section>
+    <aside class="sticky"><div class="sum">
+      <span class="sm">${plan.days} 天｜${people()} 人（大人 ${plan.adults}、小孩 ${plan.kids}）</span>
+      <span class="big">${money(total())}</span>
+      <span class="sm">每人約 ${money(Math.round(total()/people()))}・示意價格${hasAsk()?"，另有洽詢項目":""}<br>住宿另外在訂房平台付款</span>
+      <button class="btn block" type="button" data-act="send">送出給民宿安排</button>
+      <button class="btn block ghost" type="button" data-act="share">分享給同行朋友</button>
+      <span class="sm">送出後民宿主人會用 LINE 確認名額和報價，確認後再付款給業者。</span>
+    </div></aside>
+  </div></div>`}
+
+function pageTours(){
+  const list=ACTS.filter(a=>ui.cat==="全部"||a.cat===ui.cat);
+  return `<div class="wrap"><div style="padding-top:28px;display:flex;flex-direction:column;gap:12px"><span class="eyebrow">THINGS TO DO</span><h1 style="font-size:clamp(28px,3.6vw,40px)">在地玩法</h1>
+    <div class="chips">${CATS.map(c=>`<button type="button" class="chip" data-act="cat" data-v="${c}" aria-pressed="${ui.cat===c}">${c}</button>`).join("")}</div></div>
+    <div class="list grid2" style="margin-top:12px">${list.map(itemRow).join("")}</div>
+    <p class="note" style="margin-top:16px">共 ${ACTS.length} 項。價格為示意，合作業者確認後更新。</p></div>`}
+
+function pageTour(id){
+  const a=A(id);if(!a)return `<div class="wrap"><p style="padding-top:40px">找不到這個行程。<a href="#/tours">回玩法清單</a></p></div>`;
+  if(!plan){plan=generate({start:nextSat(),days:3,adults:2,kids:0,interests:["玩水","美食"]});save()}
+  ui.tour=ui.tour&&ui.tour.id===id?ui.tour:{id,day:0,slot:0,n:people()};
+  const slots=a.dur>=6?["08:00"]:a.id==="squid"?["19:30","20:30"]:a.dur?["09:00","13:00","15:30"]:["整天"];
+  const m=monthOf(plan.start),ok=a.months.includes(m);
+  return `<div class="wrap"><p style="padding-top:20px;margin:0"><a href="#/tours">← 回玩法清單</a></p>
+  <div class="detail"><div style="display:flex;flex-direction:column;gap:18px">
+    <div class="dphoto" style="background-image:url(${IMG(a.img)})" role="img" aria-label="${esc(a.name)}示意照片"><span class="tag-demo">示意照片</span></div>
+    <h1 style="font-size:clamp(28px,3.4vw,38px)">${esc(a.name)}</h1>
+    <div class="facts"><span>${esc(a.cat)}</span>${a.dur?`<span>約 ${a.dur} 小時</span>`:""}<span>${a.months.length===12?"全年":a.months[0]+"–"+a.months.at(-1)+" 月"}</span><span>合作業者：待填</span></div>
+    <p class="lead" style="color:var(--ink)">${esc(a.desc)}</p>
+    <div class="grid3"><div class="box"><b>費用包含</b><div class="note">${esc(a.inc)}</div></div><div class="box"><b>注意事項</b><div class="note">${esc(a.limit)}</div></div><div class="box"><b>集合地點</b><div class="note">待業者提供（從夏澄出發約 ＿ 分鐘）</div></div></div>
+    <div class="box"><b>取消與停航</b><div class="note">海況不佳停航時，依業者規定改期或退款；民宿會用 LINE 通知你。</div></div>
+  </div>
+  <aside class="panel sticky form">
+    <b style="font-size:18px">加到我的行程</b>
+    ${ok?"":`<p class="pill bad" style="margin:0">你選的出發月份這項沒有出團</p>`}
+    <div><span style="font-size:14px;color:var(--muted)">哪一天</span><div class="dates" style="margin-top:6px">${Array.from({length:Math.min(plan.days,5)},(_,i)=>{const d=dayDate(i);return `<button type="button" data-act="tday" data-v="${i}" aria-pressed="${ui.tour.day===i}">第 ${i+1} 天<b>${d.getMonth()+1}/${d.getDate()}</b></button>`}).join("")}</div></div>
+    <div><span style="font-size:14px;color:var(--muted)">時段</span><div class="slots" style="margin-top:6px">${slots.map((s,i)=>`<button type="button" data-act="slot" data-v="${i}" aria-pressed="${ui.tour.slot===i}">${s}</button>`).join("")}</div></div>
+    <div class="stepper"><span>人數</span><span style="display:flex;align-items:center;gap:14px"><button type="button" data-act="n-" aria-label="減少人數">−</button><b>${ui.tour.n}</b><button type="button" data-act="n+" aria-label="增加人數">＋</button></span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="note">小計（示意）</span><b style="font-size:24px">${a.price==null?"洽詢":money(a.price*(a.unit==="人"?ui.tour.n:1))}</b></div>
+    <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天</button>
+    <span class="note">名額由民宿向業者確認，送出後才算預約。</span>
+  </aside></div></div>`}
+
+function pageMine(){
+  const mine=reqs.slice().reverse();
+  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">MY TRIPS</span><h1 style="font-size:clamp(28px,3.6vw,40px)">我的行程</h1></div>
+  <div class="box" style="margin-top:20px;background:var(--warn-bg);border-color:#e3c27a"><b style="color:var(--warn)">停航通知會出現在這裡（示意）</b><div class="note" style="color:var(--warn)">例：明天南方四島因風浪停航，民宿主人會提供改期或退款選項，並同步傳 LINE。</div></div>
+  <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${mine.length?mine.map(r=>`<div class="box"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><b style="font-size:18px">${esc(r.title)}</b>${pill(r.status)}</div>
+    <div class="note">送出時間 ${esc(r.created)}｜${r.days} 天 ${r.people} 人｜示意總價 ${money(r.total)}</div>
+    <div style="margin-top:10px;font-size:15.5px">${r.lines.map(l=>esc(l)).join("<br>")}</div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn small ghost" href="${lineUrl(r)}" target="_blank" rel="noopener">用 LINE 傳給民宿</a></div></div>`).join(""):`<div class="empty">還沒有送出的行程。<br><a href="#/plan">去排行程 →</a></div>`}</div></div>`}
+function pill(s){return `<span class="pill ${s==="已確認"?"ok":s==="取消"?"bad":"wait"}">${s}</span>`}
+function lineUrl(r){return "https://line.me/R/msg/text/?"+encodeURIComponent(["【夏澄行程需求】",r.title,`${r.days} 天 ${r.people} 人`,...r.lines,"聯絡人："+r.name+" "+r.phone].join("\n"))}
+
+function pageLine(){return `<div class="wrap" style="max-width:760px"><div style="padding-top:28px"><span class="eyebrow">ASK US</span><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
+  <div class="box" style="margin-top:20px;display:flex;flex-direction:column;gap:14px"><p style="margin:0">不知道怎麼排、想問海況、要改期，直接用 LINE 問最快。</p>
+  <div class="panel"><b>LINE 官方帳號 ID</b><div style="font-size:22px;font-family:var(--serif)">@待填</div><div class="note">民宿提供 ID 後，這裡會放「加好友」按鈕和 QR Code。</div></div>
+  <p class="note" style="margin:0">回覆時段：待填。電話、Email、地址：待填。</p></div></div>`}
+
+function pageGuide(){const r=[["1 天","第一次來、時間不多","上午玄武岩導覽或藍洞船 → 中午海鮮 → 下午浮潛 → 觀音亭看夕陽"],["2 天","最多人選","第 1 天玩水和夕陽、晚上夜釣小管；第 2 天上午潮間帶、中午買伴手禮"],["3 天","想跳島的人","第 1 天玩水、夜釣；第 2 天南方四島一整天；第 3 天石滬導覽和伴手禮"]];
+  return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">GUIDE</span><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">民宿主人的私房路線待補，以下是常見排法示意。</p></div>
+  <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${r.map(([t,w,d])=>`<div class="box"><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><h3>${t}</h3><span class="pill info">${w}</span></div><p style="margin:8px 0 12px">${d}</p><button class="btn small" type="button" data-act="guide" data-v="${parseInt(t)}">照這個排</button></div>`).join("")}
+  <div class="box"><h3>冬天（10–3 月）</h3><p style="margin:8px 0 0">東北季風季，跳島和水上活動多數停駛。可以安排海洋牧場、導覽、美食和室內景點，淡季主打待民宿決定。</p></div></div></div>`}
+function pageLocal(){return `<div class="wrap" style="max-width:860px"><div style="padding-top:28px"><span class="eyebrow">LOCAL</span><h1 style="font-size:clamp(28px,3.6vw,40px)">在地生活圈</h1><p class="lead">店家清單由民宿主人提供後補上。</p></div>
+  <div class="grid3" style="margin-top:20px"><div class="box"><h3>吃什麼</h3><p class="note">海鮮餐廳、早餐店、仙人掌冰（待補推薦店家）</p></div><div class="box"><h3>買什麼</h3><p class="note">黑糖糕、鹹餅、干貝醬；可在「玩法」預訂伴手禮宅配</p></div><div class="box"><h3>交通與船班</h3><p class="note">船班與機班查詢連結（待補）；停航時民宿會通知</p></div></div></div>`}
+
+function pageAdmin(){
+  const demo=[{id:"d1",title:"3 天 2 夜行程（示意）",name:"王小姐",phone:"09xx-xxx-xxx",created:"示意",days:3,people:4,total:12800,status:"待確認",lines:["第 1 天 浮潛、夜釣小管","第 2 天 南方四島"],demo:1},{id:"d2",title:"2 天 1 夜行程（示意）",name:"陳先生",phone:"09xx-xxx-xxx",created:"示意",days:2,people:2,total:4600,status:"已確認",lines:["第 1 天 海洋牧場","第 2 天 潮間帶導覽"],demo:1}];
+  const rows=reqs.slice().reverse().concat(demo);
+  const cnt={};rows.forEach(r=>(r.ids||[]).forEach(id=>cnt[id]=(cnt[id]||0)+1));
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,6),mx=top.length?top[0][1]:1;
+  return `<div class="wrap"><div style="padding-top:28px"><span class="eyebrow">ADMIN</span><h1 style="font-size:clamp(28px,3.6vw,40px)">民宿主人後台</h1><p class="lead">正式版要登入才能看。目前顯示這台裝置送出的需求，加上兩筆示意資料。</p></div>
+  <div class="weather" style="margin-top:20px"><div class="box"><span>待確認</span><b>${rows.filter(r=>r.status==="待確認").length} 筆</b></div><div class="box"><span>已確認</span><b>${rows.filter(r=>r.status==="已確認").length} 筆</b></div><div class="box"><span>取消</span><b>${rows.filter(r=>r.status==="取消").length} 筆</b></div><div class="box"><span>全部</span><b>${rows.length} 筆</b></div></div>
+  <h2 style="margin-top:36px;font-size:24px">需求單</h2>
+  <div class="scroll" style="margin-top:12px"><table class="tbl"><thead><tr><th>聯絡人</th><th>行程</th><th>人數</th><th>示意總價</th><th>狀態</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.name)}</b><br><span class="note">${esc(r.phone)}${r.line?"｜LINE "+esc(r.line):""}</span></td><td>${esc(r.title)}<br><span class="note">${r.lines.map(esc).join("、")}</span></td><td>${r.people} 人</td><td>${money(r.total)}</td><td>${r.demo?pill(r.status):`<select data-act="status" data-v="${r.id}" aria-label="修改狀態" style="height:42px;border:1px solid var(--line);background:#fff;padding:0 8px">${["待確認","已確認","取消"].map(s=>`<option ${r.status===s?"selected":""}>${s}</option>`).join("")}</select>`}</td></tr>`).join("")}</tbody></table></div>
+  <h2 style="margin-top:36px;font-size:24px">熱門行程</h2><p class="note">依需求單統計，正式版會累積真實數據。</p>
+  <div class="box bars" style="margin-top:10px">${top.length?top.map(([id,c])=>`<div class="bar"><span>${esc(A(id)?A(id).name:id)}</span><i style="width:${Math.max(6,c/mx*100)}%"></i><b>${c}</b></div>`).join(""):`<span class="note">送出第一筆需求後就會出現。</span>`}</div></div>`}
+
+/* ===================== 送出需求 ===================== */
+function openSend(){
+  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:24px">送出給民宿安排</h2><p class="note">民宿主人收到後，會用 LINE 或電話確認名額和報價。</p>
+  <form class="form" id="sf"><label>聯絡人姓名<input id="s-name" required autocomplete="name"></label><label>手機<input id="s-phone" required inputmode="tel" autocomplete="tel"></label><label>LINE ID（選填）<input id="s-line"></label><label>想補充的事（選填）<textarea id="s-note" placeholder="例：有長輩、有人會暈船"></textarea></label>
+  <div class="row2"><button class="btn ghost" type="button" data-act="close">取消</button><button class="btn" type="submit">確認送出</button></div></form></div></div>`;
+  document.getElementById("s-name").focus();
+  document.getElementById("sf").onsubmit=e=>{e.preventDefault();
+    const lines=Array.from({length:plan.days},(_,d)=>`第 ${d+1} 天 ${fmtDay(dayDate(d))}：`+(plan.items.filter(it=>it.day===d&&it.id).map(it=>it.time+" "+A(it.id).name).join("、")||"自由活動"));
+    const now=new Date();
+    reqs.push({id:"r"+now.getTime(),title:`${plan.days} 天行程（${fmtDay(dayDate(0))} 出發）`,name:document.getElementById("s-name").value.trim(),phone:document.getElementById("s-phone").value.trim(),line:document.getElementById("s-line").value.trim(),note:document.getElementById("s-note").value.trim(),created:`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`,days:plan.days,people:people(),total:total(),status:"待確認",lines,ids:plan.items.filter(it=>it.id).map(it=>it.id)});
+    save();closeModal();location.hash="#/mine";toast("已送出，民宿主人會用 LINE 聯絡你")};
+}
+function closeModal(){document.getElementById("modal").innerHTML=""}
+
+/* ===================== 事件 ===================== */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;const act=b.dataset.act,v=b.dataset.v;
+  if(act==="quickgo"){const ppl=+document.getElementById("q-ppl").value;plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,adults:ppl,kids:0,interests:plan?plan.interests:["玩水","美食"]});ui.day=0;save();location.hash="#/plan";return}
+  if(act==="int"){const i=plan.interests;plan.interests=i.includes(v)?i.filter(x=>x!==v):[...i,v];save();render();return}
+  if(act==="regen"){readForm();generate(plan);ui.day=0;save();render();toast("已重新排好");return}
+  if(act==="day"){ui.day=+v;render();return}
+  if(act==="del"){plan.items=plan.items.filter(x=>x.uid!==v);save();render();toast("已刪除");return}
+  if(act==="swap"){swap(v);return}
+  if(act==="send"){if(!plan.items.some(x=>x.id)){toast("先加入至少一個行程");return}openSend();return}
+  if(act==="share"){const url=location.href.split("#")[0]+"#/plan?d="+encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(plan)))));
+    (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast("已複製連結，貼給朋友就能看")).catch(()=>{prompt("複製這個連結",url)});return}
+  if(act==="close"){closeModal();return}
+  if(act==="cat"){ui.cat=v;render();return}
+  if(act==="tday"){ui.tour.day=+v;render();return}
+  if(act==="slot"){ui.tour.slot=+v;render();return}
+  if(act==="n-"){ui.tour.n=Math.max(1,ui.tour.n-1);render();return}
+  if(act==="n+"){ui.tour.n=Math.min(20,ui.tour.n+1);render();return}
+  if(act==="addtour"){const t=b.dataset.slot==="整天"?"09:00":b.dataset.slot;plan.items.push({day:ui.tour.day,time:t,id:v,uid:Math.random().toString(36).slice(2,9)});plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));ui.day=ui.tour.day;save();toast("已加入第 "+(ui.tour.day+1)+" 天");location.hash="#/plan";return}
+  if(act==="guide"){const n=+v;plan=generate({start:plan?plan.start:nextSat(),days:n,adults:plan?plan.adults:2,kids:plan?plan.kids:0,interests:n===3?["玩水","跳島","美食"]:["玩水","美食","導覽"]});ui.day=0;save();location.hash="#/plan";return}
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.act==="status"){const r=reqs.find(x=>x.id===t.dataset.v);if(r){r.status=t.value;save();render();toast("狀態已改成「"+t.value+"」")}return}
+  if(t.closest&&t.closest("#pf")){readForm();if(t.id==="p-days"||t.id==="p-start"){generate(plan);ui.day=0}save();render()}
+});
+function readForm(){const g=id=>document.getElementById(id);if(!g("p-start"))return;plan.start=g("p-start").value||plan.start;plan.days=+g("p-days").value;plan.adults=+g("p-ad").value;plan.kids=+g("p-kid").value}
+
+/* ===================== 路由 ===================== */
+const app=document.getElementById("app");
+function render(){
+  let h=location.hash||"#/";const [path,query]=h.slice(1).split("?");
+  if(query&&path==="/plan"){const d=new URLSearchParams(query).get("d");if(d){try{plan=JSON.parse(decodeURIComponent(escape(atob(d))));save();toast("已載入朋友分享的行程")}catch(e){}}history.replaceState(null,"","#/plan");}
+  const parts=path.split("/").filter(Boolean);
+  const r=parts[0]||"";
+  app.innerHTML=r===""?pageHome():r==="plan"?pagePlan():r==="tours"?pageTours():r==="tour"?pageTour(parts[1]):r==="mine"?pageMine():r==="line"?pageLine():r==="guide"?pageGuide():r==="local"?pageLocal():r==="admin"?pageAdmin():pageHome();
+  navs(path);document.title=({"":"夏澄｜澎湖玩法與行程",plan:"排行程｜夏澄",tours:"在地玩法｜夏澄",mine:"我的行程｜夏澄",admin:"後台｜夏澄"})[r]||"夏澄";
+}
+let lastPath="";
+window.addEventListener("hashchange",()=>{const p=location.hash.split("?")[0];render();if(p!==lastPath)window.scrollTo(0,0);lastPath=p});
+lastPath=location.hash.split("?")[0];render();
+</script>
+</body>
+</html>
