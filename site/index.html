@@ -8,6 +8,7 @@
 <title>夏澄｜澎湖玩法與行程</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* A 清水模極簡：混凝土灰底、墨黑文字、海藍點綴；明體標題＋黑體內文 */
@@ -169,6 +170,54 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 @media (min-width:900px){.toast{bottom:32px}}
 .note{font-size:13.5px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* pax stepper */
+.pax{display:flex;flex-direction:column;border:1px solid var(--line);background:#fff}
+.pax .pr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line2)}
+.pax .pr:last-child{border-bottom:0}
+.pax .pr b{font-size:16px;color:var(--ink);display:block}
+.pax .pr small{font-size:13px;color:var(--muted)}
+.pax .ctl{display:flex;align-items:center;gap:12px}
+.pax .ctl button{width:40px;height:40px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1;color:var(--ink)}
+.pax .ctl button:disabled{opacity:.35;cursor:default}
+.pax .ctl span{min-width:20px;text-align:center;font-weight:700;font-size:17px;color:var(--ink)}
+.paxbtn{height:48px;border:1px solid var(--line);background:#fff;padding:0 12px;font-size:16px;text-align:left;color:var(--ink);width:100%}
+/* timeline cards */
+.hint svg{width:20px;height:20px;flex:none}
+.hint{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--accent);background:var(--accent-soft);padding:10px 14px;margin-bottom:14px}
+.card{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;text-align:left;background:#fff;border:1px solid var(--line);padding:10px;color:var(--ink)}
+.card:hover{border-color:var(--accent)}
+.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card .th{width:64px;height:64px;background:#c9c5bc center/cover no-repeat}
+.card b{font-size:16.5px;display:block}
+.card .meta{display:block}
+.card .swapcue{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12.5px;font-weight:700;color:var(--accent);padding:0 4px}
+.card .swapcue svg{width:22px;height:22px}
+.freecard{padding:4px 0 2px}
+.where{display:flex;align-items:center;gap:4px;font-size:13.5px;color:var(--muted);margin-top:2px}
+.where svg{width:14px;height:14px;flex:none}
+.move{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);padding:2px 0 14px}
+.move.late{color:var(--warn);font-weight:700}
+.warn{display:inline-block;font-size:12.5px;font-weight:700;color:var(--warn);background:var(--warn-bg);padding:1px 8px;margin-top:4px}
+.dayhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.map{height:260px;background:#dfe6e8;border:1px solid var(--line);margin-bottom:14px;z-index:0}
+@media (min-width:900px){.map{height:320px}}
+.map .pin{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.map .pin.home{background:var(--accent)}
+.alts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.alt{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;background:#fff;border:1px solid var(--line);padding:8px;color:var(--ink);width:100%}
+.alt:hover{border-color:var(--accent)}
+.alt .th{width:56px;height:56px;background:#c9c5bc center/cover no-repeat}
+.alt b{display:block;font-size:16px}
+@media (max-width:600px){.tl{padding:16px 14px}.tl-row{grid-template-columns:44px minmax(0,1fr);gap:8px}.tl-row .t{font-size:14.5px}.tl-row .c{padding-left:12px}
+.card{grid-template-columns:52px minmax(0,1fr) 28px;gap:10px;padding:8px}.card .th{width:52px;height:52px}.card .swapcue{padding:0}}
+details.cfg>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;min-height:44px}
+details.cfg>summary::-webkit-details-marker{display:none}
+details.cfg>summary .note{font-weight:400}
+details.cfg>summary::after{content:"修改";font-size:14px;color:var(--accent);border:1px solid var(--accent);padding:4px 12px;flex:none}
+details.cfg[open]>summary::after{content:"收起"}
+@media (min-width:980px){details.cfg>summary{pointer-events:none}details.cfg>summary::after{display:none}}
+.sheet-top{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center}
+.sheet-top .th{width:72px;height:72px;background:#c9c5bc center/cover no-repeat}
 </style>
 </head>
 <body>
@@ -184,10 +233,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <div class="toast" id="toast" hidden></div>
 <div id="modal"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 /* ===================== 資料（價格皆為示意） ===================== */
 const IMG=n=>`img/${n}.webp`;
 const ALL=[1,2,3,4,5,6,7,8,9,10,11,12], SUMMER=[4,5,6,7,8,9,10];
+/* 地點座標為示意，正式版換成業者實際集合點 */
+const PLACES={home:{n:"夏澄（位置示意）",ll:[23.5545,119.6010]},airport:{n:"澎湖機場",ll:[23.5687,119.6281]},guanyin:{n:"觀音亭",ll:[23.5694,119.5627]},beichen:{n:"北辰市場",ll:[23.5702,119.5807]},nanhai:{n:"南海遊客中心碼頭",ll:[23.5627,119.5640]},chikan:{n:"赤崁碼頭",ll:[23.6588,119.6006]},shili:{n:"嵵裡沙灘",ll:[23.5129,119.5713]},shanshui:{n:"山水沙灘",ll:[23.5137,119.5917]},aimen:{n:"隘門沙灘",ll:[23.5745,119.6475]},port3:{n:"馬公第三漁港",ll:[23.5612,119.5745]},kuibi:{n:"奎壁山",ll:[23.6090,119.6640]},erkan:{n:"西嶼二崁",ll:[23.6035,119.5170]},daguoye:{n:"大菓葉玄武岩",ll:[23.6365,119.5470]},town:{n:"馬公市區",ll:[23.5672,119.5810]}};
+const AT={scooter:"home",car:"home",transfer:"airport",south:"nanhai",north:"chikan",east:"nanhai",qimei:"nanhai",bluecave:"nanhai",snorkel:"shanshui",banana:"shili",jetski:"shili",tube:"shili",sup:"aimen",kayak:"aimen",ranch:"port3",squid:"port3",tidal:"kuibi",weir:"erkan",basalt:"daguoye",seafood:"town",bbq:"home",souvenir:"town",fireworks:"guanyin"};
+const MINAGE={snorkel:6,banana:6,jetski:6,tube:6,sup:8,kayak:3,squid:6};
+const INTENSE=["banana","jetski","tube"];
+const CHILD_RATE=0.8;
 const ACTS=[
  {id:"scooter",cat:"交通",name:"機車租借",dur:0,price:400,unit:"台／天",img:"scooter",months:ALL,desc:"民宿門口交車，騎著環島最自由。",inc:"安全帽、雨衣",limit:"需持有效機車駕照"},
  {id:"car",cat:"交通",name:"汽車租借",dur:0,price:2000,unit:"台／天",img:"scooter",months:ALL,desc:"帶長輩、小孩或下雨天最方便。",inc:"基本保險",limit:"需持有效汽車駕照"},
@@ -213,7 +269,7 @@ const ACTS=[
  {id:"souvenir",cat:"餐飲",name:"伴手禮預訂與宅配",dur:0.5,price:null,unit:"份",img:"room",months:ALL,desc:"黑糖糕、鹹餅、干貝醬，回家前一次訂好直接宅配。",inc:"代訂、宅配",limit:"價格依商品"},
  {id:"fireworks",cat:"季節活動",name:"花火節觀賞套票",dur:2,price:null,unit:"人",img:"sunset",months:[4,5,6],desc:"花火節期間的觀賞位置與接駁。",inc:"依當年活動公告",limit:"日期每年不同"}
 ];
-const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"免費機場接送待確認"},sunset:{name:"觀音亭看夕陽",meta:"免費景點，騎車約 15 分鐘（示意）"},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐"},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿"},leave:{name:"前往機場或碼頭",meta:"回家囉"},market:{name:"逛北辰市場買伴手禮",meta:"免費"}};
+const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"免費機場接送待確認",at:"home",dur:1},sunset:{name:"觀音亭看夕陽",meta:"免費景點",at:"guanyin",dur:1},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐",at:"town",dur:1.5},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿",at:"home",dur:0.5},leave:{name:"前往機場或碼頭",meta:"回家囉",at:"airport",dur:0},market:{name:"逛北辰市場買伴手禮",meta:"免費",at:"beichen",dur:1}};
 const CATS=["全部","交通","跳島","水上","海上體驗","生態文化","餐飲","季節活動"];
 const INTERESTS=["玩水","跳島","導覽","美食","輕鬆"];
 const A=id=>ACTS.find(a=>a.id===id);
@@ -225,13 +281,41 @@ function nextSat(){/* 預設下一個旺季週末：淡季（10–3 月）時改
   if(m>=10||m<=3){const y=m>=10?now.getFullYear()+1:now.getFullYear();d=new Date(y,5,8);while(d.getDay()!==6)d.setDate(d.getDate()+1)}
   else{d=new Date(now);d.setDate(d.getDate()+((6-d.getDay()+7)%7||7))}
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
-let plan=LS.get("xc-plan",null);
+let plan=fixPax(LS.get("xc-plan",null));
 let reqs=LS.get("xc-reqs",[]);
-let ui={cat:"全部",day:0};
+let ui={cat:"全部",day:0,qpax:null};
 const save=()=>{LS.set("xc-plan",plan);LS.set("xc-reqs",reqs)};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money=n=>n==null?"洽詢":"NT$ "+n.toLocaleString("en-US");
-const people=()=>plan?plan.adults+plan.kids:2;
+const PAXK=[["adult","大人","12–64 歲"],["senior","長輩","65 歲以上"],["child","兒童","3–11 歲・示意 8 折"],["infant","幼兒","0–2 歲・免費"]];
+const defPax=()=>({adult:2,senior:0,child:0,infant:0});
+function fixPax(p){if(p&&!p.pax){p.pax={adult:p.adults||2,senior:0,child:p.kids||0,infant:0}}return p}
+const heads=x=>x.adult+x.senior+x.child+x.infant;
+const people=()=>plan?heads(plan.pax):2;
+const paxText=x=>PAXK.filter(([k])=>x[k]).map(([k,t])=>t+" "+x[k]).join("、")||"0 人";
+function paxEditor(x,scope){return `<div class="pax">${PAXK.map(([k,t,sub])=>`<div class="pr"><span><b>${t}</b><small>${sub}</small></span><span class="ctl"><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="-1" aria-label="減少${t}" ${x[k]<=(k==="adult"&&x.senior===0?1:0)?"disabled":""}>−</button><span>${x[k]}</span><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="1" aria-label="增加${t}" ${heads(x)>=20?"disabled":""}>＋</button></span></div>`).join("")}</div>`}
+/* 距離與交通時間（直線距離 × 1.35，時速 35 公里，加 5 分鐘停車，皆為估算） */
+function km(a,b){const R=6371,t=Math.PI/180,dLa=(b[0]-a[0])*t,dLo=(b[1]-a[1])*t,h=Math.sin(dLa/2)**2+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function travel(pa,pb){if(!pa||!pb||pa===pb)return 0;return Math.round(km(PLACES[pa].ll,PLACES[pb].ll)*1.35/35*60)+5}
+const placeOf=it=>it.id?AT[it.id]:FREE[it.free].at;
+const durOf=it=>Math.round((it.id?(A(it.id).dur||0.25):FREE[it.free].dur)*60);
+const toMin=t=>+t.slice(0,2)*60+ +t.slice(3,5);
+const fromMin=m=>{m=Math.ceil(m/5)*5;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+const ride=()=>plan&&plan.items.some(x=>x.id==="car")?"開車":"騎車";
+const dayItems=d=>plan.items.filter(it=>it.day===d).sort((x,y)=>x.time.localeCompare(y.time));
+function retime(d){const its=dayItems(d);for(let i=1;i<its.length;i++){const p=its[i-1],it=its[i],e=toMin(p.time)+durOf(p)+travel(placeOf(p),placeOf(it));if(toMin(it.time)<e){it.time=fromMin(e)}}}
+function retimeAll(){for(let d=0;d<plan.days;d++)retime(d);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time))}
+const dayTravel=d=>{const its=dayItems(d);let t=0;for(let i=1;i<its.length;i++)t+=travel(placeOf(its[i-1]),placeOf(its[i]));return t};
+/* 幫我排最順：固定的（抵達、夕陽、晚餐、夜釣、跳島、退房）不動，中間的行程依距離重排 */
+const ANCHOR=it=>it.free&&it.free!=="market"||["squid","seafood","bbq","fireworks","scooter","car","transfer","south","north","qimei"].includes(it.id);
+function optimize(d){const its=dayItems(d),before=dayTravel(d);let i=0;
+  while(i<its.length){if(ANCHOR(its[i])){i++;continue}let j=i;while(j<its.length&&!ANCHOR(its[j]))j++;
+    const seg=its.slice(i,j),start=toMin(seg[0].time);let cur=i>0?placeOf(its[i-1]):"home",order=[],left=seg.slice();
+    while(left.length){left.sort((a,b)=>travel(cur,placeOf(a))-travel(cur,placeOf(b)));const n=left.shift();order.push(n);cur=placeOf(n)}
+    let t=i>0?Math.max(start,toMin(its[i-1].time)+durOf(its[i-1])+travel(placeOf(its[i-1]),placeOf(order[0]))):start;
+    order.forEach((it,k)=>{if(k>0)t=Math.max(t,toMin(order[k-1].time)+durOf(order[k-1])+travel(placeOf(order[k-1]),placeOf(it)));it.time=fromMin(t)});i=j}
+  retime(d);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));return before-dayTravel(d)}
+function ageWarn(id,x){x=x||plan.pax;const w=[];const m=MINAGE[id];if(m&&(x.infant>0||(x.child>0&&m>3)))w.push(m+" 歲以上才能參加");if(INTENSE.includes(id)&&x.senior>0)w.push("長輩不建議");return w}
 const monthOf=iso=>Number(iso.slice(5,7));
 const dayDate=i=>{const d=new Date(plan.start+"T00:00:00");d.setDate(d.getDate()+i);return d};
 const fmtDay=d=>`${d.getMonth()+1}/${d.getDate()}（${"日一二三四五六"[d.getDay()]}）`;
@@ -241,17 +325,18 @@ function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hid
 function available(id,m){return A(id).months.includes(m)}
 function generate(p){
   const m=monthOf(p.start),want=p.interests.length?p.interests:["輕鬆"],used=new Set(),items=[];
-  const pick=(pool)=>{for(const id of pool){if(!used.has(id)&&available(id,m)){used.add(id);return id}}return null};
+  const x=p.pax,young=x.child+x.infant>0,soft=x.senior+x.infant>0;
+  const pick=(pool)=>{for(const id of pool){if(!used.has(id)&&available(id,m)&&!(soft&&INTENSE.includes(id))&&!(x.infant&&MINAGE[id])){used.add(id);return id}}return null};
   const byTag=t=>ACTS.filter(a=>(a.tags||[]).includes(t)).map(a=>a.id);
-  const pref=(order)=>{for(const t of order){if(want.includes(t)){const id=pick(byTag(t));if(id)return id}}return pick(byTag("輕鬆").concat(byTag("導覽")))};
+  const pref=(order,mx=99)=>{const f=l=>l.filter(id=>(A(id).dur||0)<=mx);for(const t of order){if(want.includes(t)){const id=pick(f(byTag(t)));if(id)return id}}return pick(f(byTag("輕鬆").concat(byTag("導覽"))))};
   const add=(day,time,o)=>items.push(Object.assign({day,time,uid:Math.random().toString(36).slice(2,9)},o));
   for(let d=0;d<p.days;d++){
     const first=d===0,last=d===p.days-1&&p.days>1;
-    if(first){add(d,"10:30",{free:"arrive"});add(d,"11:30",{id:p.kids||p.adults>4?"car":"scooter"});used.add("scooter");used.add("car");
-      const a=pref(["玩水","輕鬆","導覽","美食"]);if(a)add(d,"14:00",{id:a});
+    if(first){add(d,"10:30",{free:"arrive"});add(d,"11:30",{id:young||x.senior||heads(x)>4?"car":"scooter"});used.add("scooter");used.add("car");
+      const a=pref(["玩水","輕鬆","導覽","美食"],3);if(a)add(d,"14:00",{id:a});
       add(d,"17:30",{free:"sunset"});
       if(want.includes("美食")&&pick(["seafood"]))add(d,"19:00",{id:"seafood"});else add(d,"19:00",{free:"dinner"});
-      if(p.days>1&&(want.includes("美食")||want.includes("玩水"))&&!p.kids&&pick(["squid"]))add(d,"20:30",{id:"squid"});
+      if(p.days>1&&(want.includes("美食")||want.includes("玩水"))&&!young&&pick(["squid"]))add(d,"20:30",{id:"squid"});
     }else if(last){
       const a=pick(["tidal","weir","bluecave","basalt"]);if(a)add(d,"08:30",{id:a});
       add(d,"11:00",{free:"checkout"});add(d,"12:00",{free:"market"});
@@ -260,29 +345,49 @@ function generate(p){
     }else{
       const isl=want.includes("跳島")?pick(["south","qimei","north","east"]):null;
       if(isl){add(d,"08:00",{id:isl});}
-      else{const a=pref(["導覽","輕鬆","美食"]);if(a)add(d,"09:00",{id:a});const b=pref(["玩水","輕鬆","導覽"]);if(b)add(d,"14:00",{id:b});}
+      else{const a=pref(["導覽","輕鬆","美食"],3);if(a)add(d,"09:00",{id:a});const b=pref(["玩水","輕鬆","導覽"],3);if(b)add(d,"14:00",{id:b});}
       if(want.includes("美食")&&pick(["bbq"]))add(d,"18:00",{id:"bbq"});
       else if(pick(["ranch"]))add(d,"16:00",{id:"ranch"});
     }
   }
   if(p.days===1){/* 一日遊：去掉入住 */items.splice(0,1)}
-  p.items=items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));return p;
+  p.items=items.sort((a,b)=>a.day-b.day||a.time.localeCompare(b.time));const keep=plan;plan=p;retimeAll();plan=keep;return p;
 }
-function qty(a){if(a.unit==="台／天")return a.id==="car"?plan.days:Math.ceil(people()/2)*plan.days;if(a.unit==="趟"||a.unit==="份")return 1;return people()}
-function cost(it){if(!it.id)return 0;const a=A(it.id);return a.price==null?0:a.price*qty(a)}
+function qty(a){const x=plan.pax;if(a.unit==="台／天")return a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days;if(a.unit==="趟"||a.unit==="份")return 1;return heads(x)}
+function priceFor(a,x){if(a.price==null)return null;if(a.unit==="人")return a.price*(x.adult+x.senior)+Math.round(a.price*CHILD_RATE)*x.child;if(a.unit==="台／天")return a.price*(a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days);return a.price}
+function cost(it){if(!it.id)return 0;const v=priceFor(A(it.id),plan.pax);return v||0}
+function costText(a){if(a.price==null)return "價格洽詢";const x=plan.pax;if(a.unit==="人"){const parts=[];if(x.adult+x.senior)parts.push(money(a.price)+" × "+(x.adult+x.senior));if(x.child)parts.push(money(Math.round(a.price*CHILD_RATE))+" × "+x.child+" 兒童");return parts.join(" ＋ ")+"・示意"}return money(a.price)+" × "+qty(a)+" "+a.unit.replace(/／.*/,"")+"・示意"}
 function total(){return plan?plan.items.reduce((s,it)=>s+cost(it),0):0}
 function hasAsk(){return plan&&plan.items.some(it=>it.id&&A(it.id).price==null)}
-function swap(uid){const it=plan.items.find(x=>x.uid===uid);if(!it||!it.id)return;const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.items.map(x=>x.id));
-  const pool=ACTS.filter(b=>b.cat===a.cat&&b.id!==a.id&&!inPlan.has(b.id)&&b.months.includes(m)&&b.dur>0);
-  const alt=pool[0]||ACTS.find(b=>(b.tags||[]).some(t=>(a.tags||[]).includes(t))&&!inPlan.has(b.id)&&b.months.includes(m)&&b.dur>0);
-  if(!alt){toast("目前沒有可以替換的行程");return}it.id=alt.id;save();render();toast("已換成「"+alt.name+"」")}
+function alts(it){const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.items.map(x=>x.id)),its=dayItems(it.day),k=its.indexOf(it),prev=k>0?placeOf(its[k-1]):"home";
+  const veh=["scooter","car","transfer"];
+  return ACTS.filter(b=>b.id!==a.id&&!inPlan.has(b.id)&&b.months.includes(m)&&(veh.includes(a.id)?veh.includes(b.id):!veh.includes(b.id)&&b.cat!=="季節活動"))
+    .map(b=>({b,same:b.cat===a.cat?0:1,fit:Math.abs((b.dur||0)-(a.dur||0))>2?1:0,t:travel(prev,AT[b.id]),w:ageWarn(b.id)}))
+    .sort((p,q)=>p.w.length-q.w.length||p.same-q.same||p.fit-q.fit||p.t-q.t).slice(0,8)}
+function openItem(uid){const it=plan.items.find(x=>x.uid===uid);if(!it||!it.id)return;const a=A(it.id),list=alts(it);
+  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet">
+  <div class="sheet-top"><span class="th" style="background-image:url(${IMG(a.img)})"></span><div><span class="note">第 ${it.day+1} 天 ${it.time}</span><h2 id="mt" style="font-size:22px;margin:2px 0">${esc(a.name)}</h2><span class="where">${PIN}${esc(PLACES[AT[a.id]].n)}</span></div></div>
+  <div class="row2" style="margin-top:14px"><a class="btn small ghost" href="#/tour/${a.id}" data-act="close">看介紹</a><button class="btn small ghost" type="button" data-act="del" data-v="${uid}">從行程刪除</button></div>
+  <h3 style="margin-top:22px;font-size:18px">換成這些</h3><p class="note" style="margin:2px 0 0">依「同類型、時間差不多、離上一站近」排好，點一下就換。</p>
+  <div class="alts">${list.length?list.map(({b,t,w})=>`<button type="button" class="alt" data-act="swapto" data-v="${uid}" data-to="${b.id}"><span class="th" style="background-image:url(${IMG(b.img)})"></span><span><b>${esc(b.name)}</b><span class="note">${b.dur?"約 "+b.dur+" 小時｜":""}${esc(PLACES[AT[b.id]].n)}・${ride()} ${t} 分鐘</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="price" style="font-weight:700;font-size:15px">${money(b.price)}</span></button>`).join(""):`<div class="empty">這個月份沒有可以替換的行程</div>`}</div>
+  <button class="btn block ghost" type="button" data-act="close" style="margin-top:16px">關閉</button></div></div>`}
+function openPax(){const x=ui.qpax=ui.qpax||Object.assign({},plan?plan.pax:defPax());
+  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:22px">幾位一起去？</h2><p class="note">分年齡是為了算兒童價，和避開小孩、長輩不能玩的行程。</p>${paxEditor(x,"q")}<button class="btn block" type="button" data-act="paxdone" style="margin-top:16px">完成</button></div></div>`}
+const PIN=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`;
+const SWAPI=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>`;
+/* 地圖：Leaflet + CARTO 淺色底圖 */
+function drawMap(el,pts){if(!el||!window.L||!pts.length)return;const m=L.map(el,{scrollWheelZoom:false,attributionControl:true,zoomControl:true});
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);
+  const ll=pts.map(p=>p.ll);if(ll.length>1)L.polyline(ll,{color:"#1f5f73",weight:3,dashArray:"6 6"}).addTo(m);
+  pts.forEach(p=>L.marker(p.ll,{icon:L.divIcon({className:"",html:`<div class="pin ${p.home?"home":""}">${p.home?"宿":p.n}</div>`,iconSize:[28,28],iconAnchor:[14,14]})}).addTo(m).bindTooltip(p.label));
+  if(ll.length>1)m.fitBounds(ll,{padding:[30,30],maxZoom:13});else m.setView(ll[0],12)}
 
 /* ===================== 版面元件 ===================== */
 const NAV=[["#/","首頁","M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"],["#/plan","排行程","M4 5h16M4 12h16M4 19h10"],["#/tours","玩法","M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 10.5a2 2 0 1 0 0-.1"],["#/mine","我的行程","M5 4h14v17l-7-4-7 4z"],["#/line","客服","M4 5h16v11H8l-4 4z"]];
 function navs(route){const k="#/"+(route.split("/")[1]||"");
   document.getElementById("topnav").innerHTML=NAV.slice(0,4).map(([h,t])=>`<a href="${h}" class="${h===k?"on":""}">${t}</a>`).join("");
   document.getElementById("tabs").innerHTML=NAV.map(([h,t,d])=>`<a href="${h}" class="${h===k?"on":""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>${t}</a>`).join("")}
-function itemRow(a){return `<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMG(a.img)})" role="img" aria-label="${esc(a.name)}示意照片"></span><span><b>${esc(a.name)}</b><span class="meta">${esc(a.cat)}${a.dur?"｜約 "+a.dur+" 小時":""}${a.months.length<12?"｜"+a.months[0]+"–"+a.months.at(-1)+" 月":""}</span></span><span class="price">${money(a.price)}<small>／${a.unit}・示意</small></span></a>`}
+function itemRow(a){return `<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMG(a.img)})" role="img" aria-label="${esc(a.name)}示意照片"></span><span><b>${esc(a.name)}</b><span class="meta">${esc(a.cat)}${a.dur?"｜約 "+a.dur+" 小時":""}${a.months.length<12?"｜"+a.months[0]+"–"+a.months.at(-1)+" 月":""}</span><span class="where">${PIN}${esc(PLACES[AT[a.id]].n)}・離民宿 ${travel("home",AT[a.id])} 分鐘</span></span><span class="price">${money(a.price)}<small>／${a.unit}・示意</small></span></a>`}
 
 /* ===================== 頁面 ===================== */
 function pageHome(){
@@ -297,7 +402,7 @@ function pageHome(){
       <form class="quick" id="quick">
         <label>出發日期<input type="date" id="q-start" value="${plan?plan.start:nextSat()}" required></label>
         <label>天數<select id="q-days">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(plan?plan.days:3)===n?"selected":""}>${n} 天</option>`).join("")}</select></label>
-        <label>人數<select id="q-ppl">${[1,2,3,4,5,6,8,10].map(n=>`<option value="${n}" ${people()===n?"selected":""}>${n} 人</option>`).join("")}</select></label>
+        <label>人數<button type="button" class="paxbtn" data-act="paxopen" id="q-ppl">${heads(ui.qpax||(plan?plan.pax:defPax()))} 人</button></label>
       </form>
       <div><button class="btn" data-act="quickgo" type="button">排我的行程</button></div>
     </div>
@@ -317,31 +422,35 @@ function pageHome(){
   </div></section></div>`}
 
 function pagePlan(){
-  if(!plan){plan=generate({start:nextSat(),days:3,adults:2,kids:0,interests:["玩水","美食"]});save()}
+  if(!plan){plan=generate({start:nextSat(),days:3,pax:defPax(),interests:["玩水","美食"]});save()}
   ui.day=Math.min(ui.day,plan.days-1);
   const items=plan.items.filter(it=>it.day===ui.day);
   return `<div class="wrap"><div style="padding-top:28px"><span class="eyebrow">PLAN</span><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>
   <div class="planner">
-    <aside class="panel sticky"><form class="form" id="pf">
+    <aside class="panel sticky"><details class="cfg" id="cfg" ${ui.cfgOpen||matchMedia("(min-width:980px)").matches?"open":""}><summary><span>行程條件<br><span class="note">${fmtDay(dayDate(0))}出發・${plan.days} 天・${people()} 人・${plan.interests.join("、")||"未選"}</span></span></summary><form class="form" id="pf" style="margin-top:14px">
       <label>出發日期<input type="date" id="p-start" value="${plan.start}"></label>
-      <div class="row2"><label>天數<select id="p-days">${[1,2,3,4,5].map(n=>`<option ${plan.days===n?"selected":""} value="${n}">${n} 天</option>`).join("")}</select></label>
-      <label>大人<select id="p-ad">${[1,2,3,4,5,6,8,10].map(n=>`<option ${plan.adults===n?"selected":""} value="${n}">${n} 位</option>`).join("")}</select></label></div>
-      <label>小孩<select id="p-kid">${[0,1,2,3,4].map(n=>`<option ${plan.kids===n?"selected":""} value="${n}">${n} 位</option>`).join("")}</select></label>
+      <label>天數<select id="p-days">${[1,2,3,4,5].map(n=>`<option ${plan.days===n?"selected":""} value="${n}">${n} 天</option>`).join("")}</select></label>
+      <div><span style="font-size:14px;color:var(--muted)">人數（共 ${people()} 人）</span><div style="margin-top:6px">${paxEditor(plan.pax,"p")}</div></div>
       <div><span style="font-size:14px;color:var(--muted)">想怎麼玩（可複選）</span><div class="chips" style="margin-top:6px">${INTERESTS.map(t=>`<button type="button" class="chip" data-act="int" data-v="${t}" aria-pressed="${plan.interests.includes(t)}">${t}</button>`).join("")}</div></div>
       <button class="btn block" type="button" data-act="regen">重新排一次</button>
       ${[10,11,12,1,2,3].includes(monthOf(plan.start))?`<p class="note" style="margin:0">10–3 月東北季風季，跳島和水上活動多數停駛，已自動改排導覽和海洋牧場。</p>`:""}
-    </form></aside>
+    </form></details></aside>
     <section>
       <div class="days" role="tablist">${Array.from({length:plan.days},(_,i)=>`<button type="button" role="tab" data-act="day" data-v="${i}" aria-pressed="${ui.day===i}">第 ${i+1} 天 ${fmtDay(dayDate(i))}</button>`).join("")}</div>
-      <div class="tl">${items.length?items.map(it=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null;
-        return `<div class="tl-row"><span class="t">${it.time}</span><div class="c ${a?"paid":""}"><b>${esc(a?a.name:f.name)}</b><span class="meta">${a?(a.dur?"約 "+a.dur+" 小時｜":"")+money(a.price)+(a.price!=null?" × "+qty(a)+" "+a.unit.replace(/／.*/,""):"")+"・示意":esc(f.meta)}</span>
-        ${a?`<div class="acts"><a class="btn small ghost" href="#/tour/${a.id}">看介紹</a><button class="btn small ghost" type="button" data-act="swap" data-v="${it.uid}">換一個</button><button class="btn small ghost" type="button" data-act="del" data-v="${it.uid}">刪除</button></div>`:""}</div></div>`}).join(""):`<div class="empty">這一天還沒有安排，到「玩法」挑行程加進來。</div>`}
+      <div class="dayhead"><span class="note">今天${ride()}移動共約 <b style="color:var(--ink)">${dayTravel(ui.day)} 分鐘</b>（估算）</span><button class="btn small ghost" type="button" data-act="opt">幫我排最順</button></div>
+      <div class="map" id="daymap" role="img" aria-label="第 ${ui.day+1} 天路線地圖"></div>
+      <div class="hint">${SWAPI}<span>點有照片的行程卡，可以換成別的、看介紹或刪除</span></div>
+      <div class="tl">${items.length?items.map((it,i)=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null,pl=PLACES[placeOf(it)],nx=items[i+1];
+        const mv=nx?travel(placeOf(it),placeOf(nx)):0,w=a?ageWarn(a.id):[];
+        const body=a?`<button type="button" class="card" data-act="item" data-v="${it.uid}" aria-label="${esc(a.name)}，點一下換行程或看介紹"><span class="th" style="background-image:url(${IMG(a.img)})"></span><span><b>${esc(a.name)}</b><span class="meta">${a.dur?"約 "+a.dur+" 小時｜":""}${costText(a)}</span><span class="where">${PIN}${esc(pl.n)}</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="swapcue">${SWAPI}換</span></button>`
+          :`<div class="freecard"><b>${esc(f.name)}</b><span class="meta">${esc(f.meta)}</span><span class="where">${PIN}${esc(pl.n)}</span></div>`;
+        return `<div class="tl-row"><span class="t">${it.time}</span><div class="c ${a?"paid":""}">${body}${nx?`<div class="move">↓ ${mv?ride()+"約 "+mv+" 分鐘到下一站":"同一個地點"}</div>`:""}</div></div>`}).join(""):`<div class="empty">這一天還沒有安排，到「玩法」挑行程加進來。</div>`}
         <div style="margin-top:14px"><a class="btn small ghost" href="#/tours">＋ 加一個行程</a></div></div>
     </section>
     <aside class="sticky"><div class="sum">
-      <span class="sm">${plan.days} 天｜${people()} 人（大人 ${plan.adults}、小孩 ${plan.kids}）</span>
+      <span class="sm">${plan.days} 天｜${people()} 人（${paxText(plan.pax)}）</span>
       <span class="big">${money(total())}</span>
-      <span class="sm">每人約 ${money(Math.round(total()/people()))}・示意價格${hasAsk()?"，另有洽詢項目":""}<br>住宿另外在訂房平台付款</span>
+      <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}・示意價格<br>兒童示意 8 折、幼兒免費${hasAsk()?"，另有洽詢項目":""}<br>住宿另外在訂房平台付款</span>
       <button class="btn block" type="button" data-act="send">送出給民宿安排</button>
       <button class="btn block ghost" type="button" data-act="share">分享給同行朋友</button>
       <span class="sm">送出後民宿主人會用 LINE 確認名額和報價，確認後再付款給業者。</span>
@@ -357,8 +466,8 @@ function pageTours(){
 
 function pageTour(id){
   const a=A(id);if(!a)return `<div class="wrap"><p style="padding-top:40px">找不到這個行程。<a href="#/tours">回玩法清單</a></p></div>`;
-  if(!plan){plan=generate({start:nextSat(),days:3,adults:2,kids:0,interests:["玩水","美食"]});save()}
-  ui.tour=ui.tour&&ui.tour.id===id?ui.tour:{id,day:0,slot:0,n:people()};
+  if(!plan){plan=generate({start:nextSat(),days:3,pax:defPax(),interests:["玩水","美食"]});save()}
+  ui.tour=ui.tour&&ui.tour.id===id?ui.tour:{id,day:0,slot:0,pax:Object.assign({},plan.pax)};const w=ageWarn(a.id,ui.tour.pax);
   const slots=a.dur>=6?["08:00"]:a.id==="squid"?["19:30","20:30"]:a.dur?["09:00","13:00","15:30"]:["整天"];
   const m=monthOf(plan.start),ok=a.months.includes(m);
   return `<div class="wrap"><p style="padding-top:20px;margin:0"><a href="#/tours">← 回玩法清單</a></p>
@@ -367,7 +476,8 @@ function pageTour(id){
     <h1 style="font-size:clamp(28px,3.4vw,38px)">${esc(a.name)}</h1>
     <div class="facts"><span>${esc(a.cat)}</span>${a.dur?`<span>約 ${a.dur} 小時</span>`:""}<span>${a.months.length===12?"全年":a.months[0]+"–"+a.months.at(-1)+" 月"}</span><span>合作業者：待填</span></div>
     <p class="lead" style="color:var(--ink)">${esc(a.desc)}</p>
-    <div class="grid3"><div class="box"><b>費用包含</b><div class="note">${esc(a.inc)}</div></div><div class="box"><b>注意事項</b><div class="note">${esc(a.limit)}</div></div><div class="box"><b>集合地點</b><div class="note">待業者提供（從夏澄出發約 ＿ 分鐘）</div></div></div>
+    <div class="grid3"><div class="box"><b>費用包含</b><div class="note">${esc(a.inc)}</div></div><div class="box"><b>注意事項</b><div class="note">${esc(a.limit)}</div></div><div class="box"><b>集合地點</b><div class="note">${esc(PLACES[AT[a.id]].n)}（示意）<br>從夏澄${ride()}約 ${travel("home",AT[a.id])} 分鐘</div></div></div>
+    <div class="map" id="tourmap" role="img" aria-label="${esc(a.name)}集合地點地圖" style="margin:0"></div>
     <div class="box"><b>取消與停航</b><div class="note">海況不佳停航時，依業者規定改期或退款；民宿會用 LINE 通知你。</div></div>
   </div>
   <aside class="panel sticky form">
@@ -375,8 +485,9 @@ function pageTour(id){
     ${ok?"":`<p class="pill bad" style="margin:0">你選的出發月份這項沒有出團</p>`}
     <div><span style="font-size:14px;color:var(--muted)">哪一天</span><div class="dates" style="margin-top:6px">${Array.from({length:Math.min(plan.days,5)},(_,i)=>{const d=dayDate(i);return `<button type="button" data-act="tday" data-v="${i}" aria-pressed="${ui.tour.day===i}">第 ${i+1} 天<b>${d.getMonth()+1}/${d.getDate()}</b></button>`}).join("")}</div></div>
     <div><span style="font-size:14px;color:var(--muted)">時段</span><div class="slots" style="margin-top:6px">${slots.map((s,i)=>`<button type="button" data-act="slot" data-v="${i}" aria-pressed="${ui.tour.slot===i}">${s}</button>`).join("")}</div></div>
-    <div class="stepper"><span>人數</span><span style="display:flex;align-items:center;gap:14px"><button type="button" data-act="n-" aria-label="減少人數">−</button><b>${ui.tour.n}</b><button type="button" data-act="n+" aria-label="增加人數">＋</button></span></div>
-    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="note">小計（示意）</span><b style="font-size:24px">${a.price==null?"洽詢":money(a.price*(a.unit==="人"?ui.tour.n:1))}</b></div>
+    <div><span style="font-size:14px;color:var(--muted)">人數</span><div style="margin-top:6px">${paxEditor(ui.tour.pax,"t")}</div></div>
+    ${w.map(s=>`<span class="warn" style="align-self:flex-start">${s}</span>`).join("")}
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="note">小計（示意，兒童 8 折）</span><b style="font-size:24px">${a.price==null?"洽詢":money(priceFor(a,ui.tour.pax))}</b></div>
     <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天</button>
     <span class="note">名額由民宿向業者確認，送出後才算預約。</span>
   </aside></div></div>`}
@@ -425,7 +536,7 @@ function openSend(){
   document.getElementById("sf").onsubmit=e=>{e.preventDefault();
     const lines=Array.from({length:plan.days},(_,d)=>`第 ${d+1} 天 ${fmtDay(dayDate(d))}：`+(plan.items.filter(it=>it.day===d&&it.id).map(it=>it.time+" "+A(it.id).name).join("、")||"自由活動"));
     const now=new Date();
-    reqs.push({id:"r"+now.getTime(),title:`${plan.days} 天行程（${fmtDay(dayDate(0))} 出發）`,name:document.getElementById("s-name").value.trim(),phone:document.getElementById("s-phone").value.trim(),line:document.getElementById("s-line").value.trim(),note:document.getElementById("s-note").value.trim(),created:`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`,days:plan.days,people:people(),total:total(),status:"待確認",lines,ids:plan.items.filter(it=>it.id).map(it=>it.id)});
+    reqs.push({id:"r"+now.getTime(),title:`${plan.days} 天行程（${fmtDay(dayDate(0))} 出發）`,name:document.getElementById("s-name").value.trim(),phone:document.getElementById("s-phone").value.trim(),line:document.getElementById("s-line").value.trim(),note:document.getElementById("s-note").value.trim(),created:`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`,days:plan.days,people:people(),paxText:paxText(plan.pax),total:total(),status:"待確認",lines,ids:plan.items.filter(it=>it.id).map(it=>it.id)});
     save();closeModal();location.hash="#/mine";toast("已送出，民宿主人會用 LINE 聯絡你")};
 }
 function closeModal(){document.getElementById("modal").innerHTML=""}
@@ -433,39 +544,46 @@ function closeModal(){document.getElementById("modal").innerHTML=""}
 /* ===================== 事件 ===================== */
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const act=b.dataset.act,v=b.dataset.v;
-  if(act==="quickgo"){const ppl=+document.getElementById("q-ppl").value;plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,adults:ppl,kids:0,interests:plan?plan.interests:["玩水","美食"]});ui.day=0;save();location.hash="#/plan";return}
+  if(act==="quickgo"){const px=Object.assign({},ui.qpax||(plan?plan.pax:defPax()));plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,pax:px,interests:plan?plan.interests:["玩水","美食"]});ui.day=0;ui.qpax=null;save();location.hash="#/plan";return}
+  if(act==="paxopen"){openPax();return}
+  if(act==="paxdone"){closeModal();render();return}
+  if(act==="pax"){const sc=b.dataset.s,x=sc==="q"?ui.qpax:sc==="t"?ui.tour.pax:plan.pax,k=b.dataset.k;x[k]=Math.max(0,x[k]+ +b.dataset.d);if(x.adult+x.senior<1)x.adult=1;
+    if(sc==="q"){openPax();return}if(sc==="p")save();render();return}
+  if(act==="item"){openItem(v);return}
+  if(act==="swapto"){const it=plan.items.find(x=>x.uid===v);if(it){it.id=b.dataset.to;retime(it.day);save();closeModal();render();toast("已換成「"+A(it.id).name+"」")}return}
+  if(act==="opt"){const s=optimize(ui.day);save();render();toast(s>0?"已依距離重排，少騎約 "+s+" 分鐘":"目前已經是最順的排法");return}
   if(act==="int"){const i=plan.interests;plan.interests=i.includes(v)?i.filter(x=>x!==v):[...i,v];save();render();return}
   if(act==="regen"){readForm();generate(plan);ui.day=0;save();render();toast("已重新排好");return}
   if(act==="day"){ui.day=+v;render();return}
-  if(act==="del"){plan.items=plan.items.filter(x=>x.uid!==v);save();render();toast("已刪除");return}
-  if(act==="swap"){swap(v);return}
+  if(act==="del"){plan.items=plan.items.filter(x=>x.uid!==v);closeModal();save();render();toast("已刪除");return}
   if(act==="send"){if(!plan.items.some(x=>x.id)){toast("先加入至少一個行程");return}openSend();return}
   if(act==="share"){const url=location.href.split("#")[0]+"#/plan?d="+encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(plan)))));
     (navigator.clipboard?navigator.clipboard.writeText(url):Promise.reject()).then(()=>toast("已複製連結，貼給朋友就能看")).catch(()=>{prompt("複製這個連結",url)});return}
-  if(act==="close"){closeModal();return}
+  if(act==="close"){closeModal();if(b.tagName!=="A")return;return}
   if(act==="cat"){ui.cat=v;render();return}
   if(act==="tday"){ui.tour.day=+v;render();return}
   if(act==="slot"){ui.tour.slot=+v;render();return}
-  if(act==="n-"){ui.tour.n=Math.max(1,ui.tour.n-1);render();return}
-  if(act==="n+"){ui.tour.n=Math.min(20,ui.tour.n+1);render();return}
-  if(act==="addtour"){const t=b.dataset.slot==="整天"?"09:00":b.dataset.slot;plan.items.push({day:ui.tour.day,time:t,id:v,uid:Math.random().toString(36).slice(2,9)});plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));ui.day=ui.tour.day;save();toast("已加入第 "+(ui.tour.day+1)+" 天");location.hash="#/plan";return}
-  if(act==="guide"){const n=+v;plan=generate({start:plan?plan.start:nextSat(),days:n,adults:plan?plan.adults:2,kids:plan?plan.kids:0,interests:n===3?["玩水","跳島","美食"]:["玩水","美食","導覽"]});ui.day=0;save();location.hash="#/plan";return}
+  if(act==="addtour"){const t=b.dataset.slot==="整天"?"09:00":b.dataset.slot;plan.items.push({day:ui.tour.day,time:t,id:v,uid:Math.random().toString(36).slice(2,9)});retime(ui.tour.day);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));ui.day=ui.tour.day;save();toast("已加入第 "+(ui.tour.day+1)+" 天");location.hash="#/plan";return}
+  if(act==="guide"){const n=+v;plan=generate({start:plan?plan.start:nextSat(),days:n,pax:plan?plan.pax:defPax(),interests:n===3?["玩水","跳島","美食"]:["玩水","美食","導覽"]});ui.day=0;save();location.hash="#/plan";return}
 });
+document.addEventListener("toggle",e=>{if(e.target.id==="cfg")ui.cfgOpen=e.target.open},true);
 document.addEventListener("change",e=>{
   const t=e.target;
   if(t.dataset&&t.dataset.act==="status"){const r=reqs.find(x=>x.id===t.dataset.v);if(r){r.status=t.value;save();render();toast("狀態已改成「"+t.value+"」")}return}
   if(t.closest&&t.closest("#pf")){readForm();if(t.id==="p-days"||t.id==="p-start"){generate(plan);ui.day=0}save();render()}
 });
-function readForm(){const g=id=>document.getElementById(id);if(!g("p-start"))return;plan.start=g("p-start").value||plan.start;plan.days=+g("p-days").value;plan.adults=+g("p-ad").value;plan.kids=+g("p-kid").value}
+function readForm(){const g=id=>document.getElementById(id);if(!g("p-start"))return;plan.start=g("p-start").value||plan.start;plan.days=+g("p-days").value}
 
 /* ===================== 路由 ===================== */
 const app=document.getElementById("app");
 function render(){
   let h=location.hash||"#/";const [path,query]=h.slice(1).split("?");
-  if(query&&path==="/plan"){const d=new URLSearchParams(query).get("d");if(d){try{plan=JSON.parse(decodeURIComponent(escape(atob(d))));save();toast("已載入朋友分享的行程")}catch(e){}}history.replaceState(null,"","#/plan");}
+  if(query&&path==="/plan"){const d=new URLSearchParams(query).get("d");if(d){try{plan=fixPax(JSON.parse(decodeURIComponent(escape(atob(d)))));save();toast("已載入朋友分享的行程")}catch(e){}}history.replaceState(null,"","#/plan");}
   const parts=path.split("/").filter(Boolean);
   const r=parts[0]||"";
   app.innerHTML=r===""?pageHome():r==="plan"?pagePlan():r==="tours"?pageTours():r==="tour"?pageTour(parts[1]):r==="mine"?pageMine():r==="line"?pageLine():r==="guide"?pageGuide():r==="local"?pageLocal():r==="admin"?pageAdmin():pageHome();
+  const dm=document.getElementById("daymap");if(dm){const its=dayItems(ui.day),pts=[];let n=0;its.forEach(it=>{const k=placeOf(it),pl=PLACES[k];if(pts.length&&pts.at(-1).k===k)return;pts.push({k,ll:pl.ll,home:k==="home",n:k==="home"?0:++n,label:it.time+" "+(it.id?A(it.id).name:FREE[it.free].name)+"｜"+pl.n})});drawMap(dm,pts)}
+  const tm=document.getElementById("tourmap");if(tm&&parts[1]&&AT[parts[1]]){const k=AT[parts[1]];drawMap(tm,k==="home"?[{ll:PLACES.home.ll,home:1,label:PLACES.home.n}]:[{ll:PLACES.home.ll,home:1,label:PLACES.home.n},{ll:PLACES[k].ll,n:"集",label:PLACES[k].n}])}
   navs(path);document.title=({"":"夏澄｜澎湖玩法與行程",plan:"排行程｜夏澄",tours:"在地玩法｜夏澄",mine:"我的行程｜夏澄",admin:"後台｜夏澄"})[r]||"夏澄";
 }
 let lastPath="";
