@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#f3ebe1">
+<meta name="theme-color" content="#eceae5">
 <title>夏澄｜澎湖玩法與行程</title>
 <meta name="description" content="住在澎湖海邊的清水模民宿夏澄。選日期和人數，自動排好跳島、玩水、夜釣、看夕陽的每日行程與地圖。">
 <meta property="og:type" content="website">
@@ -20,8 +20,8 @@
 <style>
 /* A 清水模極簡：混凝土灰底、墨黑文字、海藍點綴；明體標題＋黑體內文 */
 :root{
-  --bg:#f3ebe1; --surface:#f8f1e8; --card:#fffaf4; --ink:#2b2420; --muted:#6f5d4e; --line:#dccbb7; --line2:#e9dccb;
-  --accent:#a2461f; --accent-soft:#f6e3d6; --warn-bg:#fff4dc; --warn:#6b4e0f; --ok:#1f6a45; --ok-bg:#e2f0e7; --bad:#8a3b26; --bad-bg:#f8e3dc;
+  --bg:#eceae5; --surface:#f7f6f3; --card:#ffffff; --ink:#1e1f1f; --muted:#55595a; --line:#cfcbc2; --line2:#e2dfd8;
+  --accent:#1f5f73; --accent-soft:#e3eef1; --warn-bg:#fff4dc; --warn:#6b4e0f; --ok:#1f6a45; --ok-bg:#e2f0e7; --bad:#8a3b26; --bad-bg:#f8e3dc;
   --serif:"Noto Serif TC","Songti TC",serif; --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -38,7 +38,7 @@ img{max-width:100%;display:block}
 .demo{background:var(--warn-bg);color:var(--warn);font-size:14px;text-align:center;padding:6px 12px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
 
 /* header */
-header.site{position:sticky;top:0;z-index:30;background:rgba(243,235,225,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.site{position:sticky;top:0;z-index:30;background:rgba(236,234,229,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
 .logo{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:.16em;text-decoration:none;color:var(--ink)}
 nav.top{display:flex;gap:6px}
@@ -607,6 +607,39 @@ body.driving{overflow:hidden}
 .drv-bot>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}.drv-bot b{font-family:var(--serif);font-size:20px}#drv-left{font-size:16px;color:var(--muted)}
 .drv-btns{display:flex;gap:8px}.drv-btns .btn{flex:1;white-space:nowrap;padding:0 10px}
 .drv-warn{margin:0;font-size:13.5px;color:var(--muted)}
+/* ===== A 清水模極簡（朋友選的風格，整站覆蓋 C） ===== */
+::selection{background:#cfe0e6;color:var(--ink)}
+.btn{border-radius:0;background:var(--ink);border-color:var(--ink);color:#fff;font-weight:500;letter-spacing:.06em}
+.btn.ghost{background:transparent;border-color:var(--ink);color:var(--ink)}
+.line-btn,.chip,.days button,.seg button,.op,.pill,.warn,.tag-demo,.dateinput,.pax,.paxbtn{border-radius:0}
+.chip[aria-pressed="true"],.days button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.op.main{background:var(--ink);border-color:var(--ink)}
+.stage,.tile,.tile .ph,.map,.total,.box,.panel,.alt,.alt .th,.sheet-top .th,.item .th,.rchip .th,.dphoto,.empty,.stay,.pcard .ph,.months span{border-radius:0}
+.modal .sheet{border-radius:0}
+.stsel,.acard,.tbl,.dates button,.slots button,.fchip,.guest,.lookup,.reply,.glout,.nrow .th,.obtn,.lang,.fav.big,.wxline,.next4 div,.clinks a{border-radius:0}
+.lang button[aria-pressed="true"]{color:#fff}
+@media (min-width:700px){.modal .sheet{border-radius:0}}
+.stage,.box,.panel,.alt,.tile,.total{border:1px solid var(--line2)}
+.tile[aria-pressed="true"]{border:2px solid var(--ink);box-shadow:none}
+.tile[aria-pressed="true"] .ck{background:var(--ink);border-color:var(--ink)}
+.steps button[aria-current="step"] i{background:var(--ink)}
+.stop::before{background:var(--ink)}.stop.free::before{border-color:var(--ink)}
+.stop .tm{color:var(--ink)}
+.howto i{background:var(--ink)}
+.chow b,.clinks svg,.amen2 svg{color:var(--ink)}
+h1,h2,.serif{letter-spacing:.02em}
+.hero .photo{border-radius:0}
+.hero .btn{min-height:52px;padding:0 28px}
+.quick .paxbtn{border:0;background:transparent;padding:2px 0;height:auto;min-height:0;font-size:16px;font-weight:500;color:var(--ink);text-align:left;width:100%}
+.clist{border-top:1px solid var(--ink)}
+.clist a{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.clist .ph{aspect-ratio:3/2;background:#c9c5bc center/cover no-repeat}
+.clist b{display:block;font-family:var(--serif);font-size:21px}
+.clist small{display:block;font-size:15.5px;color:var(--muted);line-height:1.55}
+.clist .go{font-size:20px;color:var(--muted);transition:transform .2s}
+.clist a:hover .go{transform:translateX(4px);color:var(--ink)}
+@media (min-width:900px){.clist{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}.clist a{grid-template-columns:150px minmax(0,1fr) auto}}
+@media (max-width:600px){.clist a{grid-template-columns:96px minmax(0,1fr) auto;gap:14px}.clist b{font-size:19px}}
 </style>
 </head>
 <body>
@@ -960,18 +993,27 @@ function itemRow(a){return `<div class="itemw">${favBtn(a)}<a class="item" href=
 function pageHome(){
   const px=ui.qpax||(plan?plan.pax:defPax());
   return `<div class="wrap">
-  <section class="chero" style="background-image:url(${IMG("sunset")})" aria-label="夏澄頂樓夕陽示意照片"><span class="tag-demo">示意照片</span>
-    <div class="tx"><h1>住在海邊，<br>行程也幫你排好</h1><p>跳島、玩水、夜釣、看夕陽，照你的日子排好每天的路線和花費。</p></div></section>
-  <form class="csearch" id="quick" onsubmit="return false">
-    <label>出發日期<input type="date" id="q-start" value="${plan?plan.start:nextSat()}" required></label>
-    <label>天數<select id="q-days">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(plan?plan.days:3)===n?"selected":""}>${n} 天</option>`).join("")}</select></label>
-    <label>人數<button type="button" class="paxbtn" data-act="paxopen" id="q-ppl">${paxText(px)}</button></label>
-    <button class="btn" data-act="quickgo" type="button">開始排行程</button>
-  </form>
-  <div class="chow"><span><b>1</b>填日期人數</span><span><b>2</b>選想怎麼玩</span><span><b>3</b>自動排好，送給民宿確認</span><span>不用先付錢</span></div>
-  <section class="sec" style="padding-top:72px"><div class="sec-head"><h2 style="font-size:clamp(28px,3.4vw,42px)">這樣玩澎湖</h2><a class="more" href="#/tours">看全部 ${LIVE().length} 項 →</a></div>
-    <div class="arches">${["跳島","水上","海上體驗","生態文化","餐飲","交通"].map(c=>`<a class="arch" href="#/tours" data-act="gocat" data-v="${c}"><span class="ph" style="background-image:url(${IMG((CATINFO[c]||["sunset"])[0])})"></span><b>${c}</b><small>${LIVE().filter(a=>a.cat===c).length} 種<span class="cdesc">・${(CATINFO[c]||[0,""])[1]}</span></small></a>`).join("")}</div></section>
-  <section class="sec"><div class="stay"><div class="pic" style="background-image:url(${IMG("room")})" role="img" aria-label="夏澄客廳望海示意照片"></div>
+  <section class="hero">
+    <div class="photo" style="background-image:url(${IMG("room")})" role="img" aria-label="清水模客廳望海示意照片"><span class="tag-demo">示意照片</span></div>
+    <div class="txt">
+      <h1>住在海邊，<br>行程也幫你排好</h1>
+      <p class="lead">填好日期和人數，挑想怎麼玩，我們自動排出每天的行程、地圖和總花費。</p>
+      <form class="quick" id="quick" onsubmit="return false">
+        <label>出發日期<input type="date" id="q-start" value="${plan?plan.start:nextSat()}" required></label>
+        <label>天數<select id="q-days">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(plan?plan.days:3)===n?"selected":""}>${n} 天</option>`).join("")}</select></label>
+        <label>人數<button type="button" class="paxbtn" data-act="paxopen" id="q-ppl">${paxText(px)}</button></label>
+      </form>
+      <div><button class="btn" data-act="quickgo" type="button">開始排行程</button></div>
+      <div class="howto">
+        <div><i>1</i><span><b>填日期和人數</b><span>大人、長輩、小孩分開算</span></span></div>
+        <div><i>2</i><span><b>選想怎麼玩</b><span>玩水、跳島、導覽、美食都可以複選</span></span></div>
+        <div><i>3</i><span><b>自動排好，送給民宿確認</b><span>不用先付錢，確認後再付給業者</span></span></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:72px"><div class="sec-head"><h2 style="font-size:clamp(28px,3.4vw,42px)">玩法分類</h2><a class="more" href="#/tours">看全部 ${LIVE().length} 項 →</a></div>
+    <div class="clist">${["跳島","水上","海上體驗","生態文化","餐飲","交通"].map(c=>`<a href="#/tours" data-act="gocat" data-v="${c}"><span class="ph" style="background-image:url(${IMG((CATINFO[c]||["sunset"])[0])})"></span><span class="tx"><b>${c}</b><small>${LIVE().filter(a=>a.cat===c).length} 種・${(CATINFO[c]||[0,""])[1]}</small></span><span class="go" aria-hidden="true">→</span></a>`).join("")}</div></section>
+  <section class="sec"><div class="stay"><div class="pic" style="background-image:url(${IMG("sunset")})" role="img" aria-label="夏澄頂樓夕陽示意照片"></div>
     <div class="in"><h2>住在夏澄</h2><p class="lead">海邊清水模別墅，1 晚起住。住宿請在下面的平台訂，排好的行程再送給我們安排。</p>
     <div class="links"><a class="btn small ghost" href="#/line">Booking</a><a class="btn small ghost" href="#/line">Agoda</a><a class="btn small ghost" href="#/line">民宿官網</a><a class="btn small" href="#/line">LINE 直接訂</a></div>
     <div class="amen2"><span>${ICON.park}機車、汽車都有車位</span><span>${ICON.cup}不含早餐</span><span>${ICON.paw}寵物請先詢問</span></div>
