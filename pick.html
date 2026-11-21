@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b5470">
+<title>夏澄網站選配</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: one decision per screen; sticky progress header; image options at full phone width; fixed bottom nav */
+:root{
+  --sea:#0b5470; --sea2:#13789a; --pale:#e0f0f6; --sand:#f6f3ec; --card:#ffffff;
+  --ink:#16252d; --muted:#55656e; --line:#dbe3e6; --ok:#1f7a4f; --okbg:#e3f3ea;
+  --warn:#8a5a0b; --warnbg:#fff4dc; --red:#a83a24; --redbg:#fbe7e2;
+  --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;color-scheme:light}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.6}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+input,textarea{font:inherit}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:640px;margin:0 auto}
+:focus-visible{outline:3px solid #e8735a;outline-offset:2px}
+
+.top{position:sticky;top:0;z-index:20;background:var(--sea);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.top .row{display:flex;align-items:center;gap:10px;height:54px}
+.top .menu{border:0;background:rgba(255,255,255,.16);color:#fff;border-radius:12px;height:40px;padding:0 14px;font-size:16px;font-weight:700}
+.top .step{flex:1;font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:6px;background:rgba(255,255,255,.25);border-radius:3px;margin-bottom:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:#ffd8a8;transition:width .25s}
+
+main{padding-top:22px;padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+h1{font-size:30px;line-height:1.3;margin:0 0 8px;font-weight:900;text-wrap:balance}
+.why{color:var(--muted);margin:0 0 18px;font-size:17px}
+.hint{display:inline-block;font-size:15px;font-weight:700;color:var(--sea);background:var(--pale);border-radius:8px;padding:3px 10px;margin-bottom:14px}
+
+.opts{display:grid;gap:16px}
+.opt{position:relative;display:block;width:100%;text-align:left;background:var(--card);border:3px solid transparent;border-radius:20px;padding:0;overflow:hidden;box-shadow:0 2px 10px rgba(11,84,112,.08);transition:border-color .15s}
+.opt[aria-pressed="true"]{border-color:var(--sea);box-shadow:0 4px 18px rgba(11,84,112,.18)}
+.opt .pic{background:#eef2f3}
+.opt .pic img{width:100%;height:auto}
+.opt .txt{padding:14px 16px 16px;display:flex;gap:12px;align-items:center}
+.opt .txt .t{flex:1;min-width:0}
+.opt .txt b{display:block;font-size:20px;line-height:1.35}
+.opt .txt span{display:block;font-size:15.5px;color:var(--muted);margin-top:2px}
+.mark{flex:none;width:34px;height:34px;border-radius:50%;border:3px solid #b8c7cd;display:grid;place-items:center;background:#fff}
+.multi .mark{border-radius:9px}
+.opt[aria-pressed="true"] .mark{background:var(--sea);border-color:var(--sea)}
+.opt[aria-pressed="true"] .mark::after{content:"";width:9px;height:16px;border:solid #fff;border-width:0 3.5px 3.5px 0;transform:translateY(-2px) rotate(45deg)}
+.rec{position:absolute;top:12px;right:12px;background:#f2a541;color:#2a1c05;font-size:14px;font-weight:900;border-radius:999px;padding:4px 12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.bad{position:absolute;top:12px;right:12px;background:var(--red);color:#fff;font-size:14px;font-weight:900;border-radius:999px;padding:4px 12px}
+.views{display:flex;gap:8px;padding:0 16px 16px}
+.views button{flex:1;min-height:46px;border:2px solid var(--line);background:#fff;border-radius:12px;font-size:16px;font-weight:700;color:var(--sea)}
+
+.tcard{background:var(--card);border:3px solid transparent;border-radius:20px;padding:18px;display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;box-shadow:0 2px 10px rgba(11,84,112,.08);position:relative}
+.tcard[aria-pressed="true"]{border-color:var(--sea)}
+.tcard .t{flex:1;min-width:0}
+.tcard b{display:block;font-size:21px;line-height:1.35}
+.tg{display:inline-block;font-style:normal;font-size:14px;font-weight:900;border-radius:999px;padding:2px 12px;margin-bottom:6px}
+.tcard .mark,.opt .txt .mark,.chip .mark{display:grid;place-items:center;margin:0;padding:0}
+.rec2{background:#f2a541;color:#2a1c05}.bad2{background:var(--red);color:#fff}
+.tcard span{display:block;font-size:16px;color:var(--muted);margin-top:4px;line-height:1.6}
+.tcard ul{margin:8px 0 0;padding-left:20px;font-size:16px;color:var(--ink)}
+.tcard[aria-pressed="true"] .mark{background:var(--sea);border-color:var(--sea)}
+.tcard[aria-pressed="true"] .mark::after{content:"";width:9px;height:16px;border:solid #fff;border-width:0 3.5px 3.5px 0;transform:translateY(-2px) rotate(45deg)}
+
+.note{margin-top:22px}
+.note label{display:block;font-weight:700;font-size:17px;margin-bottom:8px}
+textarea,input[type=text]{width:100%;font-size:17px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.warn{background:var(--warnbg);border:2px solid #d9a63a;border-radius:16px;padding:14px 16px;font-size:16px;color:#4a3a12;margin-bottom:16px}
+
+.feat{background:#fff;border-radius:20px;padding:6px 16px;box-shadow:0 2px 10px rgba(11,84,112,.08)}
+.fr{padding:14px 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.fr:first-child{border-top:0}
+.fr b{font-size:18px}.fr span{display:block;font-size:15px;color:var(--muted)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#eef2f3;border-radius:14px;padding:5px}
+.seg button{border:0;background:transparent;min-height:46px;border-radius:10px;font-size:17px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--sea);box-shadow:0 1px 4px rgba(0,0,0,.14)}
+.seg button[data-v="不要"][aria-pressed="true"]{color:var(--red)}
+.quick{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.quick button{border:2px solid var(--line);background:#fff;border-radius:12px;min-height:44px;padding:0 14px;font-size:15px;font-weight:700}
+
+.cat{background:#fff;border-radius:20px;padding:16px;box-shadow:0 2px 10px rgba(11,84,112,.08)}
+.cat+.cat{margin-top:12px}
+.cat h3{margin:0 0 10px;font-size:18px;color:var(--sea2)}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip{min-height:54px;border:2px solid var(--line);background:#f7f9fa;border-radius:14px;padding:8px 12px;font-size:17px;text-align:left;display:flex;align-items:center;gap:10px}
+.chip .mark{width:26px;height:26px;border-width:2.5px;border-radius:7px}
+.chip[aria-pressed="true"]{border-color:var(--sea);background:var(--pale);font-weight:700;color:var(--sea)}
+.chip[aria-pressed="true"] .mark{background:var(--sea);border-color:var(--sea)}
+.chip[aria-pressed="true"] .mark::after{content:"";width:7px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:translateY(-1px) rotate(45deg)}
+
+.scr{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(11,84,112,.08)}
+.scr+.scr{margin-top:18px}
+.scr .head{padding:16px 16px 12px}
+.scr .head b{font-size:21px;display:block}
+.scr .head span{font-size:15.5px;color:var(--muted)}
+.scr .pv{max-height:520px;overflow:hidden;position:relative;background:#eef2f3}
+.scr .pv::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.scr .act{padding:12px 16px 16px;display:grid;gap:10px}
+
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.bottom .col{display:flex;gap:10px}
+.btn{border:0;border-radius:16px;min-height:56px;padding:0 20px;font-size:19px;font-weight:900;background:var(--sea);color:#fff;flex:1}
+.btn.ghost{background:#eef2f3;color:var(--ink);flex:0 0 auto;font-weight:700}
+.btn.go{background:#e8735a}
+
+.cover{background:linear-gradient(170deg,var(--sea),var(--sea2));color:#fff;padding-top:calc(40px + env(safe-area-inset-top,0px));padding-bottom:44px}
+.cover h1{font-size:36px;margin:10px 0 12px}
+.cover p{margin:0 0 10px;font-size:18px;opacity:.95}
+.steps{display:grid;gap:10px;margin-top:-22px}
+.steps button{display:flex;align-items:center;gap:14px;width:100%;background:#fff;border:0;border-radius:16px;padding:12px 16px;text-align:left;min-height:60px;box-shadow:0 2px 10px rgba(11,84,112,.08)}
+.steps .no{flex:none;width:34px;height:34px;border-radius:17px;display:grid;place-items:center;background:var(--pale);color:var(--sea);font-weight:900;font-size:15px}
+.steps .no.done{background:var(--ok);color:#fff}
+.steps .tx{flex:1;min-width:0}.steps .tx b{display:block;font-size:17px}.steps .tx span{font-size:14.5px;color:var(--muted)}
+
+.sum{background:#fff;border-radius:20px;padding:6px 16px;box-shadow:0 2px 10px rgba(11,84,112,.08)}
+.sum button{display:flex;gap:12px;width:100%;border:0;background:transparent;text-align:left;padding:14px 0;border-top:1px solid var(--line);align-items:flex-start}
+.sum button:first-child{border-top:0}
+.sum .k{flex:none;width:112px;font-size:15.5px;color:var(--muted);font-weight:700}
+.sum .v{flex:1;min-width:0;font-size:17px;font-weight:700}
+.sum .v.empty{color:#a0adb3;font-weight:500}
+.sum .e{flex:none;color:var(--sea);font-size:15px;font-weight:700}
+.done{text-align:center;padding:30px 0}
+.badge{width:84px;height:84px;border-radius:42px;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:44px;margin:0 auto 14px;font-weight:900}
+.badge.err{background:#e8735a}
+
+.viewer{position:fixed;inset:0;z-index:50;background:#1d2a30;display:flex;flex-direction:column}
+.viewer .vh{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;color:#fff}
+.viewer .vh b{flex:1;font-size:17px}
+.viewer .vh button{border:0;background:#fff;color:var(--ink);border-radius:12px;min-height:44px;padding:0 18px;font-size:17px;font-weight:900}
+.viewer .vb{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(20px + env(safe-area-inset-bottom,0px))}
+.viewer .vb img{width:100%;max-width:900px;margin:0 auto}
+.viewer .tip{color:#cfe0e6;font-size:14px;text-align:center;padding:8px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:15px;z-index:60;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="viewer" id="viewer" hidden><div class="vh"><b id="vt"></b><button type="button" id="vclose">關閉</button></div><div class="tip" id="vtip"></div><div class="vb"><img id="vimg" alt=""></div></div>
+<div class="toast" id="toast" hidden></div>
+<script>
+const API="https://ojybxatauyzrnybslfqy.supabase.co/rest/v1/xiacheng_survey";
+const KEYPUB="sb_publishable_N-5AhqdtOVbW9yiF0c1swA_49gX3brn";
+const I=n=>"pick/img/"+n+".webp";
+
+const P=[
+ {id:"who",t:"網站要給誰用？",why:"決定網站的定位，後面很多選擇都跟這題有關。",type:"text",o:[
+   {v:"只給夏澄住客",d:"像民宿專屬的旅遊管家，主打住客優惠。"},
+   {v:"先給住客，之後開放所有旅客",d:"先用住客試水溫，穩定後再擴大。",rec:1},
+   {v:"一開始就開放所有來澎湖的旅客",d:"客源最大，但要準備更多行程和客服。"}]},
+ {id:"style",t:"整體風格選哪一個？",why:"同一份內容，四種感覺。點「看完整手機版」可以往下滑看整頁。",type:"style",o:[
+   {v:"A 清水模極簡",d:"跟民宿建築最搭，安靜有質感",k:"a",rec:1},
+   {v:"B 海島清爽",d:"明亮親切，家族客最好懂",k:"b"},
+   {v:"C 夕陽活力",d:"熱鬧有活力，適合年輕朋友團",k:"c"},
+   {v:"D 旅遊雜誌",d:"像在地人寫的推薦，大標題大照片",k:"d"}]},
+ {id:"palette",t:"配色選哪一組？",why:"選定後全站一起換色。每組都檢查過文字清楚。",type:"img",img:"palette",o:[
+   {v:"清水模灰",rec:1},{v:"海島藍"},{v:"夕陽橘"},{v:"雜誌黑白"},{v:"玄武岩深藍"},{v:"仙人掌綠"}]},
+ {id:"name",t:"網站叫什麼名字？",why:"如果之後要接其他民宿的客人，另取名字比較好。",type:"img",img:"names",custom:"都不喜歡？寫下你想的名字",o:[
+   {v:"夏澄"},{v:"夏澄・澎湖玩法",rec:1},{v:"澄島"},{v:"跟我玩澎湖"},{v:"海邊的家"},{v:"澎湖排好了"}]},
+ {id:"order",t:"首頁最上面先放什麼？",why:"放在越上面，越多人會看到。",type:"img",img:"order",o:[
+   {v:"先排行程"},{v:"先看玩法",rec:1},{v:"先推住宿"}]},
+ {id:"hero",t:"首頁開場長什麼樣子？",why:"客人打開網站的第一眼。",type:"img",img:"hero",o:[
+   {v:"大照片＋標題"},{v:"短影音開場"},{v:"照片拼貼"},{v:"大字＋馬上搜尋",rec:1},{v:"地圖點島嶼"}]},
+ {id:"cards",t:"行程怎麼排在網頁上？",why:"同樣是跳島、浮潛、夜釣，五種呈現方式。",type:"img",img:"cards",o:[
+   {v:"清單列表"},{v:"方格卡片"},{v:"大圖左右滑",rec:1},{v:"依時間排"},{v:"雜誌編號"}]},
+ {id:"planner",t:"自動排行程的結果怎麼呈現？",why:"客人輸入日期和喜好之後看到的畫面。",type:"img",img:"planner",o:[
+   {v:"時間軸",rec:1},{v:"三天並排"},{v:"地圖路線"},{v:"聊天問答式"}]},
+ {id:"package",t:"住宿套裝怎麼賣？",why:"套裝是民宿賺最多的地方。",type:"img",img:"package",o:[
+   {v:"三選一比較",rec:1},{v:"一個主打"},{v:"自己組合"},{v:"依季節切換"}]},
+ {id:"nav",t:"手機上怎麼切換頁面、找客服？",why:"可以複選，建議 ① 加 ③ 一起用。",type:"img",multi:1,img:"nav",o:[
+   {v:"底部分頁列",rec:1},{v:"右上角選單"},{v:"浮動 LINE 按鈕",rec:1},{v:"頂部搜尋列"}]},
+ {id:"money",t:"錢要怎麼收？",why:"這題最重要，會決定網站能不能一次結帳。",type:"text",warn:"法規提醒：依《發展觀光條例》，未領旅行業執照而接待觀光旅客並安排旅遊、食宿及交通，罰新臺幣 35 萬元並勒令歇業，網路刊登也算招攬。選定後請會計師或律師確認。",o:[
+   {v:"導購＋業者回饋",d:"網站介紹行程，客人付款給各業者，民宿每月向業者收回饋。上線最快。",rec:1},
+   {v:"與旅行社合作",d:"網站一次結帳，由旅行社承辦並開立契約、保險，雙方分潤。長期最好。"},
+   {v:"自行申請旅行社",d:"完全自主、利潤最高，但需要資本、經理人和保證金。"},
+   {v:"民宿自己收款、加價轉賣",d:"也就是賺差價。法規風險最高。",bad:1},
+   {v:"想先問清楚再決定",d:"先找會計師或旅行社談過再說。"}]},
+ {id:"checkout",t:"客人怎麼下單付款？",why:"要跟上一題的收益模式搭配。",type:"img",img:"checkout",o:[
+   {v:"一頁式結帳"},{v:"分開向業者付款"},{v:"送出需求，LINE 報價",rec:1}]},
+ {id:"feat",t:"第一版要做哪些功能？",why:"每項點「要、之後、不要」。不清楚的跳過就好。",type:"feat"},
+ {id:"acts",t:"要賣哪些行程？",why:"勾選想放上網站的項目，可以複選。",type:"acts",note:"有合作業者的，寫下業者名稱和電話"},
+ {id:"screens",t:"主要畫面看起來可以嗎？",why:"先用 A 風格示範。每個畫面點「喜歡」或「要改」，要改的寫一句原因。",type:"screens"},
+ {id:"sum",t:"確認並送出",why:"點任一行可以回去修改。確定後按最下面的送出。",type:"sum"}
+];
+const FEAT=[["玩法指南","依天數、季節、同行對象推薦路線"],["行程介紹頁","照片、內容、價格、集合點、取消規則"],["預約日期與時段","選日期、時段、人數，看剩餘名額"],["自動排行程","輸入日期與喜好，排好每日行程"],["購物車一次結帳","多個行程一起付款"],["住宿套裝","住宿＋活動組合價"],["預算試算","邊排行程邊看總花費"],["天候海況、停航通知","停航自動通知並改期"],["訂單通知、行前提醒","LINE 或 Email"],["電子票券","手機出示就能報到"],["會員中心","查訂單、申請改期"],["優惠機制","早鳥、住客價、優惠碼"],["評價照片牆","旅客評價與照片"],["分享行程給朋友","一起看、分攤費用"],["美食地圖、伴手禮宅配","在地生活圈"],["LINE 客服按鈕","每頁一鍵詢問"],["英文、日文版","外國旅客"],["民宿訂單後台","查看、確認、取消訂單"],["業者後台","業者自己更新名額與停航"],["推薦分潤","網紅或老客人分享拿回饋"],["數據報表","熱門行程、淡旺季分析"]];
+const ACTS=[["交通",["機車","電動機車","汽車","包車一日遊","腳踏車","機場碼頭接送"]],["跳島",["南方四島","七美望安","北海吉貝","東海桶盤虎井","藍洞船"]],["水上",["浮潛","香蕉船","拖曳浮胎","水上摩托車","SUP 立槳","獨木舟","透明獨木舟","體驗潛水","水肺深潛"]],["海上體驗",["海洋牧場","夜釣小管"]],["生態文化",["潮間帶導覽","石滬導覽","玄武岩導覽","聚落散步"]],["冬季",["風箏衝浪","風浪板"]],["手作拍攝",["貝殼文石 DIY","仙人掌冰 DIY","旅拍跟拍","空拍"]],["餐飲",["海鮮套餐","民宿 BBQ","伴手禮宅配"]],["季節活動",["花火節套票"]]];
+const SCR=[["planner","自動排行程","輸入日期，排好每天的行程"],["product","行程介紹與預約","以浮潛為例"],["package","住宿套裝","三種組合"],["cart","購物車結帳","確認訂單與付款"],["notice","停航通知與我的行程","風浪太大時自動通知"]];
+
+const KEY="xiacheng-pick-v1";
+let A={},cur=-1;
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){A=s.A||{};cur=typeof s.cur==="number"?s.cur:-1}}catch(e){}
+if(!A._sid)A._sid="pick-"+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+function save(){try{localStorage.setItem(KEY,JSON.stringify({A,cur}))}catch(e){}}
+const $=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2000)}
+function viewer(title,src,tip){document.getElementById("vt").textContent=title;document.getElementById("vimg").src=src;document.getElementById("vimg").alt=title;document.getElementById("vtip").textContent=tip||"往下滑看完整畫面";const v=document.getElementById("viewer");v.hidden=false;v.querySelector(".vb").scrollTop=0;document.body.style.overflow="hidden"}
+document.getElementById("vclose").onclick=()=>{document.getElementById("viewer").hidden=true;document.body.style.overflow=""};
+
+function answered(p){
+  if(p.type==="feat")return FEAT.some(([n])=>A["f:"+n]);
+  if(p.type==="acts")return (A.acts||[]).length>0||!!(A.acts_note||"").trim();
+  if(p.type==="screens")return SCR.some(([k])=>A["s:"+k]);
+  if(p.type==="sum")return false;
+  const v=A[p.id];return Array.isArray(v)?v.length>0:!!v||!!(A[p.id+"_x"]||"").trim();
+}
+function pick(p,v){if(p.multi){let a=A[p.id]||[];A[p.id]=a.includes(v)?a.filter(x=>x!==v):[...a,v]}else A[p.id]=A[p.id]===v?undefined:v;save()}
+function isOn(p,v){return p.multi?(A[p.id]||[]).includes(v):A[p.id]===v}
+
+function header(){
+  const h=$("header","top");const g=$("div","gut");const c=$("div","col");
+  const r=$("div","row");const m=$("button","menu","☰ 目錄");m.type="button";m.onclick=()=>go(-1);
+  r.append(m,$("div","step",`第 ${cur+1} / ${P.length} 頁`));
+  const bar=$("div","bar");const i=$("i");i.style.width=((cur+1)/P.length*100)+"%";bar.append(i);
+  c.append(r,bar);g.append(c);h.append(g);return h}
+
+function noteBox(p,label){const d=$("div","note");const l=$("label","",esc(label||"其他想法（選填）"));const id="n_"+p.id;l.htmlFor=id;const t=$("textarea");t.id=id;t.value=A[p.id+"_note"]||"";t.oninput=()=>{A[p.id+"_note"]=t.value;save()};d.append(l,t);return d}
+
+function optImg(p,o,i,box){
+  const b=$("button","opt"+(p.multi?" multi":""));b.type="button";b.setAttribute("aria-pressed",isOn(p,o.v));
+  const pic=$("div","pic");const im=$("img");im.loading="lazy";im.alt=o.v;im.src=I(p.img+"-"+(i+1));pic.append(im);
+  const tx=$("div","txt",`<span class="t"><b>${esc(o.v)}</b></span><span class="mark" aria-hidden="true"></span>`);
+  b.append(pic,tx);if(o.rec)b.append($("span","rec","建議"));
+  b.onclick=()=>{pick(p,o.v);box.querySelectorAll(".opt").forEach((e,j)=>e.setAttribute("aria-pressed",isOn(p,p.o[j].v)))};
+  return b}
+
+function optStyle(p,o,i,box){
+  const w=$("div","opt");w.setAttribute("aria-pressed",isOn(p,o.v));w.style.cursor="default";
+  const b=$("button","");b.type="button";b.style.cssText="display:block;width:100%;border:0;background:transparent;padding:0;text-align:left";
+  const pic=$("div","pic");const im=$("img");im.loading="lazy";im.alt=o.v+" 手機首頁";im.src=I("style-"+o.k+"-top");pic.append(im);
+  b.append(pic,$("div","txt",`<span class="t"><b>${esc(o.v)}</b><span>${esc(o.d)}</span></span><span class="mark" aria-hidden="true"></span>`));
+  b.onclick=()=>{pick(p,o.v);box.querySelectorAll(":scope > .opt").forEach((e,j)=>e.setAttribute("aria-pressed",isOn(p,p.o[j].v)))};
+  const vs=$("div","views");const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(o.v+"｜手機版",I("style-"+o.k+"-full"));
+  const d=$("button","","看電腦版");d.type="button";d.onclick=()=>viewer(o.v+"｜電腦版",I("style-"+o.k+"-deskfull"),"橫拿手機看會更清楚");
+  vs.append(m,d);w.append(b,vs);if(o.rec)w.append($("span","rec","建議"));return w}
+
+function optText(p,o,box){
+  const b=$("button","tcard");b.type="button";b.setAttribute("aria-pressed",isOn(p,o.v));
+  const tag=o.rec?'<i class="tg rec2">建議</i>':o.bad?'<i class="tg bad2">有法規風險</i>':"";
+  b.innerHTML=`<span class="t">${tag}<b>${esc(o.v)}</b><span>${esc(o.d||"")}</span></span><span class="mark" aria-hidden="true"></span>`;
+  b.onclick=()=>{pick(p,o.v);box.querySelectorAll(".tcard").forEach((e,j)=>e.setAttribute("aria-pressed",isOn(p,p.o[j].v)))};
+  return b}
+
+function segRow(key,vals,labels){
+  const g=$("div","seg");vals.forEach((v,i)=>{const b=$("button","",labels?labels[i]:v);b.type="button";b.dataset.v=v;b.setAttribute("aria-pressed",A[key]===v);
+    b.onclick=()=>{A[key]=A[key]===v?undefined:v;save();g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",A[key]===x.dataset.v))};g.append(b)});return g}
+
+function renderPage(){
+  const p=P[cur];app.append(header());
+  const main=$("main","gut");const col=$("div","col");main.append(col);
+  col.append($("h1","",esc(p.t)),$("p","why",esc(p.why)));
+  if(p.multi)col.append($("span","hint","可以複選"));
+  if(p.warn)col.append($("div","warn",esc(p.warn)));
+  const box=$("div","opts");
+  if(p.type==="img")p.o.forEach((o,i)=>box.append(optImg(p,o,i,box)));
+  if(p.type==="style")p.o.forEach((o,i)=>box.append(optStyle(p,o,i,box)));
+  if(p.type==="text")p.o.forEach(o=>box.append(optText(p,o,box)));
+  if(p.type==="img"||p.type==="style"||p.type==="text"){col.append(box);
+    if(p.custom){const d=$("div","note");const l=$("label","",esc(p.custom));l.htmlFor="c_"+p.id;const t=$("input");t.type="text";t.id="c_"+p.id;t.value=A[p.id+"_x"]||"";t.oninput=()=>{A[p.id+"_x"]=t.value;save()};d.append(l,t);col.append(d)}
+    col.append(noteBox(p))}
+  if(p.type==="feat"){
+    const q=$("div","quick");[["全部選「要」","要"],["全部清空",null]].forEach(([l,v])=>{const b=$("button","",l);b.type="button";b.onclick=()=>{FEAT.forEach(([n])=>A["f:"+n]=v||undefined);save();render()};q.append(b)});
+    const f=$("div","feat");FEAT.forEach(([n,d])=>{const r=$("div","fr");r.append($("div","",`<b>${esc(n)}</b><span>${esc(d)}</span>`),segRow("f:"+n,["要","之後","不要"]));f.append(r)});
+    col.append(q,f,noteBox(p,"還想要什麼功能？（選填）"))}
+  if(p.type==="acts"){
+    ACTS.forEach(([c,items])=>{const d=$("div","cat");d.append($("h3","",esc(c)));const g=$("div","chips");
+      items.forEach(it=>{const b=$("button","chip",`<span class="mark" aria-hidden="true"></span><span>${esc(it)}</span>`);b.type="button";b.setAttribute("aria-pressed",(A.acts||[]).includes(it));
+        b.onclick=()=>{let a=A.acts||[];A.acts=a.includes(it)?a.filter(x=>x!==it):[...a,it];save();b.setAttribute("aria-pressed",A.acts.includes(it))};g.append(b)});
+      d.append(g);col.append(d)});
+    col.append(noteBox({id:"acts"},p.note))}
+  if(p.type==="screens"){
+    SCR.forEach(([k,t,d])=>{const s=$("div","scr");s.append($("div","head",`<b>${esc(t)}</b><span>${esc(d)}</span>`));
+      const pv=$("button","pv");pv.type="button";pv.style.cssText="display:block;width:100%;border:0;padding:0";pv.setAttribute("aria-label","看完整的"+t);
+      const im=$("img");im.loading="lazy";im.alt=t;im.src=I("screen-"+k);pv.append(im);pv.onclick=()=>viewer(t+"｜手機版",I("screen-"+k));
+      const act=$("div","act");const vs=$("div","views");vs.style.padding="0";
+      const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(t+"｜手機版",I("screen-"+k));
+      const dk=$("button","","看電腦版");dk.type="button";dk.onclick=()=>viewer(t+"｜電腦版",I("screen-"+k+"-desk"),"橫拿手機看會更清楚");vs.append(m,dk);
+      const tx=$("input");tx.type="text";tx.id="s_"+k;tx.placeholder="要改的地方（選填）";tx.value=A["s:"+k+"_note"]||"";tx.oninput=()=>{A["s:"+k+"_note"]=tx.value;save()};
+      act.append(vs,segRow("s:"+k,["喜歡","要改","不需要"]),tx);s.append(pv,act);col.append(s)})}
+  if(p.type==="sum")renderSum(col);
+  app.append(main);
+  const bar=$("div","bottom gut");const bc=$("div","col");
+  const prev=$("button","btn ghost","‹ 上一頁");prev.type="button";prev.onclick=()=>go(cur-1);
+  if(p.type==="sum"){const s=$("button","btn go","送出給阿洋");s.type="button";s.onclick=submit;bc.append(prev,s)}
+  else{const n=$("button","btn",cur===P.length-2?"看總結 ›":"下一頁 ›");n.type="button";n.onclick=()=>go(cur+1);bc.append(prev,n)}
+  bar.append(bc);app.append(bar)}
+
+function valText(p){
+  if(p.type==="feat"){const g={要:[],之後:[],不要:[]};FEAT.forEach(([n])=>{const v=A["f:"+n];if(v)g[v].push(n)});return Object.entries(g).filter(([k,a])=>a.length).map(([k,a])=>`${k}：${a.join("、")}`).join("\n")}
+  if(p.type==="acts")return [(A.acts||[]).join("、"),A.acts_note].filter(Boolean).join("\n");
+  if(p.type==="screens")return SCR.filter(([k])=>A["s:"+k]).map(([k,t])=>`${t}：${A["s:"+k]}${A["s:"+k+"_note"]?"（"+A["s:"+k+"_note"]+"）":""}`).join("\n");
+  const v=A[p.id];let s=Array.isArray(v)?v.join("、"):(v||"");if(A[p.id+"_x"])s=(s?s+"，":"")+"自訂："+A[p.id+"_x"];
+  if(A[p.id+"_note"])s=(s?s+"\n":"")+"備註："+A[p.id+"_note"];return s}
+
+function renderSum(col){
+  const box=$("div","sum");
+  P.forEach((p,i)=>{if(p.type==="sum")return;const v=valText(p);const b=$("button");b.type="button";
+    b.innerHTML=`<span class="k">${esc(p.t.replace(/？$/,""))}</span><span class="v${v?"":" empty"}" style="white-space:pre-line">${v?esc(v):"還沒選"}</span><span class="e">修改</span>`;
+    b.onclick=()=>go(i);box.append(b)});
+  col.append(box);
+  const n=P.filter(p=>p.type!=="sum"&&answered(p)).length;
+  col.append($("p","why",`已完成 ${n} / ${P.length-1} 頁。沒選的也可以送出，之後再補。`))}
+
+function compile(){return ["【夏澄網站選配結果】",...P.filter(p=>p.type!=="sum").map(p=>`■ ${p.t}\n${valText(p)||"（未選）"}`)].join("\n\n")}
+
+async function submit(){
+  app.innerHTML="";cur=P.length-1;app.append(header());const main=$("main","gut");const col=$("div","col done");main.append(col);app.append(main);
+  col.append($("div","badge","…"),$("h1","","正在送出"),$("p","why","請稍等，不要關閉畫面。"));
+  const n=P.filter(p=>p.type!=="sum"&&answered(p)).length;const sum=compile();
+  let ok=false;try{const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),15000);
+    const r=await fetch(API,{method:"POST",headers:{"apikey":KEYPUB,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({session_id:A._sid,answered:n,answers:Object.assign({kind:"pick"},A),summary:sum}),signal:ctl.signal});
+    clearTimeout(tm);ok=r.ok}catch(e){ok=false}
+  col.innerHTML="";
+  if(ok){col.append($("div","badge","✓"),$("h1","","已經送給阿洋了"),$("p","why","之後想改，回到目錄改完再送一次就好，以最新一次為準。"))}
+  else{col.append($("div","badge err","!"),$("h1","","送出失敗"),$("p","why","請檢查網路再試一次，或複製結果用 LINE 傳給阿洋。"));
+    const re=$("button","btn","再試一次");re.type="button";re.style.width="100%";re.onclick=submit;col.append(re)}
+  const cp=$("button","btn ghost","複製結果");cp.type="button";cp.style.cssText="width:100%;margin-top:12px";
+  cp.onclick=()=>{(navigator.clipboard?navigator.clipboard.writeText(sum):Promise.reject()).then(()=>toast("已複製，可以貼到 LINE")).catch(()=>{const t=$("textarea");t.value=sum;col.append(t);t.select();toast("請長按文字，全選後複製")})};
+  col.append(cp);
+  const bar=$("div","bottom gut");const bc=$("div","col");const back=$("button","btn ghost","☰ 回目錄");back.type="button";back.style.flex="1";back.onclick=()=>go(-1);bc.append(back);bar.append(bc);app.append(bar)}
+
+function renderCover(){
+  const n=P.filter(p=>p.type!=="sum"&&answered(p)).length;
+  const c=$("section","cover gut",`<div class="col"><div style="font-size:16px;font-weight:700;opacity:.85">夏澄 × 澎湖旅遊網站</div><h1>一起選出網站<br>長什麼樣子</h1><p>一頁一個問題，點圖就選好，大約 30 分鐘。</p><p>不確定的跳過就好，關掉會自動保存。</p></div>`);
+  const main=$("main","gut");main.style.paddingTop="0";const col=$("div","col");const st=$("div","steps");
+  P.forEach((p,i)=>{const done=answered(p);const b=$("button");b.type="button";
+    b.innerHTML=`<span class="no${done?" done":""}">${done?"✓":i+1}</span><span class="tx"><b>${esc(p.t)}</b><span>${p.type==="sum"?"最後一步":done?"已選":"還沒選"}</span></span><span aria-hidden="true" style="color:#8a9aa1;font-size:22px">›</span>`;
+    b.onclick=()=>go(i);st.append(b)});
+  col.append(st);main.append(col);
+  const bar=$("div","bottom gut");const bc=$("div","col");const s=$("button","btn",n?`繼續（已完成 ${n} 頁）`:"開始選");s.type="button";
+  s.onclick=()=>{const i=P.findIndex(p=>p.type!=="sum"&&!answered(p));go(i<0?P.length-1:i)};bc.append(s);bar.append(bc);
+  app.append(c,main,bar)}
+
+const app=document.getElementById("app");
+function render(){app.innerHTML="";if(cur>=0&&P[cur])renderPage();else renderCover()}
+function go(i){cur=Math.max(-1,Math.min(P.length-1,i));save();render();window.scrollTo(0,0)}
+render();
+</script>
+</body>
+</html>
