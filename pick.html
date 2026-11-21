@@ -53,7 +53,7 @@ h1{font-size:30px;line-height:1.3;margin:0 0 8px;font-weight:900;text-wrap:balan
 .multi .mark{border-radius:9px}
 .opt[aria-pressed="true"] .mark{background:var(--sea);border-color:var(--sea)}
 .opt[aria-pressed="true"] .mark::after{content:"";width:9px;height:16px;border:solid #fff;border-width:0 3.5px 3.5px 0;transform:translateY(-2px) rotate(45deg)}
-.rec{position:absolute;top:12px;right:12px;background:#f2a541;color:#2a1c05;font-size:14px;font-weight:900;border-radius:999px;padding:4px 12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.rec{position:absolute;top:12px;left:12px;background:#f2a541;color:#2a1c05;font-size:14px;font-weight:900;border-radius:999px;padding:4px 12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 .bad{position:absolute;top:12px;right:12px;background:var(--red);color:#fff;font-size:14px;font-weight:900;border-radius:999px;padding:4px 12px}
 .views{display:flex;gap:8px;padding:0 16px 16px}
 .views button{flex:1;min-height:46px;border:2px solid var(--line);background:#fff;border-radius:12px;font-size:16px;font-weight:700;color:var(--sea)}
@@ -62,7 +62,7 @@ h1{font-size:30px;line-height:1.3;margin:0 0 8px;font-weight:900;text-wrap:balan
 .tcard[aria-pressed="true"]{border-color:var(--sea)}
 .tcard .t{flex:1;min-width:0}
 .tcard b{display:block;font-size:21px;line-height:1.35}
-.tg{display:inline-block;font-style:normal;font-size:14px;font-weight:900;border-radius:999px;padding:2px 12px;margin-bottom:6px}
+.opt .txt .tg,.tg{display:inline-block;margin-top:0;font-style:normal;font-size:14px;font-weight:900;border-radius:999px;padding:2px 12px;margin-bottom:6px}
 .tcard .mark,.opt .txt .mark,.chip .mark{display:grid;place-items:center;margin:0;padding:0}
 .rec2{background:#f2a541;color:#2a1c05}.bad2{background:var(--red);color:#fff}
 .tcard span{display:block;font-size:16px;color:var(--muted);margin-top:4px;line-height:1.6}
@@ -137,9 +137,35 @@ textarea{min-height:90px;resize:vertical}
 .viewer .vh b{flex:1;font-size:17px}
 .viewer .vh button{border:0;background:#fff;color:var(--ink);border-radius:12px;min-height:44px;padding:0 18px;font-size:17px;font-weight:900}
 .viewer .vb{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(20px + env(safe-area-inset-bottom,0px))}
-.viewer .vb img{width:100%;max-width:900px;margin:0 auto}
+.viewer .vb img{width:100%;max-width:1280px;margin:0 auto}
+.viewer.narrow .vb img{max-width:440px}
 .viewer .tip{color:#cfe0e6;font-size:14px;text-align:center;padding:8px}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:15px;z-index:60;white-space:nowrap}
+
+/* ---------- 筆電版 ---------- */
+@media (min-width: 900px){
+  body{font-size:18px}
+  .col{max-width:1240px}
+  .top .row{height:60px}
+  main{padding-top:30px}
+  h1{font-size:38px}
+  .why{font-size:19px;margin-bottom:22px}
+  .opts{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+  .opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .opts.textg{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+  .feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;padding:6px 26px}
+  .fr:nth-child(2){border-top:0;padding-top:2px}
+  .acts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+  .acts-grid .cat+.cat{margin-top:0}
+  .scr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+  .scr-grid .scr+.scr{margin-top:0}
+  .scr .pv{max-height:360px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+  .cover h1{font-size:46px}
+  .note{max-width:760px}
+  .bottom .col{max-width:760px}
+  .sum{max-width:960px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -203,7 +229,7 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify({A,cur}))}catch(e){}
 const $=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2000)}
-function viewer(title,src,tip){document.getElementById("vt").textContent=title;document.getElementById("vimg").src=src;document.getElementById("vimg").alt=title;document.getElementById("vtip").textContent=tip||"往下滑看完整畫面";const v=document.getElementById("viewer");v.hidden=false;v.querySelector(".vb").scrollTop=0;document.body.style.overflow="hidden"}
+function viewer(title,src,tip,narrow){document.getElementById("viewer").classList.toggle("narrow",!!narrow);document.getElementById("vt").textContent=title;document.getElementById("vimg").src=src;document.getElementById("vimg").alt=title;document.getElementById("vtip").textContent=tip||"往下滑看完整畫面";const v=document.getElementById("viewer");v.hidden=false;v.querySelector(".vb").scrollTop=0;document.body.style.overflow="hidden"}
 document.getElementById("vclose").onclick=()=>{document.getElementById("viewer").hidden=true;document.body.style.overflow=""};
 
 function answered(p){
@@ -228,20 +254,20 @@ function noteBox(p,label){const d=$("div","note");const l=$("label","",esc(label
 function optImg(p,o,i,box){
   const b=$("button","opt"+(p.multi?" multi":""));b.type="button";b.setAttribute("aria-pressed",isOn(p,o.v));
   const pic=$("div","pic");const im=$("img");im.loading="lazy";im.alt=o.v;im.src=I(p.img+"-"+(i+1));pic.append(im);
-  const tx=$("div","txt",`<span class="t"><b>${esc(o.v)}</b></span><span class="mark" aria-hidden="true"></span>`);
-  b.append(pic,tx);if(o.rec)b.append($("span","rec","建議"));
+  const tx=$("div","txt",`<span class="t">${o.rec?'<i class="tg rec2">建議</i>':""}<b>${esc(o.v)}</b></span><span class="mark" aria-hidden="true"></span>`);
+  b.append(pic,tx);
   b.onclick=()=>{pick(p,o.v);box.querySelectorAll(".opt").forEach((e,j)=>e.setAttribute("aria-pressed",isOn(p,p.o[j].v)))};
   return b}
 
 function optStyle(p,o,i,box){
   const w=$("div","opt");w.setAttribute("aria-pressed",isOn(p,o.v));w.style.cursor="default";
   const b=$("button","");b.type="button";b.style.cssText="display:block;width:100%;border:0;background:transparent;padding:0;text-align:left";
-  const pic=$("div","pic");const im=$("img");im.loading="lazy";im.alt=o.v+" 手機首頁";im.src=I("style-"+o.k+"-top");pic.append(im);
-  b.append(pic,$("div","txt",`<span class="t"><b>${esc(o.v)}</b><span>${esc(o.d)}</span></span><span class="mark" aria-hidden="true"></span>`));
+  const pic=$("div","pic");const pc=$("picture");const so=$("source");so.media="(min-width: 900px)";so.srcset=I("style-"+o.k+"-desk");const im=$("img");im.loading="lazy";im.alt=o.v+" 首頁";im.src=I("style-"+o.k+"-top");pc.append(so,im);pic.append(pc);
+  b.append(pic,$("div","txt",`<span class="t">${o.rec?'<i class="tg rec2">建議</i>':""}<b>${esc(o.v)}</b><span>${esc(o.d)}</span></span><span class="mark" aria-hidden="true"></span>`));
   b.onclick=()=>{pick(p,o.v);box.querySelectorAll(":scope > .opt").forEach((e,j)=>e.setAttribute("aria-pressed",isOn(p,p.o[j].v)))};
-  const vs=$("div","views");const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(o.v+"｜手機版",I("style-"+o.k+"-full"));
-  const d=$("button","","看電腦版");d.type="button";d.onclick=()=>viewer(o.v+"｜電腦版",I("style-"+o.k+"-deskfull"),"橫拿手機看會更清楚");
-  vs.append(m,d);w.append(b,vs);if(o.rec)w.append($("span","rec","建議"));return w}
+  const vs=$("div","views");const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(o.v+"｜手機版",I("style-"+o.k+"-full"),"",1);
+  const d=$("button","","看完整電腦版");d.type="button";d.onclick=()=>viewer(o.v+"｜電腦版",I("style-"+o.k+"-deskfull"),"往下滑看完整畫面");
+  vs.append(d,m);w.append(b,vs);return w}
 
 function optText(p,o,box){
   const b=$("button","tcard");b.type="button";b.setAttribute("aria-pressed",isOn(p,o.v));
@@ -264,6 +290,9 @@ function renderPage(){
   if(p.type==="img")p.o.forEach((o,i)=>box.append(optImg(p,o,i,box)));
   if(p.type==="style")p.o.forEach((o,i)=>box.append(optStyle(p,o,i,box)));
   if(p.type==="text")p.o.forEach(o=>box.append(optText(p,o,box)));
+  if(p.type==="style")box.classList.add("two");
+  if(p.type==="text")box.classList.add("textg");
+  if(p.type==="img"&&(p.o.length===4))box.classList.add("two");
   if(p.type==="img"||p.type==="style"||p.type==="text"){col.append(box);
     if(p.custom){const d=$("div","note");const l=$("label","",esc(p.custom));l.htmlFor="c_"+p.id;const t=$("input");t.type="text";t.id="c_"+p.id;t.value=A[p.id+"_x"]||"";t.oninput=()=>{A[p.id+"_x"]=t.value;save()};d.append(l,t);col.append(d)}
     col.append(noteBox(p))}
@@ -272,20 +301,22 @@ function renderPage(){
     const f=$("div","feat");FEAT.forEach(([n,d])=>{const r=$("div","fr");r.append($("div","",`<b>${esc(n)}</b><span>${esc(d)}</span>`),segRow("f:"+n,["要","之後","不要"]));f.append(r)});
     col.append(q,f,noteBox(p,"還想要什麼功能？（選填）"))}
   if(p.type==="acts"){
+    const ag=$("div","acts-grid");col.append(ag);
     ACTS.forEach(([c,items])=>{const d=$("div","cat");d.append($("h3","",esc(c)));const g=$("div","chips");
       items.forEach(it=>{const b=$("button","chip",`<span class="mark" aria-hidden="true"></span><span>${esc(it)}</span>`);b.type="button";b.setAttribute("aria-pressed",(A.acts||[]).includes(it));
         b.onclick=()=>{let a=A.acts||[];A.acts=a.includes(it)?a.filter(x=>x!==it):[...a,it];save();b.setAttribute("aria-pressed",A.acts.includes(it))};g.append(b)});
-      d.append(g);col.append(d)});
+      d.append(g);ag.append(d)});
     col.append(noteBox({id:"acts"},p.note))}
   if(p.type==="screens"){
+    const sg=$("div","scr-grid");col.append(sg);
     SCR.forEach(([k,t,d])=>{const s=$("div","scr");s.append($("div","head",`<b>${esc(t)}</b><span>${esc(d)}</span>`));
       const pv=$("button","pv");pv.type="button";pv.style.cssText="display:block;width:100%;border:0;padding:0";pv.setAttribute("aria-label","看完整的"+t);
-      const im=$("img");im.loading="lazy";im.alt=t;im.src=I("screen-"+k);pv.append(im);pv.onclick=()=>viewer(t+"｜手機版",I("screen-"+k));
+      const pc=$("picture");const so=$("source");so.media="(min-width: 900px)";so.srcset=I("screen-"+k+"-desk");const im=$("img");im.loading="lazy";im.alt=t;im.src=I("screen-"+k);pc.append(so,im);pv.append(pc);pv.onclick=()=>wide()?viewer(t+"｜電腦版",I("screen-"+k+"-desk")):viewer(t+"｜手機版",I("screen-"+k),"",1);
       const act=$("div","act");const vs=$("div","views");vs.style.padding="0";
-      const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(t+"｜手機版",I("screen-"+k));
-      const dk=$("button","","看電腦版");dk.type="button";dk.onclick=()=>viewer(t+"｜電腦版",I("screen-"+k+"-desk"),"橫拿手機看會更清楚");vs.append(m,dk);
+      const m=$("button","","看完整手機版");m.type="button";m.onclick=()=>viewer(t+"｜手機版",I("screen-"+k),"",1);
+      const dk=$("button","","看完整電腦版");dk.type="button";dk.onclick=()=>viewer(t+"｜電腦版",I("screen-"+k+"-desk"));vs.append(dk,m);
       const tx=$("input");tx.type="text";tx.id="s_"+k;tx.placeholder="要改的地方（選填）";tx.value=A["s:"+k+"_note"]||"";tx.oninput=()=>{A["s:"+k+"_note"]=tx.value;save()};
-      act.append(vs,segRow("s:"+k,["喜歡","要改","不需要"]),tx);s.append(pv,act);col.append(s)})}
+      act.append(vs,segRow("s:"+k,["喜歡","要改","不需要"]),tx);s.append(pv,act);sg.append(s)})}
   if(p.type==="sum")renderSum(col);
   app.append(main);
   const bar=$("div","bottom gut");const bc=$("div","col");
@@ -330,7 +361,7 @@ async function submit(){
 
 function renderCover(){
   const n=P.filter(p=>p.type!=="sum"&&answered(p)).length;
-  const c=$("section","cover gut",`<div class="col"><div style="font-size:16px;font-weight:700;opacity:.85">夏澄 × 澎湖旅遊網站</div><h1>一起選出網站<br>長什麼樣子</h1><p>一頁一個問題，點圖就選好，大約 30 分鐘。</p><p>不確定的跳過就好，關掉會自動保存。</p></div>`);
+  const c=$("section","cover gut",`<div class="col"><div style="font-size:16px;font-weight:700;opacity:.85">夏澄 × 澎湖旅遊網站</div><h1>一起選出網站<br>長什麼樣子</h1><p>一頁一個問題，點圖就選好，大約 30 分鐘。</p><p>不確定的跳過就好，關掉會自動保存。</p><p style="font-size:15px;opacity:.8">畫面裡的照片是 AI 示意圖，正式上線會換成民宿實拍。</p></div>`);
   const main=$("main","gut");main.style.paddingTop="0";const col=$("div","col");const st=$("div","steps");
   P.forEach((p,i)=>{const done=answered(p);const b=$("button");b.type="button";
     b.innerHTML=`<span class="no${done?" done":""}">${done?"✓":i+1}</span><span class="tx"><b>${esc(p.t)}</b><span>${p.type==="sum"?"最後一步":done?"已選":"還沒選"}</span></span><span aria-hidden="true" style="color:#8a9aa1;font-size:22px">›</span>`;
@@ -341,6 +372,7 @@ function renderCover(){
   app.append(c,main,bar)}
 
 const app=document.getElementById("app");
+const wide=()=>matchMedia("(min-width: 900px)").matches;
 function render(){app.innerHTML="";if(cur>=0&&P[cur])renderPage();else renderCover()}
 function go(i){cur=Math.max(-1,Math.min(P.length-1,i));save();render();window.scrollTo(0,0)}
 render();
