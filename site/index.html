@@ -1059,6 +1059,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   .list.grid2 .item>span:not(.th)>*{margin-top:0!important;margin-bottom:0!important}
   .list.grid2 .item .price{display:block;margin-top:4px!important}
 }
+.morecat{margin-top:12px;min-height:52px}
+.itemw[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -1772,6 +1774,7 @@ function fx(){
   const app=document.getElementById("app"),h1=app.querySelector("h1");
   if(BN&&h1&&!app.querySelector(".ihero")&&innerWidth<900){const d=document.createElement("div");d.className="ihero";d.innerHTML=`<div class="bg" style="background-image:url(${IMG(BN[0])})"></div><span class="eb">${BN[1]}</span><h1>${h1.innerHTML}</h1>`;app.insertBefore(d,app.firstChild);h1.classList.add("h1off")}
   document.body.classList.toggle("home",r==="/"||r===""||!!app.querySelector(".ihero"));
+  if(r==="/tours"&&innerWidth<900){window.openCats=window.openCats||{};const secs=app.querySelectorAll(".catsec");if(secs.length>1)secs.forEach(sec=>{const nm=sec.querySelector("h2").firstChild.textContent.trim(),its=sec.querySelectorAll(".itemw");if(its.length>4&&!openCats[nm]){its.forEach((e,i)=>{if(i>=4)e.hidden=true});const b=document.createElement("button");b.type="button";b.className="btn ghost block morecat";b.textContent=`再看 ${its.length-4} 個${nm}`;b.onclick=()=>{openCats[nm]=1;its.forEach(e=>e.hidden=false);b.remove()};sec.appendChild(b)}})}
   const key=r+"|"+(typeof ui!=="undefined"?ui.step:"")+"|"+(typeof plan!=="undefined"&&plan&&plan.made?1:0);
   if(key===fxRoute||RM||!("IntersectionObserver" in window)){fxRoute=key;return}
   fxRoute=key;
