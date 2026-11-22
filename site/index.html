@@ -1061,6 +1061,34 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 }
 .morecat{margin-top:12px;min-height:52px}
 .itemw[hidden]{display:none!important}
+/* ===== 規則：置中・一行・對齊（手機） ===== */
+@media (max-width:899px){
+  #app h2,#app h3,#app .lead,#app .note,#app p.note,#app .hnote,#app .box>b,#app .panel>b{text-align:center}
+  #app .lead,#app .hnote,.phead p,#app p.note,#app span.note{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  #app h2,#app h3{display:block}
+  .plinks{display:flex;justify-content:center;gap:22px;margin-top:6px!important}
+  .catsec h2{display:block!important;text-align:center}
+  .catsec h2 small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+  /* 左圖右字的列：靠左對齊，每行一行 */
+  .nrow *,.item *,.pcard .bd *,.today li *,.stop>*{text-align:left}
+  .nrow .note,.nrow b,.pcard .meta,.item .meta,.item .where,.item b,.pcard .bd b,.fcard b,.fcard .meta{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .nrow .nb{min-width:0}
+  /* 沒有照片的站：更多按鈕放右邊，不另佔一行 */
+  .fcard{position:relative}
+  .fcard>span:last-child{display:block;padding-right:92px;min-width:0}
+  .fcard .ops{position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0!important}
+  .stop{padding-bottom:2px!important}
+  .leg,.drv{margin:6px 0!important}
+  /* 卡片內容置中 */
+  .grid3>div,.lcard{text-align:center}
+  .grid3>div>*:first-child{margin-left:auto;margin-right:auto}
+  .info>div{text-align:center}
+  .months{justify-content:center}
+  .empty{text-align:center}
+  #app dl.info dd,#app dl.info dt{text-align:center}
+}
+@media (max-width:899px){.linkt{display:flex!important;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:18px 12px}.linkt>span:last-child{display:block;min-width:0;max-width:100%}}
+@media (max-width:899px){#app .nrow *,#app .item *,#app .pcard .bd *,#app .today li *,#app .stop>*,#app .fcard *{text-align:left}#app .item .price{text-align:left}.ihero+.wrap .phead{padding-top:0!important}}
 </style>
 </head>
 <body>
@@ -1240,7 +1268,7 @@ const PL=()=>plan||{pax:defPax(),days:1};
 function qty(a){const plan=PL(),x=plan.pax;if(a.unit==="台／天")return a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days;if(a.unit==="趟"||a.unit==="份")return 1;return heads(x)}
 function priceFor(a,x){const plan=PL();if(a.price==null)return null;if(a.unit==="人")return a.price*(x.adult+x.senior)+Math.round(a.price*CHILD_RATE)*x.child;if(a.unit==="台／天")return a.price*(a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days);return a.price}
 function cost(it){if(!it.id)return 0;const v=priceFor(A(it.id),plan.pax);return v||0}
-function costText(a){const plan=PL();if(a.free)return a.limit.includes("購票")?"門票現場購買":"免費";if(a.price==null)return "價格洽詢";const x=plan.pax;if(a.unit==="人"){const parts=[];if(x.adult+x.senior)parts.push(money(a.price)+" × "+(x.adult+x.senior));if(x.child)parts.push(money(Math.round(a.price*CHILD_RATE))+" × "+x.child+" 兒童");return parts.join(" ＋ ")+"・示意"}if(a.unit==="台／天"){const n=Math.round(qty(a)/plan.days);return money(a.price)+" × "+n+" 台 × "+plan.days+" 天・示意"}return money(a.price)+" × "+qty(a)+" "+a.unit.replace(/／.*/,"")+"・示意"}
+function costText(a){const plan=PL();if(a.free)return a.limit.includes("購票")?"門票現場購買":"免費";if(a.price==null)return "價格洽詢";const x=plan.pax,t=money(priceFor(a,x));if(a.unit==="人")return t+"・"+(x.adult+x.senior+x.child)+" 人";if(a.unit==="台／天"){const n=Math.round(qty(a)/plan.days);return t+"・"+n+" 台 "+plan.days+" 天"}return t+"・"+qty(a)+" "+a.unit.replace(/／.*/,"")}
 function total(){return plan?plan.items.reduce((s,it)=>s+cost(it),0):0}
 function hasAsk(){return plan&&plan.items.some(it=>it.id&&A(it.id).price==null)}
 function alts(it){const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.items.map(x=>x.id)),its=dayItems(it.day),k=its.indexOf(it),prev=k>0?placeOf(its[k-1]):"home";
@@ -1387,7 +1415,7 @@ function moveItem(uid,dir){const it=plan.items.find(x=>x.uid===uid);if(!it)retur
 const CATCOLOR={海灘:"#4f8a86",自然地景:"#7b6a55",古蹟老街:"#a2461f","室內・雨天":"#5b6178",跳島:"#3f7488",水上:"#2f7fa0",海上體驗:"#3f6f88",生態文化:"#6b7a3a",餐飲:"#b07a1e",交通:"#6f5d4e",季節活動:"#9a4b7a"};
 function pageMap(){const me=ui.me,center=me&&km(me,PLACES.home.ll)<60?me:PLACES.home.ll,far=me&&km(me,PLACES.home.ll)>=60;
   const near=nearby(center,null,10);
-  return `<div class="wrap"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">澎湖地圖</h1><p class="lead">所有景點都在這張地圖上。按「我在哪」看離你最近的地方，也可以直接找附近停車場。</p></div>
+  return `<div class="wrap"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">澎湖地圖</h1><p class="lead">按「我在哪」，看離你最近的地方</p></div>
   <div class="maptools"><button class="btn small" type="button" data-act="locate">${ICON.home.replace(/<path[^>]*>/,'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>')}我在哪</button><a class="btn small ghost" target="_blank" rel="noopener" href="${gPark(center)}">附近停車場</a>
     <div class="chips" style="margin-left:auto">${["全部","海灘","自然地景","古蹟老街","室內・雨天","付費行程"].map(c=>`<button type="button" class="chip" data-act="mcat" data-v="${c}" aria-pressed="${(ui.mcat||"全部")===c}">${c}</button>`).join("")}</div></div>
   ${far?`<p class="note">你目前不在澎湖，先用民宿位置當中心。</p>`:""}
@@ -1486,7 +1514,7 @@ function pagePlan(){
   if(!plan){plan=generate({start:nextSat(),days:3,pax:defPax(),interests:["玩水","美食"]});save()}
   if(!ui.step)ui.step=plan.made?3:1;
   ui.day=Math.min(ui.day,plan.days-1);
-  const head=plan&&plan.made&&ui.step===3?`<div class="phead"><h1 style="font-size:clamp(28px,3.6vw,40px)">我的行程</h1><p>${fmtDay(dayDate(0))}起・${plan.days} 天・${paxText(plan.pax)}　<button type="button" class="linkbtn" data-act="step" data-v="1">改日期人數</button>　<button type="button" class="linkbtn" data-act="step" data-v="2">重選玩法</button></p></div>`:`<div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>${stepsBar()}`;
+  const head=plan&&plan.made&&ui.step===3?`<div class="phead"><h1 style="font-size:clamp(28px,3.6vw,40px)">我的行程</h1><p>${fmtDay(dayDate(0))}起・${plan.days} 天・${heads(plan.pax)} 人</p><p class="plinks"><button type="button" class="linkbtn" data-act="step" data-v="1">改日期人數</button><button type="button" class="linkbtn" data-act="step" data-v="2">重選玩法</button></p></div>`:`<div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">排我的行程</h1></div>${stepsBar()}`;
   if(ui.step===1)return `<div class="wrap">${head}<div class="trip"><div><section class="stage">
     <h2>什麼時候去？幾個人？</h2><p class="lead">大人、長輩、小孩分開填，價錢才算得對。</p>
     <div class="field"><label class="lab" for="p-start">出發日期</label><input class="dateinput" type="date" id="p-start" value="${plan.start}"></div>
@@ -1560,7 +1588,7 @@ function pageTour(id){
     <div class="kv2"><div><small>要多久</small><b>${a.dur?"約 "+a.dur+" 小時":"整天可用"}</b></div><div><small>${a.free?"費用":"價格（示意）"}</small><b>${a.free?costText(a):money(a.price)+" / "+a.unit}</b></div><div><small>年齡</small><b>${MINAGE[a.id]?MINAGE[a.id]+" 歲以上":"不限"}${INTENSE.includes(a.id)?"，長輩不建議":""}</b></div><div><small>${a.free?"在哪裡":"集合地點"}</small><b>${a.isl?esc(a.area):esc(PLACES[AT[a.id]].n)}</b></div></div>
     <div><span class="ph-title" style="margin-bottom:8px">哪幾個月有${a.months.length===12?"（全年都有）":""}</span><div class="months" role="img" aria-label="開放月份 ${a.months.join("、")} 月">${ALL.map(n=>`<span class="${a.months.includes(n)?"on":""} ${n===monthOf(plan.start)?"me":""}">${n}</span>`).join("")}</div><span class="note" style="display:block;margin-top:6px">深色＝有開；框起來的是你出發的月份</span></div>
     <p class="lead" style="color:var(--ink)">${esc(a.desc)}</p>
-    <dl class="info"><div><dt>費用包含</dt><dd>${esc(a.inc)}</dd></div>${a.isl?"":`<div><dt>注意事項</dt><dd>${esc(a.limit)}</dd></div>`}<div><dt>怎麼去</dt><dd>${a.isl?esc(a.limit):esc(PLACES[AT[a.id]].n)+"，從夏澄"+ride()+"約 "+travel("home",AT[a.id])+" 分鐘（位置示意）"}</dd></div>${a.free&&!a.isl?"":`<div><dt>取消與停航</dt><dd>海況不佳停航時，依業者規定改期或退款；民宿會用 LINE 通知你。</dd></div>`}</dl>
+    <dl class="info"><div><dt>費用包含</dt><dd>${esc(a.inc)}</dd></div>${a.isl?"":`<div><dt>注意事項</dt><dd>${esc(a.limit)}</dd></div>`}<div><dt>怎麼去</dt><dd>${a.isl?esc(a.limit):esc(PLACES[AT[a.id]].n)+"，從夏澄"+ride()+"約 "+travel("home",AT[a.id])+" 分鐘（位置示意）"}</dd></div>${a.free&&!a.isl?"":`<div><dt>取消與停航</dt><dd>海況不佳停航，可改期或退款</dd></div>`}</dl>
     <div class="map" id="tourmap" role="img" aria-label="${esc(a.name)}集合地點地圖" style="margin:0"></div>
     ${a.isl?"":`<p class="note" id="tourroute" style="margin:-8px 0 0">從夏澄出發的實際路線計算中…</p>`}
     ${a.isl?"":`<div class="row2"><button class="btn small" type="button" data-act="drive" data-lat="${LLof(AT[a.id])[0]}" data-lng="${LLof(AT[a.id])[1]}" data-name="${esc(a.name)}">${ICON.nav}開始導航</button><a class="btn small ghost" target="_blank" rel="noopener" href="${gPark(LLof(AT[a.id]))}">附近停車場</a></div>
@@ -1584,7 +1612,7 @@ async function refreshMine(){const list=reqs.filter(r=>r.code);let ch=false;for(
 function pageMine(){
   if(!ui.mineAt||Date.now()-ui.mineAt>15000){ui.mineAt=Date.now();refreshMine()}
   const mine=reqs.slice().reverse();
-  return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">送出紀錄</h1><p class="lead">送給民宿的行程都在這裡，民宿確認後進度會自動更新。還沒送出的行程在「我的行程」。</p></div>
+  return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">送出紀錄</h1><p class="lead">民宿確認後，進度會自動更新</p></div>
   <form class="lookup" id="lookup" onsubmit="return false"><label for="lk">換了手機？輸入查詢碼</label><div><input id="lk" maxlength="6" placeholder="例：AB12CD" autocomplete="off"><button class="btn small" type="button" data-act="lookup">查詢</button></div></form>
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${mine.length?mine.map(r=>`<div class="box"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><b style="font-size:18px">${esc(r.title)}</b>${pill(r.status)}</div>
     ${track(r.status)}
@@ -1609,17 +1637,17 @@ function pagePrivacy(){return `<div class="wrap"><div class="trip"><section><div
   <h2>聯絡我們</h2><p>有任何問題或要刪除資料，請用 LINE 聯絡民宿主人（帳號待填）。</p>
   </div></section><aside class="side">${SIDE()}</aside></div></div>`}
 function pageLine(){return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
-  <div class="box" style="margin-top:20px;display:flex;flex-direction:column;gap:14px"><p style="margin:0">不知道怎麼排、想問海況、要改期，直接用 LINE 問最快。</p>
+  <div class="box" style="margin-top:20px;display:flex;flex-direction:column;gap:14px"><p style="margin:0">海況、改期、怎麼排，LINE 問最快</p>
   <div class="panel" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div class="qr">QR Code<br>待民宿提供</div><div><b>LINE 官方帳號 ID</b><div style="font-size:22px;font-family:var(--serif)">@待填</div><div class="note">手機掃描或搜尋 ID 加好友</div></div></div>
   <p class="note" style="margin:0">回覆時段：待填。電話、Email、地址：待填。</p></div></section><aside class="side">${SIDE(1)}</aside></div></div>`}
 
 function rchip(k){if(FREE[k])return `<span class="rchip"><span class="ic">${ICON[FREEICON[k]]}</span>${esc(FREE[k].name)}</span>`;const a=A(k);return `<span class="rchip"><span class="th" style="background-image:url(${IMGA(a)})"></span>${esc(a.name)}</span>`}
 function pageGuide(){const r=[["1 天","第一次來、時間不多",[["basalt","seafood","snorkel","sunset"]]],["2 天","最多人選",[["snorkel","sunset","squid"],["tidal","market","souvenir"]]],["3 天","想跳島的人",[["snorkel","sunset","squid"],["south","bbq"],["weir","market","souvenir"]]]];
-  return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">民宿主人的私房路線待補，以下是常見排法示意。</p></div>
+  return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">常見排法，按一下就照著排</p></div>
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">${r.map(([t,w,d])=>`<div class="box"><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><h3>${t}</h3><span class="pill info">${w}</span></div>${d.map((day,i)=>`<div class="route"><span class="dl">第 ${i+1} 天</span>${day.map(rchip).join('<span class="rarr">→</span>')}</div>`).join("")}<div style="margin-top:14px"><button class="btn small" type="button" data-act="guide" data-v="${parseInt(t)}">照這個排</button></div></div>`).join("")}
-  <div class="box"><h3>冬天（10–3 月）</h3><p style="margin:8px 0 0">東北季風季，跳島和水上活動多數停駛。可以安排海洋牧場、導覽、美食和室內景點，淡季主打待民宿決定。</p></div></div></section><aside class="side">${SIDE()}</aside></div></div>`}
+  <div class="box"><h3>冬天（10–3 月）</h3><p style="margin:8px 0 0">跳島和玩水多數停駛，改排室內和美食</p></div></div></section><aside class="side">${SIDE()}</aside></div></div>`}
 function pageLocal(){return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">在地生活圈</h1><p class="lead">店家清單由民宿主人提供後補上。</p></div>
-  <div class="grid3" style="margin-top:20px"><div class="box linkt"><span class="ic">${ICON.food}</span><span><h3>吃什麼</h3><p class="note">海鮮餐廳、早餐店、仙人掌冰（待補推薦店家）</p></span></div><div class="box linkt"><span class="ic">${ICON.bag}</span><span><h3>買什麼</h3><p class="note">黑糖糕、鹹餅、干貝醬；可在「玩法」預訂伴手禮宅配</p></span></div><div class="box linkt"><span class="ic">${ICON.boat}</span><span><h3>交通與船班</h3><p class="note">船班與機班查詢連結（待補）；停航時民宿會通知</p></span></div></div></section><aside class="side">${SIDE()}</aside></div></div>`}
+  <div class="grid3" style="margin-top:20px"><div class="box linkt"><span class="ic">${ICON.food}</span><span><h3>吃什麼</h3><p class="note">海鮮餐廳、早餐店、仙人掌冰</p></span></div><div class="box linkt"><span class="ic">${ICON.bag}</span><span><h3>買什麼</h3><p class="note">黑糖糕、鹹餅、干貝醬，可宅配</p></span></div><div class="box linkt"><span class="ic">${ICON.boat}</span><span><h3>交通與船班</h3><p class="note">船班、機班；停航民宿會通知</p></span></div></div></section><aside class="side">${SIDE()}</aside></div></div>`}
 
 function vendorGroups(r){const g={};(r.items||[]).forEach(it=>{(g[it.vendor||"民宿"]=g[it.vendor||"民宿"]||[]).push(it)});return g}
 function vendorMsg(r,v){const px=r.pax?paxText(Object.assign(defPax(),r.pax)):"";return ["【夏澄】詢問名額",`客人：${r.name||""}，${px}`,...vendorGroups(r)[v].map(it=>`${it.date} ${it.time} ${it.name}`),"麻煩回覆是否有名額，謝謝！"].join("\n")}
