@@ -1002,6 +1002,63 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   body.dock .dockbar,.dockbar{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important;padding-bottom:12px!important}
   body.dock main.has-dock,main.has-dock{padding-bottom:calc(200px + env(safe-area-inset-bottom,0px))!important}
 }
+/* ===== 版面最大化：拿掉沒有用的空白 ===== */
+@media (max-width:899px){
+  main,main.has-dock,body.dock main.has-dock{padding-bottom:28px!important}
+  footer{margin-top:0!important;padding:18px 0 calc(100px + env(safe-area-inset-bottom,0px))!important;border-top:1px solid var(--line)}
+  body.dock footer{padding-bottom:calc(176px + env(safe-area-inset-bottom,0px))!important}
+  footer .wrap{flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:4px 14px!important;font-size:15px}
+  footer .fmeta{display:none}
+  .ihero{height:176px!important;padding-bottom:20px!important}
+  .ihero h1{font-size:32px!important}
+  .ihero+.wrap{padding-top:14px!important}
+  .ihero+.wrap .lead,.ihero+.wrap>div>.lead{margin:0 0 6px}
+  .sec{padding-top:36px}
+  .gperk{padding-top:40px!important}
+  .gperk li{padding:12px 6px!important}
+  .glinks{padding-top:22px!important}
+  .glinks a{padding:16px 0!important}
+  .ghome .txt{gap:16px!important}
+  .ptitle{margin:6px 0 -6px!important}
+  .presets{gap:10px!important}
+  .presets button{height:168px!important}
+  .hnote+.hnote{margin-top:-10px}
+  /* 玩法清單：兩欄照片卡 */
+  .list.grid2{display:grid!important;grid-template-columns:1fr 1fr;gap:12px 10px}
+  .list.grid2 .itemw{min-width:0}
+  .list.grid2 .item{display:block!important;padding:0!important;border:0!important;background:var(--card);height:100%;box-shadow:0 0 0 1px var(--line2)}
+  .list.grid2 .item .th{display:block;width:100%!important;height:auto!important;aspect-ratio:4/3;border-radius:0!important}
+  .list.grid2 .item>span:last-child{display:block;padding:10px 10px 12px}
+  .list.grid2 .item b{font-size:18px;line-height:1.35}
+  .list.grid2 .item .meta,.list.grid2 .item .where{display:block;font-size:15px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .list.grid2 .fav{top:6px;right:6px;background:rgba(247,246,243,.9);width:38px;height:38px;border-radius:50%}
+  .catsec{padding-top:24px!important}
+  .catsec h2{justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+  /* 行程頁 */
+  .phead{margin-bottom:10px!important}
+  .stage{padding-top:0}
+  .map{height:230px}
+  .stop{padding-bottom:6px}
+  /* 地圖頁：地圖放大 */
+  body.home #bigmap,.bigmap{height:56svh!important}
+  /* 短頁面：卡片貼齊，不留大洞 */
+  .box,.panel{margin-top:12px}
+  .empty{padding:22px 16px}
+}
+@media (max-width:899px){
+  .list.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+  .list.grid2 .itemw,.list.grid2 .item{min-width:0;overflow:hidden}
+  .list.grid2 .itemw .item{padding-right:0!important}
+  .list.grid2 .item>span:not(.th){display:block!important;padding:10px 10px 12px!important;min-width:0}
+  .list.grid2 .item .price,.list.grid2 .item>span:not(.th)>*{max-width:100%}
+}
+@media (max-width:899px){
+  .wxchip{transform:none}
+  .list.grid2 .item .th{aspect-ratio:3/2!important}
+  .list.grid2 .item>span:not(.th){padding:8px 10px 10px!important}
+  .list.grid2 .item>span:not(.th)>*{margin-top:0!important;margin-bottom:0!important}
+  .list.grid2 .item .price{display:block;margin-top:4px!important}
+}
 </style>
 </head>
 <body>
@@ -1012,7 +1069,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日</button></span></span>
 </div></header>
 <main id="app"></main>
-<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span>LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
+<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
 <nav class="tabs" id="tabs"></nav>
 <div class="toast" id="toast" hidden></div>
 <div id="modal"></div>
