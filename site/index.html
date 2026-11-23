@@ -1091,6 +1091,40 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 @media (max-width:899px){#app .nrow *,#app .item *,#app .pcard .bd *,#app .today li *,#app .stop>*,#app .fcard *{text-align:left}#app .item .price{text-align:left}.ihero+.wrap .phead{padding-top:0!important}}
 @media (max-width:899px){.ghome .photo .bg{background-position:40% 60%!important}}
 @media (max-width:899px){footer .wrap>.serif{display:none}footer .wrap{white-space:nowrap}}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* ===== 地圖頁：地圖當主角 ===== */
+.mapx{position:relative}
+.mapx .map.big{height:min(62svh,560px)!important;margin:0;border:0;box-shadow:none}
+.mchips{position:absolute;z-index:500;left:0;right:0;top:12px;display:flex;gap:8px;overflow-x:auto;padding:0 14px;scrollbar-width:none}
+.mchips::-webkit-scrollbar{display:none}
+.mchips .chip{flex:0 0 auto;white-space:nowrap;border-radius:999px!important;background:rgba(247,246,243,.94)!important;border:0!important;box-shadow:0 6px 18px rgba(30,31,31,.18);min-height:42px;padding:0 16px;font-size:16px;display:inline-flex;align-items:center;gap:7px}
+.mchips .chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.mchips .chip[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important}
+.mloc{position:absolute;z-index:500;right:14px;bottom:18px;display:flex;align-items:center;gap:8px;height:52px;padding:0 18px 0 14px;border-radius:999px;border:0;background:var(--ink);color:#fff;font-size:16px;font-weight:700;box-shadow:0 10px 26px rgba(30,31,31,.3);cursor:pointer}
+.mapx .leaflet-bottom.leaflet-left{bottom:8px}
+.mapbody{padding-top:18px}
+.mh2{font-family:var(--serif);font-size:24px;text-align:center;letter-spacing:.08em;margin:0 0 12px}
+.mh2 small{display:block;font-family:var(--sans);font-size:15px;letter-spacing:.2em;color:var(--muted);font-weight:500;margin-bottom:2px}
+.ncards{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:4px 18px 14px;scrollbar-width:none}
+.ncards::-webkit-scrollbar{display:none}
+.ncard{flex:0 0 68%;max-width:280px;scroll-snap-align:center;background:var(--card);box-shadow:0 12px 30px rgba(30,31,31,.12);display:flex;flex-direction:column;transition:transform .4s var(--ez),box-shadow .4s var(--ez)}
+.ncard.on{transform:translateY(-4px);box-shadow:0 0 0 2px var(--ink),0 16px 36px rgba(30,31,31,.2)}
+.ncard .np{display:block;width:100%;aspect-ratio:4/3;border:0;background:#c9c5bc center/cover no-repeat;cursor:pointer;padding:0}
+.ncard .nt{padding:12px 14px 4px;text-align:center}
+.ncard .nt b{display:block;font-family:var(--serif);font-size:20px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ncard .nt small{display:block;font-size:15.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ncard .na{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px 14px}
+.ncard .na .btn{min-height:44px;justify-content:center;padding:0;font-size:16px}
+@media (max-width:899px){
+  body:has(.mapx) header.site{position:sticky}
+  .stage>.map,.trip .map{margin-left:-18px;margin-right:-18px}
+}
+@media (min-width:900px){.mapx{max-width:1180px;margin:24px auto 0}.ncards{margin:0;padding:4px 0 14px}.ncard{flex-basis:260px}}
+.ncards{margin:0;padding:4px 0 14px;max-width:100%}
+.mapbody .ncards{margin:0 -18px;padding:4px 18px 14px;max-width:none}
+@media (min-width:900px){.mapbody .ncards{margin:0;padding:4px 0 14px}}
+.detail{grid-template-columns:minmax(0,1fr)}.detail>*,.detail>*>*{min-width:0;max-width:100%}
+@media (min-width:980px){.detail{grid-template-columns:minmax(0,1fr) 400px}}
 </style>
 </head>
 <body>
@@ -1417,18 +1451,21 @@ function nearby(ll,skip,n){return LIVE().filter(a=>!a.isl&&a.id!==skip&&AT[a.id]
 function moveItem(uid,dir){const it=plan.items.find(x=>x.uid===uid);if(!it)return false;const its=dayItems(it.day),i=its.indexOf(it),j=i+dir;if(j<0||j>=its.length)return false;const o=its[j];[it.time,o.time]=[o.time,it.time];
   const lo=toMin((i<j?it:o).time);if(toMin((i<j?o:it).time)<lo)(i<j?o:it).time=fromMin(lo);retime(it.day);plan.items.sort((x,y)=>x.day-y.day||x.time.localeCompare(y.time));return true}
 const CATCOLOR={海灘:"#4f8a86",自然地景:"#7b6a55",古蹟老街:"#a2461f","室內・雨天":"#5b6178",跳島:"#3f7488",水上:"#2f7fa0",海上體驗:"#3f6f88",生態文化:"#6b7a3a",餐飲:"#b07a1e",交通:"#6f5d4e",季節活動:"#9a4b7a"};
+function NCARDS(list){return `<div class="ncards">${list.map(({a,m})=>{const ll=LLof(AT[a.id]);return `<article class="ncard"><button type="button" class="np" data-act="flyto" data-lat="${ll[0]}" data-lng="${ll[1]}" data-id="${a.id}" style="background-image:url(${IMGA(a)})" aria-label="${esc(a.name)}"></button><div class="nt"><b>${esc(a.name)}</b><small>${esc(a.cat)}・${ride()} ${m} 分鐘</small></div><div class="na"><button type="button" class="btn small" data-act="drive" data-lat="${ll[0]}" data-lng="${ll[1]}" data-name="${esc(a.name)}">導航</button><a class="btn small ghost" href="#/tour/${a.id}">介紹</a></div></article>`}).join("")}</div>`}
 function pageMap(){const me=ui.me,center=me&&km(me,PLACES.home.ll)<60?me:PLACES.home.ll,far=me&&km(me,PLACES.home.ll)>=60;
   const near=nearby(center,null,10);
-  return `<div class="wrap"><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">澎湖地圖</h1><p class="lead">按「我在哪」，看離你最近的地方</p></div>
-  <div class="maptools"><button class="btn small" type="button" data-act="locate">${ICON.home.replace(/<path[^>]*>/,'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>')}我在哪</button><a class="btn small ghost" target="_blank" rel="noopener" href="${gPark(center)}">附近停車場</a>
-    <div class="chips" style="margin-left:auto">${["全部","海灘","自然地景","古蹟老街","室內・雨天","付費行程"].map(c=>`<button type="button" class="chip" data-act="mcat" data-v="${c}" aria-pressed="${(ui.mcat||"全部")===c}">${c}</button>`).join("")}</div></div>
-  ${far?`<p class="note">你目前不在澎湖，先用民宿位置當中心。</p>`:""}
-  <div class="map big" id="bigmap" role="img" aria-label="澎湖景點地圖"></div>
-  <div class="legend2">${["海灘","自然地景","古蹟老街","室內・雨天","水上","餐飲"].map(c=>`<span><i style="background:${CATCOLOR[c]}"></i>${c}</span>`).join("")}<span><i style="background:#1a73e8"></i>你的位置</span><span><b class="pin home" style="width:18px;height:18px;font-size:10px;display:inline-grid">宿</b>夏澄</span></div>
-  <h2 style="margin-top:28px;font-size:24px">${me&&!far?"離你最近":"離民宿最近"}的地方</h2>
-  <div class="near">${near.map(({a,m})=>`<div class="nrow"><span class="th" style="background-image:url(${IMGA(a)})"></span><span class="nb"><a href="#/tour/${a.id}"><b>${esc(a.name)}</b></a><span class="note">${esc(a.cat)}・${ride()}約 ${m} 分鐘・${shortCost(a)}</span></span><button type="button" class="op" data-act="drive" data-lat="${LLof(AT[a.id])[0]}" data-lng="${LLof(AT[a.id])[1]}" data-name="${esc(a.name)}">導航</button></div>`).join("")}</div>
-  <p class="note" style="margin-top:14px">位置與車程為估算，停車場和導航會開啟 Google 地圖。</p></div>`}
-function drawBig(el){if(!el||!window.L)return;const m=L.map(el,{scrollWheelZoom:false});L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);
+  return `<h1 class="vh">澎湖地圖</h1><div class="mapx">
+    <div class="map big" id="bigmap" role="img" aria-label="澎湖景點地圖"></div>
+    <div class="mchips">${["全部","海灘","自然地景","古蹟老街","室內・雨天","付費行程"].map(c=>`<button type="button" class="chip" data-act="mcat" data-v="${c}" aria-pressed="${(ui.mcat||"全部")===c}">${CATCOLOR[c]?`<i style="background:${CATCOLOR[c]}"></i>`:""}${c}</button>`).join("")}</div>
+    <button class="mloc" type="button" data-act="locate" aria-label="我在哪"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>我在哪</span></button>
+  </div>
+  <div class="wrap mapbody">
+  ${far?`<p class="note">你目前不在澎湖，先用民宿位置當中心</p>`:""}
+  <h2 class="mh2"><small>左右滑，點照片看位置</small>${me&&!far?"離你最近":"離民宿最近"}</h2>
+  ${NCARDS(near)}
+  <div class="hbtns" style="margin-top:18px"><a class="btn big ghost" target="_blank" rel="noopener" href="${gPark(center)}">找附近停車場</a></div>
+  <p class="note" style="margin-top:12px">車程為估算，導航會開 Google 地圖</p></div>`}
+function drawBig(el){if(!el||!window.L)return;const m=L.map(el,{scrollWheelZoom:false,zoomControl:false});window.BIGM=m;L.control.zoom({position:"bottomleft"}).addTo(m);L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);
   const c=ui.mcat||"全部",seen=new Set(),pts=[];
   LIVE().forEach(a=>{if(a.isl)return;const k=AT[a.id],ll=LLof(k);if(!ll||k==="home")return;const paid=!a.free;if(c==="付費行程"?!paid:c!=="全部"&&a.cat!==c)return;if(seen.has(k+a.id))return;seen.add(k+a.id);pts.push(ll);
     L.circleMarker(ll,{radius:8,color:"#fff",weight:2,fillColor:CATCOLOR[a.cat]||"#a2461f",fillOpacity:1}).addTo(m).bindPopup(`<b style="font-size:15px">${esc(a.name)}</b><br><span style="color:#6f5d4e">${esc(a.cat)}・${costText(a)}</span><br><a href="#/tour/${a.id}">看介紹</a>　<a href="javascript:void(0)" data-act="drive" data-lat="${ll[0]}" data-lng="${ll[1]}" data-name="${esc(a.name)}">導航</a>　<a target="_blank" rel="noopener" href="${gPark(ll)}">附近停車</a>`)});
@@ -1596,7 +1633,7 @@ function pageTour(id){
     <div class="map" id="tourmap" role="img" aria-label="${esc(a.name)}集合地點地圖" style="margin:0"></div>
     ${a.isl?"":`<p class="note" id="tourroute" style="margin:-8px 0 0">從夏澄出發的實際路線計算中…</p>`}
     ${a.isl?"":`<div class="row2"><button class="btn small" type="button" data-act="drive" data-lat="${LLof(AT[a.id])[0]}" data-lng="${LLof(AT[a.id])[1]}" data-name="${esc(a.name)}">${ICON.nav}開始導航</button><a class="btn small ghost" target="_blank" rel="noopener" href="${gPark(LLof(AT[a.id]))}">附近停車場</a></div>
-    <div><h3 style="font-size:20px;margin-bottom:6px">附近還可以去</h3><div class="near">${nearby(LLof(AT[a.id]),a.id,4).map(({a:b,m})=>`<div class="nrow"><span class="th" style="background-image:url(${IMGA(b)})"></span><span class="nb"><a href="#/tour/${b.id}"><b>${esc(b.name)}</b></a><span class="note">${esc(b.cat)}・${ride()}約 ${m} 分鐘・${shortCost(b)}</span></span></div>`).join("")}</div></div>`}
+    <div><h3 style="font-size:20px;margin-bottom:6px">附近還可以去</h3>${NCARDS(nearby(LLof(AT[a.id]),a.id,6))}</div>`}
   </div>
   <aside class="panel sticky form" id="addbox">
     <b style="font-size:18px">加到行程</b>
@@ -1723,6 +1760,7 @@ document.addEventListener("click",e=>{
   if(act==="print"){document.body.classList.add("printing");setTimeout(()=>window.print(),300);return}
   if(act==="mv"){if(moveItem(v,+b.dataset.d)){save();render();toast(+b.dataset.d<0?"已往前移，時間自動調整":"已往後移，時間自動調整")}return}
   if(act==="mcat"){ui.mcat=v;render();return}
+  if(act==="flyto"){if(window.BIGM){document.querySelectorAll(".ncard").forEach(x=>x.classList.remove("on"));b.closest(".ncard").classList.add("on");BIGM.flyTo([+b.dataset.lat,+b.dataset.lng],14,{duration:.9});window.scrollTo({top:0,behavior:"smooth"})}else location.hash="#/tour/"+b.dataset.id;return}
   if(act==="locate"){if(!navigator.geolocation){toast("這台裝置不能定位");return}toast("定位中…");navigator.geolocation.getCurrentPosition(p=>{ui.me=[p.coords.latitude,p.coords.longitude];render();toast(km(ui.me,PLACES.home.ll)<60?"已找到你的位置":"你目前不在澎湖")},()=>toast("沒有定位權限，請在瀏覽器允許定位"),{enableHighAccuracy:true,timeout:10000});return}
   if(act==="flt"){ui.flt=ui.flt.includes(v)?ui.flt.filter(x=>x!==v):[...ui.flt,v];render();return}
   if(act==="lookup"){const c=(document.getElementById("lk").value||"").trim().toUpperCase();if(c.length<4){toast("請輸入 6 碼查詢碼");return}
@@ -1802,7 +1840,7 @@ const RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").match
 let fxRoute=null,fxIO=null;
 function fx(){
   const r=(location.hash||"#/").slice(1).split("?")[0];
-  const BN={"/plan":["dusk","你的澎湖"],"/tours":["snorkel","想自己挑"],"/map":["aerial","都在這張圖上"],"/line":["harbor","有問題就問"],"/mine":["harbor","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["food","吃什麼買什麼"],"/privacy":["harbor","夏澄"]}[r];
+  const BN={"/plan":["dusk","你的澎湖"],"/tours":["snorkel","想自己挑"],"/line":["harbor","有問題就問"],"/mine":["harbor","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["food","吃什麼買什麼"],"/privacy":["harbor","夏澄"]}[r];
   const app=document.getElementById("app"),h1=app.querySelector("h1");
   if(BN&&h1&&!app.querySelector(".ihero")&&innerWidth<900){const d=document.createElement("div");d.className="ihero";d.innerHTML=`<div class="bg" style="background-image:url(${IMG(BN[0])})"></div><span class="eb">${BN[1]}</span><h1>${h1.innerHTML}</h1>`;app.insertBefore(d,app.firstChild);h1.classList.add("h1off")}
   document.body.classList.toggle("home",r==="/"||r===""||!!app.querySelector(".ihero"));
@@ -1812,7 +1850,7 @@ function fx(){
   fxRoute=key;
   if(fxIO)fxIO.disconnect();
   fxIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");fxIO.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px",threshold:.08});
-  const els=document.querySelectorAll("#app .hq2,#app .ptitle,#app .presets button,#app .gperk,#app .glinks a,#app .today,#app .hstat,#app .hbtns,#app .seal,#app .stop,#app .total,#app .catsec,#app .box,#app .stage,#app .panel,#app .map,#app .phead,#app .days,#app .lookup,#app .empty,#app .chips");
+  const els=document.querySelectorAll("#app .ncard,#app .hq2,#app .ptitle,#app .presets button,#app .gperk,#app .glinks a,#app .today,#app .hstat,#app .hbtns,#app .seal,#app .stop,#app .total,#app .catsec,#app .box,#app .stage,#app .panel,#app .map,#app .phead,#app .days,#app .lookup,#app .empty,#app .chips");
   let n=0;els.forEach(el=>{const top=el.getBoundingClientRect().top;el.classList.add("rv");el.style.setProperty("--d",(top<innerHeight?Math.min(n++,6)*70:0)+"ms");fxIO.observe(el)});
 }
 function genShow(name,done){
