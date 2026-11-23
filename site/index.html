@@ -1089,6 +1089,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 }
 @media (max-width:899px){.linkt{display:flex!important;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:18px 12px}.linkt>span:last-child{display:block;min-width:0;max-width:100%}}
 @media (max-width:899px){#app .nrow *,#app .item *,#app .pcard .bd *,#app .today li *,#app .stop>*,#app .fcard *{text-align:left}#app .item .price{text-align:left}.ihero+.wrap .phead{padding-top:0!important}}
+@media (max-width:899px){.ghome .photo .bg{background-position:24% 60%!important}}
+@media (max-width:899px){footer .wrap>.serif{display:none}footer .wrap{white-space:nowrap}}
 </style>
 </head>
 <body>
@@ -1099,7 +1101,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日</button></span></span>
 </div></header>
 <main id="app"></main>
-<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
+<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="credits.html">照片來源</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
 <nav class="tabs" id="tabs"></nav>
 <div class="toast" id="toast" hidden></div>
 <div id="modal"></div>
@@ -1107,11 +1109,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 /* ===================== 資料（價格皆為示意） ===================== */
-const IMG=n=>`img/${n}.webp`;
+const RGEN={"heart": "heart_0", "basalt": "bluecave_1", "snorkel": "mudou_1", "squid": "squid_2", "scooter": "bridge_1", "hero": "mudou_0", "dusk": "rainbow_2", "aerial": "chixi_1", "harbor": "waian_2", "food": "seafood_1", "village": "ekn_0"},RREAL={"scooter": "bridge_1", "car": "bridge_0", "transfer": "harbor_0", "south": "south4_0", "north": "mudou_0", "east": "tongpan_0", "qimei": "heart_0", "bluecave": "bluecave_0", "snorkel": "mudou_1", "banana": "sup_1", "jetski": "shanshui_1", "tube": "beach9_1", "sup": "sup_2", "kayak": "mudou_2", "ranch": "oyster_0", "squid": "squid_2", "tidal": "kuibi_2", "weir": "weir2_1", "basalt": "basalt_2", "seafood": "seafood_1", "souvenir": "cactus_1", "fireworks": "rainbow_1", "s_qingwan": "sunset_1", "s_shanshui": "beach9_0", "s_shili": "sup_0", "s_aimen": "sup_1", "s_lintou": "lintou_0", "s_dream": "sunset_2", "s_fenggui": "fenggui_1", "s_shetou": "shetou_0", "s_kuibi": "kuibi_2", "s_daguoye": "basalt_0", "s_whale": "whale_2", "s_chixi": "chixi_0", "s_tianhou": "tianhou_0", "s_central": "street_1", "s_guanyin": "rainbow_2", "s_juxing": "duxing_0", "s_shuncheng": "shuncheng_0", "s_erkan": "ekn_0", "s_xitai": "xiyu_2", "s_lighthouse": "light_0", "s_waian": "waian_0", "s_bridge": "bridge_0", "s_beichen": "market_0", "s_twinheart": "heart_1", "s_huazhai": "huazhai_1", "s_tongpan": "tongpan_2", "s_dongji": "dongji_1", "s_dongtai": "dongtai_1", "s_neian": "waian_2", "s_jibei_weir": "weir_1", "s_mudou": "mudou_0", "s_tiantai": "wangan_1", "s_jimu": "chixi_2", "s_jibei": "mudou_2", "s_xiaotw": "heart_2", "s_nanliao": "huazhai_0", "s_turtle": "wangan_0"},RPOOL={"海灘": ["shanshui_0", "sup_0", "sunset_2", "beach9_1"], "自然地景": ["chixi_1", "basalt_1", "whale_0", "sea_2", "xiji_0"], "古蹟老街": ["huazhai_2", "light_1", "dongtai_2", "ekn_1", "duxing_1"], "室內・雨天": ["qimei_1", "squid_1", "market_1"], "離島景點": ["south4_0", "tongpan_1", "dongji_2", "xiji_2", "hujing_1"]};
+const IMG=n=>RGEN[n]?`img/p/${RGEN[n]}.webp`:`img/${n}.webp`;
+function hsh(t){let h=0;for(const c of t)h=(h*31+c.charCodeAt(0))>>>0;return h}
 const CATTINT={海灘:["#d9e6e4","#4f8a86"],自然地景:["#e3dccf","#7b6a55"],古蹟老街:["#ecd9cc","#a2461f"],"室內・雨天":["#dfe0e6","#5b6178"],離島景點:["#d6e4ea","#3f7488"]};
 const CATPATH={海灘:"M8 40c6 0 6-4 12-4s6 4 12 4 6-4 12-4 6 4 12 4M30 12v14M30 12c-8 0-12 6-12 6h24s-4-6-12-6",自然地景:"M6 44l14-22 9 12 7-9 18 19z",古蹟老街:"M10 26l20-12 20 12M14 26v18h32V26M24 44V32h12v12",
 "室內・雨天":"M12 30a18 18 0 0 1 36 0zM30 30v12a4 4 0 0 1-8 0M18 8l-2 6M30 6l-2 6M42 8l-2 6",離島景點:"M6 40h48l-6 6H12zM16 40V28h18l6 12M24 28V18"};
-function IMGA(a){if(a.img)return IMG(a.img);const PH={海灘:"room",自然地景:"basalt",古蹟老街:"sunset","室內・雨天":"room",離島景點:"heart"}[a.cat];if(PH)return IMG(PH);const t=CATTINT[a.cat]||["#e9dccb","#a2461f"],d=CATPATH[a.cat]||CATPATH.自然地景;
+function IMGA(a){if(RREAL[a.id])return `img/p/${RREAL[a.id]}.webp`;const rp=RPOOL[a.cat];if(rp)return `img/p/${rp[hsh(a.id)%rp.length]}.webp`;if(a.img)return IMG(a.img);const PH={海灘:"room",自然地景:"basalt",古蹟老街:"sunset","室內・雨天":"room",離島景點:"heart"}[a.cat];if(PH)return IMG(PH);const t=CATTINT[a.cat]||["#e9dccb","#a2461f"],d=CATPATH[a.cat]||CATPATH.自然地景;
   return "data:image/svg+xml,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="xMidYMid slice"><rect width="60" height="60" fill="${t[0]}"/><g transform="translate(15 15) scale(.5)"><path d="${d}" fill="none" stroke="${t[1]}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g></svg>`).replace(/\(/g,"%28").replace(/\)/g,"%29")}
 const ALL=[1,2,3,4,5,6,7,8,9,10,11,12], SUMMER=[4,5,6,7,8,9,10];
 /* 地點座標為示意，正式版換成業者實際集合點 */
@@ -1451,7 +1455,7 @@ function PLANSIDE(){const ints=plan.interests.length?plan.interests.join("、"):
 function seaLine(){const w=wxOf(isoOf(new Date())),lv=seaLv(w);if(!w)return "";
   const t={ok:"今天適合出海",warn:"今天浪稍大，出海行程可能調整",bad:"今天風浪大，我們會幫你改成岸上玩法"}[lv];
   return `<p class="seal ${lv}"><b>${t}</b><span>${WXT(w.code)} ${w.tmin}–${w.tmax}°・日落 ${w.sunset||"—"}</span></p>`}
-const PRESETS=[["easy","輕鬆慢慢玩","夕陽、海鮮、逛老街","sunset",["輕鬆","美食"]],["water","玩水為主","浮潛、SUP、夜釣小管","snorkel",["玩水","美食"]],["island","跳島看風景","南方四島、七美","heart",["跳島","導覽"]],["culture","看地質、逛老街","玄武岩、潮間帶、老街","basalt",["導覽","美食"]]];
+const PRESETS=[["easy","輕鬆慢慢玩","夕陽、海鮮、逛老街","dusk",["輕鬆","美食"]],["water","玩水為主","浮潛、SUP、夜釣小管","snorkel",["玩水","美食"]],["island","跳島看風景","南方四島、七美","heart",["跳島","導覽"]],["culture","看地質、逛老街","玄武岩、潮間帶、老街","village",["導覽","美食"]]];
 function careNote(x){const o=[];if(x.infant)o.push("有幼兒同行，有年齡限制的不會排");else if(x.child)o.push("有小孩同行，有年齡限制的會標出來");if(x.senior)o.push("有長輩同行，不排太耗體力的活動");return o.map(t=>`<span class="picked" style="font-weight:500">${t}</span>`).join("")}
 function presetOpen(pr,m){return ACTS.some(a=>!a.free&&(a.tags||[]).includes(pr[4][0])&&available(a.id,m))}
 function dlong(iso){const d=new Date(iso+"T00:00:00");return `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日（週${"日一二三四五六"[d.getDay()]}）`}
@@ -1496,7 +1500,7 @@ function pageHome(){
   }
   const mh=body.match(/^\s*<h1>[\s\S]*?<\/h1>\s*(<p class="lead">[\s\S]*?<\/p>)?/),hd=mh?mh[0]:"";body=body.slice(hd.length);
   return `<div class="wrap"><section class="hero ghome ${made?"short":""}">
-    <div class="photo" role="img" aria-label="夏澄清水模客廳望海"><div class="bg" style="background-image:url(${IMG("room")})"></div>${(()=>{const w=wxOf(isoOf(new Date())),lv=seaLv(w);return w?`<div class="wxchip"><small>澎湖現在</small><b>${WXT(w.code)}　${w.tmin}–${w.tmax}°</b><span class="${lv}">${{ok:"適合出海",warn:"浪稍大",bad:"風浪大"}[lv]}</span></div>`:""})()}<div class="hov">${hd}<i class="dn" aria-hidden="true"></i></div></div>
+    <div class="photo" role="img" aria-label="澎湖的海"><div class="bg" style="background-image:url(${IMG("hero")})"></div>${(()=>{const w=wxOf(isoOf(new Date())),lv=seaLv(w);return w?`<div class="wxchip"><small>澎湖現在</small><b>${WXT(w.code)}　${w.tmin}–${w.tmax}°</b><span class="${lv}">${{ok:"適合出海",warn:"浪稍大",bad:"風浪大"}[lv]}</span></div>`:""})()}<div class="hov">${hd}<i class="dn" aria-hidden="true"></i></div></div>
     <div class="txt">${body}</div></section>
   <section class="sec gperk"><h2>住夏澄才有</h2><ul><li><b>行程幫你排好</b><span>名額我們幫你訂</span></li><li><b>LINE 隨時問</b><span>海況、改期都能問</span></li><li><b>行李寄放</b><span>退房後照樣玩</span></li><li><b>頂樓 BBQ</b><span>可以加進行程</span></li></ul></section>
   <section class="sec glinks"><a href="#/tours"><span><b>全部玩法</b><small>${LIVE().length} 種，想自己挑從這裡加</small></span><span class="go" aria-hidden="true">→</span></a><a href="#/map"><span><b>澎湖地圖</b><small>景點、停車場都在上面</small></span><span class="go" aria-hidden="true">→</span></a><a href="#/mine"><span><b>送出紀錄</b><small>看民宿確認到哪一步</small></span><span class="go" aria-hidden="true">→</span></a></section></div>`}
@@ -1798,7 +1802,7 @@ const RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").match
 let fxRoute=null,fxIO=null;
 function fx(){
   const r=(location.hash||"#/").slice(1).split("?")[0];
-  const BN={"/plan":["sunset","你的澎湖"],"/tours":["snorkel","想自己挑"],"/map":["basalt","都在這張圖上"],"/line":["room","有問題就問"],"/mine":["room","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["squid","吃什麼買什麼"],"/privacy":["room","夏澄"]}[r];
+  const BN={"/plan":["dusk","你的澎湖"],"/tours":["snorkel","想自己挑"],"/map":["aerial","都在這張圖上"],"/line":["harbor","有問題就問"],"/mine":["harbor","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["food","吃什麼買什麼"],"/privacy":["harbor","夏澄"]}[r];
   const app=document.getElementById("app"),h1=app.querySelector("h1");
   if(BN&&h1&&!app.querySelector(".ihero")&&innerWidth<900){const d=document.createElement("div");d.className="ihero";d.innerHTML=`<div class="bg" style="background-image:url(${IMG(BN[0])})"></div><span class="eb">${BN[1]}</span><h1>${h1.innerHTML}</h1>`;app.insertBefore(d,app.firstChild);h1.classList.add("h1off")}
   document.body.classList.toggle("home",r==="/"||r===""||!!app.querySelector(".ihero"));
