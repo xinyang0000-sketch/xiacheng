@@ -1125,6 +1125,65 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 @media (min-width:900px){.mapbody .ncards{margin:0;padding:4px 0 14px}}
 .detail{grid-template-columns:minmax(0,1fr)}.detail>*,.detail>*>*{min-width:0;max-width:100%}
 @media (min-width:980px){.detail{grid-template-columns:minmax(0,1fr) 400px}}
+/* ===== 舒適度修正 ===== */
+:root{--muted:#45494a}
+.tag-demo{display:none!important}
+.dphoto{position:relative}
+.dback{position:absolute;left:12px;top:12px;z-index:2;background:rgba(247,246,243,.94);color:var(--ink);text-decoration:none;font-size:16px;font-weight:700;padding:10px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(30,31,31,.18)}
+.detail>div:first-child>a[href="#/tours"]:first-child{display:none}
+@media (max-width:899px){
+  .dphoto{margin:0 -18px!important;border-radius:0!important;aspect-ratio:4/3!important}
+  .detail{padding-top:0!important}
+  .stop .meta,.pcard .meta,.fcard .meta,.pcard .bd .meta{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block}
+  #app .note,#app span.note,#app small{font-size:16px}
+  .lang{border:0;background:rgba(20,22,22,.55)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .lang button{min-height:44px!important;min-width:44px!important;padding:0 10px;color:#fff!important;opacity:1!important;font-size:16px}
+  .lang button[aria-pressed="true"]{background:#fff!important;color:var(--ink)!important}
+  body:not(.home) .lang{background:var(--card)!important;border:1px solid var(--line)}
+  body:not(.home) .lang button:not([aria-pressed="true"]){color:var(--ink)!important}
+  /* 送出條和選單合成一塊 */
+  .dockbar{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important;box-shadow:none!important;border-bottom:0!important;padding:10px 14px!important}
+  body.dock .dockbar{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}
+  nav.tabs a{min-height:54px!important;padding:7px 0 6px!important}
+  .dockbar small{font-size:15px}
+  .ops .op,.ops .more summary{min-height:44px}
+}
+.lbig{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:26px 0 8px}
+.lq{font-family:var(--serif);font-size:26px;line-height:1.5;margin:0;letter-spacing:.06em}
+.lbtn{background:#06c755!important;border-color:#06c755!important;color:#fff!important;width:100%;max-width:420px}
+.lask{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;width:100%;max-width:420px}
+.lask li{background:var(--card);padding:14px 16px;font-size:17px;box-shadow:0 0 0 1px var(--line2)}
+.lask li::before{content:"「";color:var(--muted)}.lask li::after{content:"」";color:var(--muted)}
+.fltbox summary{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--ink);color:var(--ink)!important;font-size:16px;list-style:none}
+.fltbox summary::-webkit-details-marker{display:none}
+/* 動態：浮幾下就停，不一直動 */
+@media (max-width:899px){
+  .wxchip{animation:hin .9s var(--ez) .6s both,flo 6s ease-in-out 1.6s 2!important}
+  .hq2{animation:flo2 7s ease-in-out 2.4s 1!important}
+  .presets .go{animation:nudge 2.6s var(--ez) 2!important}
+  .dn::after{animation:drop 2.2s var(--ez) 1.4s 3!important}
+  .ghome .photo::before{animation:sheen 9s ease-in-out 2s 1!important}
+}
+/* 地圖標示：縮小 */
+.leaflet-control-attribution{font-size:11px!important;line-height:1.4!important;padding:1px 6px!important;background:rgba(247,246,243,.75)!important;color:#55595a!important;transition:opacity .4s}
+.leaflet-control-attribution a{color:#55595a!important}
+.leaflet-control-attribution.mini{font-size:0!important;padding:0!important;width:24px;height:24px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.leaflet-control-attribution.mini::before{content:"i";font:italic 700 13px Georgia,serif;color:#55595a}
+.leaflet-control-attribution.mini *{display:none}
+@media (max-width:899px){
+  .pcard{grid-template-columns:104px minmax(0,1fr)!important}
+  .pcard .ops{grid-column:1/-1;flex-wrap:nowrap!important;margin-top:2px}
+  .pcard .ops>*{flex:1 1 0;min-width:0}
+  .pcard .ops .op,.pcard .ops .more summary{width:100%;justify-content:center;padding:0 6px;white-space:nowrap}
+  .pcard .ops details.more{display:block}
+  .fcard{display:grid!important;grid-template-columns:auto minmax(0,1fr);gap:12px}
+  .fcard>span:last-child{padding-right:0!important}
+  .fcard .ops{position:static!important;transform:none!important;display:flex!important;gap:8px;margin-top:10px!important}
+  .fcard .ops>*{flex:1 1 0}
+  .fcard .ops .op,.fcard .ops .more summary{width:100%;justify-content:center}
+  .morebox{right:0;left:auto!important}
+}
+@media (max-width:899px){.list.grid2 .item .meta,.list.grid2 .item .where{white-space:normal!important;overflow:visible!important;text-overflow:clip!important}}
 </style>
 </head>
 <body>
@@ -1132,7 +1191,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 <header class="site"><div class="wrap">
   <a class="logo notranslate" href="#/">夏澄</a>
   <nav class="top" id="topnav"></nav>
-  <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日</button></span></span>
+  <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中文</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日本語</button></span></span>
 </div></header>
 <main id="app"></main>
 <footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="credits.html">照片來源</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
@@ -1140,7 +1199,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 <div class="toast" id="toast" hidden></div>
 <div id="modal"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script>if(window.L)L.Control.Attribution.prototype.options.prefix=false</script>
 <script>
 /* ===================== 資料（價格皆為示意） ===================== */
 const RGEN={"heart": "heart_0", "basalt": "bluecave_1", "snorkel": "mudou_1", "squid": "squid_2", "scooter": "bridge_1", "hero": "mudou_0", "dusk": "rainbow_2", "aerial": "chixi_1", "harbor": "waian_2", "food": "seafood_1", "village": "ekn_0"},RREAL={"scooter": "bridge_1", "car": "bridge_0", "transfer": "harbor_0", "south": "south4_0", "north": "mudou_0", "east": "tongpan_0", "qimei": "heart_0", "bluecave": "bluecave_0", "snorkel": "mudou_1", "banana": "sup_1", "jetski": "shanshui_1", "tube": "beach9_1", "sup": "sup_2", "kayak": "mudou_2", "ranch": "oyster_0", "squid": "squid_2", "tidal": "kuibi_2", "weir": "weir2_1", "basalt": "basalt_2", "seafood": "seafood_1", "souvenir": "cactus_1", "fireworks": "rainbow_1", "s_qingwan": "sunset_1", "s_shanshui": "beach9_0", "s_shili": "sup_0", "s_aimen": "sup_1", "s_lintou": "lintou_0", "s_dream": "sunset_2", "s_fenggui": "fenggui_1", "s_shetou": "shetou_0", "s_kuibi": "kuibi_2", "s_daguoye": "basalt_0", "s_whale": "whale_2", "s_chixi": "chixi_0", "s_tianhou": "tianhou_0", "s_central": "street_1", "s_guanyin": "rainbow_2", "s_juxing": "duxing_0", "s_shuncheng": "shuncheng_0", "s_erkan": "ekn_0", "s_xitai": "xiyu_2", "s_lighthouse": "light_0", "s_waian": "waian_0", "s_bridge": "bridge_0", "s_beichen": "market_0", "s_twinheart": "heart_1", "s_huazhai": "huazhai_1", "s_tongpan": "tongpan_2", "s_dongji": "dongji_1", "s_dongtai": "dongtai_1", "s_neian": "waian_2", "s_jibei_weir": "weir_1", "s_mudou": "mudou_0", "s_tiantai": "wangan_1", "s_jimu": "chixi_2", "s_jibei": "mudou_2", "s_xiaotw": "heart_2", "s_nanliao": "huazhai_0", "s_turtle": "wangan_0"},RPOOL={"海灘": ["shanshui_0", "sup_0", "sunset_2", "beach9_1"], "自然地景": ["chixi_1", "basalt_1", "whale_0", "sea_2", "xiji_0"], "古蹟老街": ["huazhai_2", "light_1", "dongtai_2", "ekn_1", "duxing_1"], "室內・雨天": ["qimei_1", "squid_1", "market_1"], "離島景點": ["south4_0", "tongpan_1", "dongji_2", "xiji_2", "hujing_1"]};
@@ -1153,7 +1212,7 @@ function IMGA(a){if(RREAL[a.id])return `img/p/${RREAL[a.id]}.webp`;const rp=RPOO
   return "data:image/svg+xml,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="xMidYMid slice"><rect width="60" height="60" fill="${t[0]}"/><g transform="translate(15 15) scale(.5)"><path d="${d}" fill="none" stroke="${t[1]}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g></svg>`).replace(/\(/g,"%28").replace(/\)/g,"%29")}
 const ALL=[1,2,3,4,5,6,7,8,9,10,11,12], SUMMER=[4,5,6,7,8,9,10];
 /* 地點座標為示意，正式版換成業者實際集合點 */
-const PLACES={home:{n:"夏澄（位置示意）",ll:[23.5545,119.6010]},airport:{n:"澎湖機場",ll:[23.5687,119.6281]},guanyin:{n:"觀音亭",ll:[23.5694,119.5627]},beichen:{n:"北辰市場",ll:[23.5702,119.5807]},nanhai:{n:"南海遊客中心碼頭",ll:[23.5627,119.5640]},chikan:{n:"赤崁碼頭",ll:[23.6588,119.6006]},shili:{n:"嵵裡沙灘",ll:[23.5129,119.5713]},shanshui:{n:"山水沙灘",ll:[23.5137,119.5917]},aimen:{n:"隘門沙灘",ll:[23.5745,119.6475]},port3:{n:"馬公第三漁港",ll:[23.5612,119.5745]},kuibi:{n:"奎壁山",ll:[23.6090,119.6640]},erkan:{n:"西嶼二崁",ll:[23.6035,119.5170]},daguoye:{n:"大菓葉玄武岩",ll:[23.6365,119.5470]},town:{n:"馬公市區",ll:[23.5672,119.5810]}};
+const PLACES={home:{n:"夏澄",ll:[23.5545,119.6010]},airport:{n:"澎湖機場",ll:[23.5687,119.6281]},guanyin:{n:"觀音亭",ll:[23.5694,119.5627]},beichen:{n:"北辰市場",ll:[23.5702,119.5807]},nanhai:{n:"南海遊客中心碼頭",ll:[23.5627,119.5640]},chikan:{n:"赤崁碼頭",ll:[23.6588,119.6006]},shili:{n:"嵵裡沙灘",ll:[23.5129,119.5713]},shanshui:{n:"山水沙灘",ll:[23.5137,119.5917]},aimen:{n:"隘門沙灘",ll:[23.5745,119.6475]},port3:{n:"馬公第三漁港",ll:[23.5612,119.5745]},kuibi:{n:"奎壁山",ll:[23.6090,119.6640]},erkan:{n:"西嶼二崁",ll:[23.6035,119.5170]},daguoye:{n:"大菓葉玄武岩",ll:[23.6365,119.5470]},town:{n:"馬公市區",ll:[23.5672,119.5810]}};
 const AT={scooter:"home",car:"home",transfer:"airport",south:"nanhai",north:"chikan",east:"nanhai",qimei:"nanhai",bluecave:"nanhai",snorkel:"shanshui",banana:"shili",jetski:"shili",tube:"shili",sup:"aimen",kayak:"aimen",ranch:"port3",squid:"port3",tidal:"kuibi",weir:"erkan",basalt:"daguoye",seafood:"town",bbq:"home",souvenir:"town",fireworks:"guanyin"};
 const MINAGE={snorkel:6,banana:6,jetski:6,tube:6,sup:8,kayak:3,squid:6};
 const INTENSE=["banana","jetski","tube"];
@@ -1193,7 +1252,7 @@ const SPOTS2=[{"id": "s_suogang", "cat": "古蹟老街", "name": "鎖港南北�
 ACTS.push(...SPOTS2);
 Object.assign(PLACES,{s_suogang:{n:"鎖港南北塔",ll:[23.5306,119.6178]},s_jimu:{n:"雞母塢玄武岩",ll:[23.5255,119.6042]},s_dongtai:{n:"西嶼東臺",ll:[23.5655,119.49]},s_neian:{n:"內垵遊憩區",ll:[23.5797,119.4837]}});
 Object.assign(AT,{s_suogang:"s_suogang",s_jimu:"s_jimu",s_dongtai:"s_dongtai",s_neian:"s_neian",s_qimeiren:"nanhai",s_tiantai:"nanhai",s_wangan_beach:"nanhai",s_jibei_weir:"chikan",s_mudou:"chikan"});
-const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"免費機場接送待確認",at:"home",dur:1},sunset:{name:"觀音亭看夕陽",meta:"免費景點",at:"guanyin",dur:1},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐",at:"town",dur:1.5},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿",at:"home",dur:0.5},leave:{name:"前往機場或碼頭",meta:"回家囉",at:"airport",dur:0},market:{name:"逛北辰市場買伴手禮",meta:"免費",at:"beichen",dur:1}};
+const FREE={arrive:{name:"抵達馬公、入住夏澄",meta:"民宿可以幫忙接送",at:"home",dur:1},sunset:{name:"觀音亭看夕陽",meta:"免費景點",at:"guanyin",dur:1},dinner:{name:"晚餐自由選擇",meta:"可加購海鮮套餐",at:"town",dur:1.5},checkout:{name:"退房、還機車",meta:"行李可寄放在民宿",at:"home",dur:0.5},leave:{name:"前往機場或碼頭",meta:"回家囉",at:"airport",dur:0},market:{name:"逛北辰市場買伴手禮",meta:"免費",at:"beichen",dur:1}};
 const CATS=["全部","海灘","自然地景","古蹟老街","室內・雨天","離島景點","跳島","水上","海上體驗","生態文化","餐飲","交通","季節活動"];
 const INTERESTS=["玩水","跳島","導覽","美食","輕鬆"];
 const INTINFO={玩水:["snorkel","浮潛、SUP、香蕉船，夏天必玩"],跳島:["heart","南方四島、七美雙心石滬、北海"],導覽:["basalt","玄武岩、潮間帶、石滬，有老師帶"],美食:["sunset","海鮮餐、夜釣小管、民宿 BBQ"],輕鬆:["room","不趕路，長輩小孩也輕鬆"]};
@@ -1478,11 +1537,11 @@ const NAV=[["#/","首頁","M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-
 function navs(route){const k="#/"+(route.split("/")[1]||"");
   document.getElementById("topnav").innerHTML=NAV.slice(0,5).map(([h,t])=>`<a href="${h}" class="${h===k?"on":""}">${t}</a>`).join("");
   document.getElementById("tabs").innerHTML=NAV.map(([h,t,d])=>`<a href="${h}" class="${h===k?"on":""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>${t}</a>`).join("")}
-function itemRow(a){return `<div class="itemw">${favBtn(a)}<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}示意照片"></span><span><b>${esc(a.name)}</b><span class="meta">${esc(a.cat)}${a.dur?"｜約 "+a.dur+" 小時":""}${a.months.length<12?"｜"+a.months[0]+"–"+a.months.at(-1)+" 月":""}</span><span class="where">${PIN}${a.isl?esc(a.area)+"・"+esc(a.limit):(a.area?esc(a.area)+"・":"")+"離民宿 "+travel("home",AT[a.id])+" 分鐘"}</span></span><span class="price">${a.free?costText(a).replace("門票現場購買","現場購票"):money(a.price)}${a.free?"":`<small>／${a.unit}・示意</small>`}</span></a></div>`}
+function itemRow(a){return `<div class="itemw">${favBtn(a)}<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"></span><span><b>${esc(a.name)}</b><span class="meta">${esc(a.cat)}${a.dur?"｜約 "+a.dur+" 小時":""}${a.months.length<12?"｜"+a.months[0]+"–"+a.months.at(-1)+" 月":""}</span><span class="where">${PIN}${a.isl?esc(a.area)+"・"+esc(a.limit):(a.area?esc(a.area)+"・":"")+"離民宿 "+travel("home",AT[a.id])+" 分鐘"}</span></span><span class="price">${a.free?costText(a).replace("門票現場購買","現場購票"):money(a.price)}${a.free?"":`<small>／${a.unit}・示意</small>`}</span></a></div>`}
 
 /* ===================== 頁面 ===================== */
 function MORE(it,a,i,nx){const ll=LLof(placeOf(it)),nm=a?a.name:FREE[it.free].name;
-  return `<details class="more"><summary>更多</summary><div class="morebox">${ll?`<button type="button" class="op" data-act="drive" data-lat="${ll[0]}" data-lng="${ll[1]}" data-name="${esc(nm)}">${ICON.nav}導航過去</button>`:""}${a?`<a class="op" href="#/tour/${a.id}">${ICON.info}看介紹</a>`:""}${i>0?`<button type="button" class="op" data-act="mv" data-v="${it.uid}" data-d="-1">${ICON.up}提早一點</button>`:""}${nx?`<button type="button" class="op" data-act="mv" data-v="${it.uid}" data-d="1">${ICON.down}晚一點</button>`:""}${a?`<button type="button" class="op del" data-act="del" data-v="${it.uid}" aria-label="刪除${esc(nm)}">${ICON.del}不要這個</button>`:""}</div></details>`}
+  return `${ll?`<button type="button" class="op" data-act="drive" data-lat="${ll[0]}" data-lng="${ll[1]}" data-name="${esc(nm)}">${ICON.nav}導航</button>`:""}<details class="more"><summary>其他</summary><div class="morebox">${a?`<a class="op" href="#/tour/${a.id}">${ICON.info}看介紹</a>`:""}${i>0?`<button type="button" class="op" data-act="mv" data-v="${it.uid}" data-d="-1">${ICON.up}提早一點</button>`:""}${nx?`<button type="button" class="op" data-act="mv" data-v="${it.uid}" data-d="1">${ICON.down}晚一點</button>`:""}${a?`<button type="button" class="op del" data-act="del" data-v="${it.uid}" aria-label="刪除${esc(nm)}">${ICON.del}不要這個</button>`:""}</div></details>`}
 function SIDE(noLine){return `<div class="panel sidebox"><b class="sbt">三步就排好</b><ol class="flow3"><li>填日期和人數</li><li>挑想玩的，自動排好每天行程</li><li>送給民宿，LINE 確認後才付錢</li></ol><a class="btn block" href="#/plan">開始排行程</a></div>
   ${noLine?"":`<div class="panel sidebox"><b class="sbt">有問題直接問</b><p class="note" style="margin:0">不知道怎麼排、想問海況或改期，LINE 民宿主人最快。</p><a class="btn block ghost" href="#/line">LINE 問民宿主人</a></div>`}`}
 function PLANSIDE(){const ints=plan.interests.length?plan.interests.join("、"):"還沒選";
@@ -1507,7 +1566,7 @@ function pageHome(){
   const dl=new Date(d0);dl.setDate(dl.getDate()+days-1);const md=d=>`${d.getMonth()+1}/${d.getDate()}`,wk=d=>"週"+"日一二三四五六"[d.getDay()];
   const c1=`<small>日期</small><b>${days>1?md(d0)+" – "+md(dl):md(d0)}</b><span>${days>1?wk(d0)+"到"+wk(dl)+"・":wk(d0)+"・"}${days} 天</span>`,c2=`<small>人數</small><b>${heads(px)} 人</b><span>${paxText(px)}</span>`;
   const info=`<div class="hq2"><div>${c1}</div><div>${c2}</div></div><button type="button" class="linkbtn hedit" data-act="homeedit">改日期或人數</button>`;
-  const form=`<div class="hq2"><button type="button" data-act="dateopen">${c1}<i>更改</i></button><button type="button" data-act="paxopen">${c2}<i>更改</i></button></div>`;
+  const form=`<div class="hq2"><button type="button" data-act="dateopen">${c1}<i>改日期</i></button><button type="button" data-act="paxopen">${c2}<i>改人數</i></button></div>`;
   let body;
   if(made&&diff>=days){
     body=`<h1>${name?`<em>${name}</em>`:""}謝謝你來夏澄</h1>
@@ -1573,11 +1632,11 @@ function pagePlan(){
   const items=dayItems(ui.day);
   let mvi=0;
   const stopsOf=items=>items.map((it,i)=>{const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null,pl=PLACES[placeOf(it)],nx=items[i+1],mv=nx?travel(placeOf(it),placeOf(nx)):0,w=a?ageWarn(a.id):[];
-    const card=a?`<div class="pcard"><span class="ph" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}示意照片"></span><div class="bd"><b>${esc(a.name)}</b><span class="meta">${a.dur?"約 "+a.dur+" 小時・":""}${esc(pl.n)}</span><span class="meta">${costText(a)}</span>${w.map(s=>`<span class="warn" style="align-self:flex-start">${s}</span>`).join("")}
+    const card=a?`<div class="pcard"><span class="ph" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"></span><div class="bd"><b>${esc(a.name)}</b><span class="meta">${a.dur?"約 "+a.dur+" 小時・":""}${esc(pl.n)}</span><span class="meta">${costText(a)}</span>${w.map(s=>`<span class="warn" style="align-self:flex-start">${s}</span>`).join("")}
       <div class="ops"><button type="button" class="op main" data-act="item" data-v="${it.uid}">${ICON.swap}換別的</button>${MORE(it,a,i,nx)}</div></div></div>`
       :`<div class="fcard"><span class="ic">${ICON[FREEICON[it.free]]}</span><span><b>${esc(f.name)}</b><span class="meta">${esc(f.meta)}・${esc(pl.n)}</span><span class="ops">${MORE(it,null,i,nx)}</span></span></div>`;
     const ll=LLof(placeOf(it));
-    return `<div class="stop ${a?"":"free"}"><div class="tmrow"><span class="tm">${it.time}</span></div>${card}</div>${nx?`<div class="leg ${mv?"mvleg":""}" ${mv?`data-leg="${mvi++}"`:""}>↓ ${mv?ride()+"約 "+mv+" 分鐘":"同一個地方"}</div>`:""}`}).join("");
+    return `<div class="stop ${a?"":"free"}"><div class="tmrow"><span class="tm">${it.time}</span></div>${card}</div>${nx?`<div class="leg ${mv?"mvleg":""}" ${mv?`data-leg="${mvi++}"`:""}>↓ ${mv?ride()+"約 "+mv+" 分鐘":"在同一個地方，不用移動"}</div>`:""}`}).join("");
   const stops=stopsOf(items);mvi=0;
   const w=wxOf(isoOf(dayDate(ui.day))),lv=seaLv(w),seaN=items.filter(x=>x.id&&SEA.includes(A(x.id).cat)).length;
   const wxline=w?`<div class="wxline ${lv}"><span>${WXT(w.code)} ${w.tmin}–${w.tmax}°・風 ${BFT(w.wind)} 級${w.wave!=null?"・浪 "+w.wave.toFixed(1)+" m":""}・降雨 ${w.pop}%</span>${lv!=="ok"&&seaN?`<button class="btn small" type="button" data-act="rainy">${lv==="bad"?"海況不佳，":"浪稍大，"}換成雨天備案</button>`:""}</div>`:"";
@@ -1587,7 +1646,7 @@ function pagePlan(){
   const sum=`<div class="total"><span class="sm">${plan.days} 天・${people()} 人（${paxText(plan.pax)}）</span><span class="big">${money(total())}</span>
       <div class="stack" role="img" aria-label="花費比例">${Object.entries(grp).filter(([,v])=>v).map(([k,v])=>`<i style="width:${v/tt*100}%;background:${GC[k]}"></i>`).join("")}</div>
       <div class="legend">${Object.entries(grp).map(([k,v])=>`<div><em style="--c:${GC[k]}">${k}</em><b>${money(v)}</b></div>`).join("")}</div>
-      <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}，價格為示意${hasAsk()?"，另有洽詢項目":""}<br>兒童 8 折、幼兒免費（示意）；住宿另外在訂房平台付款</span>
+      <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}${hasAsk()?"，另有洽詢項目":""}<br>兒童 8 折、幼兒免費；住宿另外付款</span>
       <span class="free">${ICON.check.replace('stroke-width="3"','stroke-width="3" width="18" height="18" style="vertical-align:-3px"')} 現在不用付錢，民宿確認後才付</span>
       <button class="btn block" type="button" data-act="send">送出給民宿安排</button>
       <button class="btn block ghost" type="button" data-act="share">分享給同行朋友</button>
@@ -1612,7 +1671,7 @@ function pageTours(){
   const n=LIVE().filter(a=>(ui.cat==="全部"||a.cat===ui.cat)&&pass(a)).length;
   return `<div class="wrap"><div style="padding-top:28px;display:flex;flex-direction:column;gap:12px"><h1 style="font-size:clamp(28px,3.6vw,40px)">在地玩法</h1><p class="lead">想自己挑的話，點進去就能加到行程。</p>
     <div class="chips cscroll">${CATS.filter(c=>c==="全部"||LIVE().some(a=>a.cat===c)).map(c=>`<button type="button" class="chip" data-act="cat" data-v="${c}" aria-pressed="${ui.cat===c}">${c}${c==="全部"?"":" "+LIVE().filter(a=>a.cat===c).length}</button>`).join("")}</div>
-    <details class="fltbox" ${ui.flt.length?"open":""}><summary>更多條件（適合長輩、小孩、下雨天、免費）</summary><div class="fltrow">${`<button type="button" class="fchip" data-act="flt" data-v="fav" aria-pressed="${ui.flt.includes("fav")}">${HEART(ui.flt.includes("fav"))}我的收藏 ${FAV.length}</button>`}${FLT.map(([k,t])=>`<button type="button" class="fchip" data-act="flt" data-v="${k}" aria-pressed="${ui.flt.includes(k)}">${ICON.check}${t}</button>`).join("")}${ui.flt.length?`<span class="note">符合 ${n} 項</span>`:""}</div></details></div>
+    <details class="fltbox" ${ui.flt.length?"open":""}><summary>＋ 篩選：長輩、小孩、下雨天、免費</summary><div class="fltrow">${`<button type="button" class="fchip" data-act="flt" data-v="fav" aria-pressed="${ui.flt.includes("fav")}">${HEART(ui.flt.includes("fav"))}我的收藏 ${FAV.length}</button>`}${FLT.map(([k,t])=>`<button type="button" class="fchip" data-act="flt" data-v="${k}" aria-pressed="${ui.flt.includes(k)}">${ICON.check}${t}</button>`).join("")}${ui.flt.length?`<span class="note">符合 ${n} 項</span>`:""}</div></details></div>
     ${cats.length?cats.map(c=>`<section class="catsec" id="cat-${c}"><h2>${c} <small>${LIVE().filter(a=>a.cat===c&&pass(a)).length} 項・${(CATINFO[c]||[0,""])[1]}</small></h2><div class="list grid2" style="margin-top:8px">${LIVE().filter(a=>a.cat===c&&pass(a)).map(itemRow).join("")}</div></section>`).join(""):`<div class="empty" style="margin-top:24px">沒有符合條件的玩法，取消一個篩選試試。</div>`}
     <p class="note" style="margin-top:20px">價格為示意，民宿確認後更新。</p></div>`}
 
@@ -1622,11 +1681,11 @@ function pageTour(id){
   ui.tour=ui.tour&&ui.tour.id===id?ui.tour:{id,day:0,slot:0,pax:Object.assign({},plan.pax)};const w=ageWarn(a.id,ui.tour.pax);
   const slots=a.dur>=6?["08:00"]:a.id==="squid"?["19:30","20:30"]:a.dur?["09:00","13:00","15:30"]:["整天"];
   const m=monthOf(plan.start),ok=a.months.includes(m)&&!a.isl;
-  return `<div class="wrap"><p style="padding-top:20px;margin:0"><a href="#/tours">← 回玩法清單</a></p>
+  return `<div class="wrap">
   <div class="detail"><div style="display:flex;flex-direction:column;gap:18px">
-    <div class="dphoto" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}示意照片"><span class="tag-demo">示意照片</span></div>
+    <div class="dphoto" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"><a class="dback" href="#/tours">← 全部玩法</a></div>
     <div class="titlerow"><h1 style="font-size:clamp(28px,3.4vw,38px)">${esc(a.name)}</h1>${favBtn(a,1)}</div>
-    <div class="kv2"><div><small>要多久</small><b>${a.dur?"約 "+a.dur+" 小時":"整天可用"}</b></div><div><small>${a.free?"費用":"價格（示意）"}</small><b>${a.free?costText(a):money(a.price)+" / "+a.unit}</b></div><div><small>年齡</small><b>${MINAGE[a.id]?MINAGE[a.id]+" 歲以上":"不限"}${INTENSE.includes(a.id)?"，長輩不建議":""}</b></div><div><small>${a.free?"在哪裡":"集合地點"}</small><b>${a.isl?esc(a.area):esc(PLACES[AT[a.id]].n)}</b></div></div>
+    <div class="kv2"><div><small>要多久</small><b>${a.dur?"約 "+a.dur+" 小時":"整天可用"}</b></div><div><small>${a.free?"費用":"價格"}</small><b>${a.free?costText(a):money(a.price)+" / "+a.unit}</b></div><div><small>年齡</small><b>${MINAGE[a.id]?MINAGE[a.id]+" 歲以上":"不限"}${INTENSE.includes(a.id)?"，長輩不建議":""}</b></div><div><small>${a.free?"在哪裡":"集合地點"}</small><b>${a.isl?esc(a.area):esc(PLACES[AT[a.id]].n)}</b></div></div>
     <div><span class="ph-title" style="margin-bottom:8px">哪幾個月有${a.months.length===12?"（全年都有）":""}</span><div class="months" role="img" aria-label="開放月份 ${a.months.join("、")} 月">${ALL.map(n=>`<span class="${a.months.includes(n)?"on":""} ${n===monthOf(plan.start)?"me":""}">${n}</span>`).join("")}</div><span class="note" style="display:block;margin-top:6px">深色＝有開；框起來的是你出發的月份</span></div>
     <p class="lead" style="color:var(--ink)">${esc(a.desc)}</p>
     <dl class="info"><div><dt>費用包含</dt><dd>${esc(a.inc)}</dd></div>${a.isl?"":`<div><dt>注意事項</dt><dd>${esc(a.limit)}</dd></div>`}<div><dt>怎麼去</dt><dd>${a.isl?esc(a.limit):esc(PLACES[AT[a.id]].n)+"，從夏澄"+ride()+"約 "+travel("home",AT[a.id])+" 分鐘（位置示意）"}</dd></div>${a.free&&!a.isl?"":`<div><dt>取消與停航</dt><dd>海況不佳停航，可改期或退款</dd></div>`}</dl>
@@ -1646,7 +1705,7 @@ function pageTour(id){
     <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天</button>
     <span class="note">名額由民宿向業者確認，送出後才算預約。</span>
   </aside></div></div>
-  <div class="dockbar tourdock"><span><b>${esc(a.name)}</b><small>${a.free?costText(a):a.price==null?"價格洽詢":money(a.price)+"／"+a.unit+"（示意）"}</small></span><button class="btn" type="button" data-act="toadd">加到行程</button></div>`}
+  <div class="dockbar tourdock"><span><b>${esc(a.name)}</b><small>${a.free?costText(a):a.price==null?"價格洽詢":money(a.price)+"／"+a.unit}</small></span><button class="btn" type="button" data-act="toadd">加到行程</button></div>`}
 
 function reqFromCloud(o){const d=new Date(o.created_at);return {id:o.code,code:o.code,title:`${o.days} 天行程（${fmtDay(new Date(o.start+"T00:00:00"))} 出發）`,name:o.name,phone:"",created:`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,days:o.days,people:o.pax?heads(Object.assign(defPax(),o.pax)):0,paxText:o.pax?paxText(Object.assign(defPax(),o.pax)):"",total:o.total,status:o.status,lines:o.lines||[],owner_note:o.owner_note||""}}
 async function refreshMine(){const list=reqs.filter(r=>r.code);let ch=false;for(const r of list){try{const o=await rpc("xc_get",{p_code:r.code});if(o&&(o.status!==r.status||(o.owner_note||"")!==(r.owner_note||""))){r.status=o.status;r.owner_note=o.owner_note||"";ch=true}}catch(e){}}if(ch){save();if(location.hash.startsWith("#/mine"))render()}}
@@ -1675,13 +1734,16 @@ function pagePrivacy(){return `<div class="wrap"><div class="trip"><section><div
   <h2>定位</h2><p>只有你按「我在哪」或「邊走邊導航」時才會讀取位置，用來在地圖上顯示你在哪裡，不會上傳或保存。</p>
   <h2>服務說明</h2><p>夏澄是民宿，協助住客向合作業者詢問與安排行程。跳島、水上活動、導覽等由各合作業者提供服務並負責安全，費用在確認後直接付給業者；網站上的價格為參考，以實際確認為準。</p>
   <h2>取消與停航</h2><p>海況不佳停航時，依各業者規定改期或退款，民宿會用 LINE 通知你。個人因素取消，依各業者的取消規定辦理。</p>
-  <h2>聯絡我們</h2><p>有任何問題或要刪除資料，請用 LINE 聯絡民宿主人（帳號待填）。</p>
+  <h2>聯絡我們</h2><p>有任何問題或要刪除資料，請用 LINE 聯絡民宿主人。</p>
   </div></section><aside class="side">${SIDE()}</aside></div></div>`}
-function pageLine(){return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
-  <div class="box" style="margin-top:20px;display:flex;flex-direction:column;gap:14px"><p style="margin:0">海況、改期、怎麼排，LINE 問最快</p>
-  <div class="panel" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div class="qr">QR Code<br>待民宿提供</div><div><b>LINE 官方帳號 ID</b><div style="font-size:22px;font-family:var(--serif)">@待填</div><div class="note">手機掃描或搜尋 ID 加好友</div></div></div>
-  <p class="note" style="margin:0">回覆時段：待填。電話、Email、地址：待填。</p></div></section><aside class="side">${SIDE(1)}</aside></div></div>`}
-
+function pageLine(){const has=!!CFG.lineOA;return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">LINE 問民宿主人</h1></div>
+  <div class="lbig">
+    <p class="lq">海況、改期、怎麼排<br>直接問最快</p>
+    <a class="btn big lbtn" href="${(CFG.lineOA?`https://line.me/R/oaMessage/${encodeURIComponent(CFG.lineOA)}/?`:"https://line.me/R/msg/text/?")+encodeURIComponent("你好，我想問夏澄的行程")}" target="_blank" rel="noopener">用 LINE 傳訊息給民宿主人</a>
+    ${has?`<p class="note">LINE 帳號 ${esc(CFG.lineOA)}</p>`:""}
+    <ul class="lask"><li>明天能不能出海？</li><li>可以改日期嗎？</li><li>有小孩適合玩什麼？</li></ul>
+    <p class="note">點上面的按鈕，會打開 LINE</p>
+  </div></section><aside class="side">${SIDE(1)}</aside></div></div>`}
 function rchip(k){if(FREE[k])return `<span class="rchip"><span class="ic">${ICON[FREEICON[k]]}</span>${esc(FREE[k].name)}</span>`;const a=A(k);return `<span class="rchip"><span class="th" style="background-image:url(${IMGA(a)})"></span>${esc(a.name)}</span>`}
 function pageGuide(){const r=[["1 天","第一次來、時間不多",[["basalt","seafood","snorkel","sunset"]]],["2 天","最多人選",[["snorkel","sunset","squid"],["tidal","market","souvenir"]]],["3 天","想跳島的人",[["snorkel","sunset","squid"],["south","bbq"],["weir","market","souvenir"]]]];
   return `<div class="wrap"><div class="trip"><section><div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">玩法指南</h1><p class="lead">常見排法，按一下就照著排</p></div>
@@ -1862,6 +1924,9 @@ function genShow(name,done){
   setTimeout(()=>{done();g.classList.add("out");setTimeout(()=>g.remove(),480)},1500);
 }
 {const _r=render;render=function(){_r.apply(this,arguments);try{fx()}catch(e){}};fx()}
+function attrFix(){if(window.L&&L.Control&&L.Control.Attribution)L.Control.Attribution.prototype.options.prefix=false;
+  document.querySelectorAll(".leaflet-control-attribution:not([data-c])").forEach(el=>{el.dataset.c=1;setTimeout(()=>el.classList.add("mini"),4000);el.addEventListener("click",e=>{if(el.classList.contains("mini")){e.preventDefault();el.classList.remove("mini");setTimeout(()=>el.classList.add("mini"),5000)}})})}
+attrFix();new MutationObserver(attrFix).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
