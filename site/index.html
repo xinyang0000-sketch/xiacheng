@@ -1215,7 +1215,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 @media (max-width:979px){
   #addbox{position:fixed!important;left:0;right:0;bottom:0;z-index:90;max-height:86svh;overflow:auto;margin:0;border-radius:0;transform:translateY(105%);transition:transform .45s var(--ez);box-shadow:0 -20px 60px rgba(30,31,31,.25);padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))!important}
   body.addopen #addbox{transform:none}
-  body.addopen::before{content:"";position:fixed;inset:0;background:rgba(20,22,22,.4);z-index:89}
   .abhd .shx{display:block}
 }
 @media (min-width:980px){.abhd .shx{display:none}}
@@ -1225,6 +1224,33 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   .gperk ul{grid-template-columns:1fr 1fr!important}
 }
 .carebox{text-align:center;margin-bottom:10px}.carebox .picked{display:block;font-size:16px}
+/* ===== 加到行程：簡化 ===== */
+#addbox{background:var(--bg)!important;border:0!important;gap:18px!important;padding:20px 20px 0!important}
+#addbox .abs{display:block;font-family:var(--sans);font-size:15px;font-weight:500;color:var(--muted);letter-spacing:.1em}
+.abq{display:flex;flex-direction:column;gap:8px}
+.abl{font-size:16px;font-weight:700;color:var(--ink)}
+#addbox .dates,#addbox .slots{display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;gap:0;border:1px solid var(--ink)}
+#addbox .dates button,#addbox .slots button{min-height:56px;border:0!important;border-left:1px solid var(--line)!important;background:transparent!important;color:var(--ink)!important;font-size:16px;border-radius:0!important;box-shadow:none!important;outline:0}
+#addbox .dates button:first-child,#addbox .slots button:first-child{border-left:0!important}
+#addbox .dates button b{display:block;font-size:17px}
+#addbox .dates button[aria-pressed="true"],#addbox .slots button[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important;font-weight:700}
+.abpax summary{display:flex;align-items:center;gap:12px;min-height:52px;cursor:pointer;list-style:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.abpax summary::-webkit-details-marker{display:none}
+.abpax .abv{flex:1;text-align:right;font-size:17px}
+.abpax .abc{font-size:16px;text-decoration:underline;text-underline-offset:4px}
+.abpax[open] .abc{display:none}
+.abpax .pax{margin-top:10px}
+.abw{margin:0;font-size:16px;color:#7a5a12;text-align:center}
+.absum{display:flex;justify-content:space-between;align-items:baseline}
+.absum span{font-size:16px;color:var(--muted)}.absum b{font-size:26px;font-family:var(--serif)}
+#addbox [data-act=addtour]{position:sticky;bottom:0;margin:0 -20px;width:calc(100% + 40px);min-height:62px;font-size:18px;letter-spacing:.12em}
+@media (max-width:979px){#addbox{padding-bottom:0!important}#addbox [data-act=addtour]{margin-bottom:calc(-1 * env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px)}}
+#addbox .dates,#addbox .slots{display:flex!important}
+#addbox .dates>button,#addbox .slots>button{flex:1 1 0;min-width:0}
+#addbox [data-act=addtour]{align-self:stretch;width:auto!important}
+@media (max-width:979px){body.addopen #addbox{box-shadow:0 0 0 100vmax rgba(20,22,22,.45)}}
+#addbox [data-act=addtour]{width:calc(100% + 40px)!important;max-width:none!important;margin-left:-20px!important;margin-right:-20px!important;align-self:auto}
+@media (max-width:899px){.dphoto{width:calc(100% + 36px)!important;max-width:none!important}}
 </style>
 </head>
 <body>
@@ -1731,15 +1757,14 @@ function pageTour(id){
     <div><h3 style="font-size:20px;margin-bottom:6px">附近還可以去</h3>${NCARDS(nearby(LLof(AT[a.id]),a.id,6),1)}</div>`}
   </div>
   <aside class="panel sticky form" id="addbox">
-    <div class="shd abhd"><b style="font-size:20px">加到行程</b><button type="button" class="shx" data-act="addclose" aria-label="關閉">✕</button></div>
+    <div class="shd abhd"><b style="font-size:21px;font-family:var(--serif)">${esc(a.name)}<small class="abs">加到行程</small></b><button type="button" class="shx" data-act="addclose" aria-label="關閉">✕</button></div>
     ${a.isl?`<p class="note" style="margin:0">這個景點包含在跳島行程裡，${esc(a.limit)}。</p>`:ok?"":`<p class="pill bad" style="margin:0">你選的出發月份這項沒有出團</p>`}
-    <div><span style="font-size:15px;color:var(--muted)">哪一天</span><div class="dates" style="margin-top:6px">${Array.from({length:Math.min(plan.days,5)},(_,i)=>{const d=dayDate(i);return `<button type="button" data-act="tday" data-v="${i}" aria-pressed="${ui.tour.day===i}">第 ${i+1} 天<b>${d.getMonth()+1}/${d.getDate()}</b></button>`}).join("")}</div></div>
-    <div><span style="font-size:15px;color:var(--muted)">時段</span><div class="slots" style="margin-top:6px">${slots.map((s,i)=>`<button type="button" data-act="slot" data-v="${i}" aria-pressed="${ui.tour.slot===i}">${s}</button>`).join("")}</div></div>
-    <div><span style="font-size:15px;color:var(--muted)">人數</span><div style="margin-top:6px">${paxEditor(ui.tour.pax,"t")}</div></div>
-    ${w.map(s=>`<span class="warn" style="align-self:flex-start">${s}</span>`).join("")}
-    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="note">${a.free?"費用":"小計（示意，兒童 8 折）"}</span><b style="font-size:24px">${a.free?costText(a):a.price==null?"洽詢":money(priceFor(a,ui.tour.pax))}</b></div>
+    <div class="abq"><span class="abl">哪一天</span><div class="dates">${Array.from({length:Math.min(plan.days,5)},(_,i)=>{const d=dayDate(i);return `<button type="button" data-act="tday" data-v="${i}" aria-pressed="${ui.tour.day===i}">第 ${i+1} 天<b>${d.getMonth()+1}/${d.getDate()}</b></button>`}).join("")}</div></div>
+    <div class="abq"><span class="abl">幾點</span><div class="slots">${slots.map((s,i)=>`<button type="button" data-act="slot" data-v="${i}" aria-pressed="${ui.tour.slot===i}">${s}</button>`).join("")}</div></div>
+    <details class="abpax"><summary><span class="abl">幾個人</span><span class="abv">${paxText(ui.tour.pax)}</span><span class="abc">改</span></summary>${paxEditor(ui.tour.pax,"t")}</details>
+    ${w.length?`<p class="abw">${w.join("、")}</p>`:""}
+    <div class="absum"><span>${a.free?"費用":"小計"}</span><b>${a.free?costText(a):a.price==null?"洽詢":money(priceFor(a,ui.tour.pax))}</b></div>
     <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天</button>
-    <span class="note">名額由民宿向業者確認，送出後才算預約。</span>
   </aside></div></div>
   <div class="dockbar tourdock"><span><b>${esc(a.name)}</b><small>${a.free?costText(a):a.price==null?"價格洽詢":money(a.price)+"／"+a.unit}</small></span><button class="btn" type="button" data-act="toadd">加到行程</button></div>`}
 
