@@ -1276,6 +1276,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
   #addbox .abpax .pr{padding:6px 4px;gap:4px}
   #addbox .abpax .ctl button{width:36px;height:36px;min-height:36px}
 }
+/* ===== 加減按鈕：一條連在一起的直角控制鈕 ===== */
+.pax .ctl,#addbox .abpax .ctl{display:inline-grid!important;grid-template-columns:44px 40px 44px;align-items:stretch;gap:0!important;border:1px solid var(--ink);background:var(--card);height:44px}
+.pax .ctl button,#addbox .abpax .ctl button{width:auto!important;height:auto!important;min-height:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.pax .ctl button:active{background:var(--ink)!important;color:#fff}
+.pax .ctl button:disabled{opacity:1!important;color:#c3c0b8!important;cursor:default}
+.pax .ctl span,#addbox .abpax .ctl span{display:grid;place-items:center;border-left:1px solid var(--line2);border-right:1px solid var(--line2);font-family:var(--serif);font-size:19px!important;font-weight:700;min-width:0!important}
+#addbox .abpax .pax{background:transparent;border-color:var(--line2)!important}
+#addbox .abpax .pr{background:transparent}
+@media (max-width:979px) and (max-height:740px){#addbox .abpax .ctl{height:40px;grid-template-columns:40px 36px 40px}}
 </style>
 </head>
 <body>
@@ -1380,13 +1389,13 @@ applySheet(LS.get("xc-sheet",null));
 const save=()=>{LS.set("xc-plan",plan);LS.set("xc-reqs",reqs)};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money=n=>n==null?"洽詢":n===0?"免費":"NT$ "+n.toLocaleString("en-US");
-const PAXK=[["adult","大人","12–64 歲"],["senior","長輩","65 歲以上"],["child","兒童","3–11 歲・示意 8 折"],["infant","幼兒","0–2 歲・免費"]];
+const PAXK=[["adult","大人","12–64 歲"],["senior","長輩","65 歲以上"],["child","兒童","3–11 歲・8 折"],["infant","幼兒","0–2 歲・免費"]];
 const defPax=()=>({adult:2,senior:0,child:0,infant:0});
 function fixPax(p){if(p&&!p.pax){p.pax={adult:p.adults||2,senior:0,child:p.kids||0,infant:0}}return p}
 const heads=x=>x.adult+x.senior+x.child+x.infant;
 const people=()=>plan?heads(plan.pax):2;
 const paxText=x=>PAXK.filter(([k])=>x[k]).map(([k,t])=>t+" "+x[k]).join("、")||"0 人";
-function paxEditor(x,scope){return `<div class="pax">${PAXK.map(([k,t,sub])=>`<div class="pr"><span><b>${t}</b><small>${sub}</small></span><span class="ctl"><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="-1" aria-label="減少${t}" ${x[k]<=(k==="adult"&&x.senior===0?1:0)?"disabled":""}>−</button><span>${x[k]}</span><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="1" aria-label="增加${t}" ${heads(x)>=20?"disabled":""}>＋</button></span></div>`).join("")}</div>`}
+function paxEditor(x,scope){return `<div class="pax">${PAXK.map(([k,t,sub])=>`<div class="pr"><span><b>${t}</b><small>${sub}</small></span><span class="ctl"><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="-1" aria-label="減少${t}" ${x[k]<=(k==="adult"&&x.senior===0?1:0)?"disabled":""}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 12h12"/></svg></button><span>${x[k]}</span><button type="button" data-act="pax" data-s="${scope}" data-k="${k}" data-d="1" aria-label="增加${t}" ${heads(x)>=20?"disabled":""}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 12h12M12 6v12"/></svg></button></span></div>`).join("")}</div>`}
 /* 距離與交通時間（直線距離 × 1.35，時速 35 公里，加 5 分鐘停車，皆為估算） */
 function km(a,b){const R=6371,t=Math.PI/180,dLa=(b[0]-a[0])*t,dLo=(b[1]-a[1])*t,h=Math.sin(dLa/2)**2+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
 function travel(pa,pb){if(!pa||!pb||pa===pb)return 0;return Math.round(km(PLACES[pa].ll,PLACES[pb].ll)*1.35/35*60)+5}
