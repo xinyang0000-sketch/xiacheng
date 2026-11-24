@@ -1393,6 +1393,14 @@ footer{padding-top:14px!important}
 .dlist li{display:grid!important;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start}
 .dlist li>b{margin:0!important;font-size:15px!important;line-height:1.6;color:var(--muted)}
 .dlist .dr{line-height:1.6!important;padding:0 0 4px}
+/* 後台登入：照片標題＋卡片＋登入後能做什麼，不留大片空白 */
+.adminlogin{justify-content:flex-start!important;padding-top:0}
+.adminlogin form.stage{margin-top:16px!important}
+.acan{margin-top:16px;padding:16px 18px;background:var(--card);box-shadow:0 0 0 1px var(--line2)}
+.acan b{display:block;font-size:16px;margin-bottom:8px;text-align:center}
+.acan ul{list-style:none;margin:0;padding:0}
+.acan li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line2);font-size:16px}
+.acan li span{flex:0 0 24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
 </style>
 </head>
 <body>
@@ -1963,7 +1971,7 @@ function pageAdmin(){
   const key=LS.get("xc-admin","");
   const head=`<div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">民宿主人後台</h1></div>`;
   if(!key)return `<div class="wrap adminlogin" style="max-width:520px">${head}<form class="stage" style="margin-top:20px" onsubmit="return false"><h2 style="font-size:22px">輸入後台密碼</h2><p class="note">輸入一次，這台手機就會記住</p>
-    <div class="field"><input class="dateinput" id="akey" type="password" autocomplete="current-password" placeholder="後台密碼" style="max-width:none"></div>${ui.aerr?`<p class="warn" style="margin-top:10px">密碼不對，請再試一次</p>`:""}<div class="next"><button class="btn" type="button" data-act="alogin">進入後台</button></div></form></div>`;
+    <div class="field"><input class="dateinput" id="akey" type="password" autocomplete="current-password" placeholder="後台密碼" style="max-width:none"></div>${ui.aerr?`<p class="warn" style="margin-top:10px">密碼不對，請再試一次</p>`:""}<div class="next"><button class="btn" type="button" data-act="alogin">進入後台</button></div></form><div class="acan"><b>登入後可以</b><ul><li><span>1</span>看客人送來的行程和人數</li><li><span>2</span>標記確認、付款、出發進度</li><li><span>3</span>寫回覆，客人在送出紀錄就看得到</li></ul></div></div>`;
   if(!ui.arows){if(!ui.aload){ui.aload=1;rpc("xc_admin_list",{p_key:key}).then(rows=>{ui.arows=rows||[];ui.aload=0;ui.aerr=0;render()}).catch(()=>{ui.aload=0;ui.aerr=1;LS.set("xc-admin","");render()})}
     return `<div class="wrap">${head}<p class="lead" style="margin-top:20px">讀取需求單中…</p></div>`}
   const rows=ui.arows,cnt={};rows.forEach(r=>(r.items||[]).forEach(it=>cnt[it.name]=(cnt[it.name]||0)+1));
@@ -2136,7 +2144,7 @@ const RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").match
 let fxRoute=null,fxIO=null;
 function fx(){
   const r=(location.hash||"#/").slice(1).split("?")[0];
-  const BN={"/plan":["dusk","你的澎湖"],"/tours":["snorkel","想自己挑"],"/line":["harbor","有問題就問"],"/mine":["harbor","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["food","吃什麼買什麼"],"/privacy":["harbor","夏澄"]}[r];
+  const BN={"/plan":["dusk","你的澎湖"],"/tours":["snorkel","想自己挑"],"/line":["harbor","有問題就問"],"/mine":["harbor","民宿確認到哪"],"/guide":["heart","照著排就好"],"/local":["food","吃什麼買什麼"],"/privacy":["harbor","夏澄"],"/admin":["dusk","民宿主人專用"]}[r];
   const app=document.getElementById("app"),h1=app.querySelector("h1");
   if(BN&&h1&&!app.querySelector(".ihero")&&innerWidth<900){const d=document.createElement("div");d.className="ihero";d.innerHTML=`<div class="bg" style="background-image:url(${IMG(BN[0])})"></div><span class="eb">${BN[1]}</span><h1>${h1.innerHTML}</h1>`;app.insertBefore(d,app.firstChild);h1.classList.add("h1off")}
   document.body.classList.toggle("home",r==="/"||r===""||!!app.querySelector(".ihero"));
