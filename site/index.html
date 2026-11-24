@@ -1401,6 +1401,79 @@ footer{padding-top:14px!important}
 .acan ul{list-style:none;margin:0;padding:0}
 .acan li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line2);font-size:16px}
 .acan li span{flex:0 0 24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+/* ===== 第三輪：右上語言改回「中 EN 日」、拿掉小滑動 ===== */
+.lang,body:not(.home) .lang{background:var(--card)!important;border:1px solid var(--line)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.lang button{min-width:40px!important;min-height:40px!important;padding:0 8px!important;font-size:15.5px!important;color:var(--ink)!important}
+.lang button[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important;font-weight:700}
+body.home header.site .lang{background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.55)!important;-webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important}
+body.home header.site .lang button{color:#fff!important}
+body.home header.site .lang button[aria-pressed="true"]{background:#fff!important;color:var(--ink)!important}
+/* 更多功能：兩欄、拿掉說明小字，一個畫面放完 */
+.tsh .sgrp{display:grid!important;grid-template-columns:1fr 1fr;margin-bottom:4px!important}
+.tsh .sgrp>small{grid-column:1/-1;padding:4px 2px!important}
+.tsh .srow{grid-template-columns:34px minmax(0,1fr)!important;gap:8px!important;min-height:52px!important;padding:6px 4px!important}
+.tsh .srow:nth-of-type(even){border-left:1px solid var(--line2)!important;padding-left:10px!important}
+.tsh .srow .si{width:34px!important;height:34px!important}
+.tsh .srow b{font-size:16px!important;line-height:1.3}
+.tsh .srow small{display:none!important}
+.tsh .sgrp>button:nth-child(2):last-child{grid-column:1/-1}
+/* 吃什麼買什麼：三行，不用三張大卡 */
+.linkt{flex-direction:row!important;align-items:center!important;text-align:left!important;gap:14px!important;padding:14px 16px!important}
+.linkt>span:last-child{text-align:left}
+.linkt h3{margin:0 0 2px!important;font-size:18px}
+.linkt .note,#app .linkt p.note{text-align:left!important;margin:0}
+.linkt .ic{flex:0 0 40px;margin:0!important}
+.grid3{gap:10px!important}
+/* 問民宿、後台：照片標題矮一點 */
+body:has(.lbig) .ihero,body:has(.adminlogin) .ihero{height:170px!important}
+.lbig{padding:16px 0 4px!important;gap:12px!important}
+.lask{gap:8px!important}
+.lask a{min-height:48px!important}
+@media (max-height:740px){
+  body:has(.lbig) .ihero,body:has(.adminlogin) .ihero{height:130px!important}
+  .lq{font-size:20px!important}
+  .lbtn{min-height:50px!important}
+  .lask a{min-height:44px!important;font-size:16px}
+  .acan{display:none}
+}
+/* 地圖：停車放進地圖上，地圖高度跟著螢幕，卡片剛好露出 */
+.mpark{position:absolute;z-index:500;left:14px;bottom:18px;display:flex;align-items:center;gap:6px;height:52px;padding:0 16px 0 8px;border-radius:999px;background:rgba(247,246,243,.96);color:var(--ink);font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 10px 26px rgba(30,31,31,.25)}
+.mpark b{width:34px;height:34px;border-radius:50%;background:#2f5f9a;color:#fff;display:grid;place-items:center;font-size:17px}
+@media (max-width:979px){
+  body:has(.mapx) footer{display:none}
+  body:has(.mapx) #app{padding-bottom:0!important}
+  #bigmap,.bigmap{height:calc(100svh - 360px - env(safe-area-inset-bottom,0px))!important;min-height:240px}
+  .mapbody{padding-top:10px!important;padding-bottom:0!important}
+  .mapbody .mh2{font-size:19px!important;margin:0 0 6px!important}
+  .mapbody .mh2 small{display:none}
+  .mapbody .ncards{padding:2px 0 6px!important;align-items:flex-start}
+  .mapbody .ncard{flex:0 0 80%!important;max-width:320px;display:grid!important;grid-template-columns:96px minmax(0,1fr);grid-template-areas:"p t" "a a";box-shadow:0 0 0 1px var(--line2)!important}
+  .mapbody .ncard .np{grid-area:p;aspect-ratio:auto!important;height:96px}
+  .mapbody .ncard .nt{grid-area:t;text-align:left!important;padding:10px 12px!important;display:flex;flex-direction:column;justify-content:center}
+  .mapbody .ncard .nt b{font-size:18px!important}
+  .mapbody .ncard .nt small{font-size:14.5px!important;white-space:normal!important}
+  .mapbody .ncard .na{grid-area:a;padding:8px 10px 10px!important}
+  .mapbody .ncard .na .btn{min-height:40px!important}
+  .mapbody .ncard.on{transform:none!important}
+  .mcred{margin:2px 0 0;font-size:12.5px;color:var(--muted);text-align:center}
+}
+footer .fosm{display:none}
+body:has(.leaflet-container) footer .fosm{display:block}
+/* 短頁面最後收緊：頁尾剛好在選單上方 */
+@media (max-width:979px){
+  body:not(.dock) footer{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+  body:has(.lbig) .ihero,body:has(.adminlogin) .ihero,body:has(.linkt) .ihero{height:150px!important}
+  .acan li{padding:7px 0!important}
+  .adminlogin form.stage,.acan{margin-top:12px!important}
+}
+@media (max-width:979px) and (max-height:740px){
+  body:has(.lbig) .ihero,body:has(.adminlogin) .ihero,body:has(.linkt) .ihero{height:112px!important}
+  .ihero h1{font-size:30px!important}
+  .lask{gap:6px!important}
+}
+#app .linkt h3,#app .linkt .note{text-align:left!important}
+.linkt>span:last-child{flex:1}
+@media (max-width:979px) and (max-height:740px){body:has(.lbig) .ihero .eb,body:has(.adminlogin) .ihero .eb,body:has(.linkt) .ihero .eb{display:none}}
 </style>
 </head>
 <body>
@@ -1408,7 +1481,7 @@ footer{padding-top:14px!important}
 <header class="site"><div class="wrap">
   <a class="logo notranslate" href="#/">夏澄</a>
   <nav class="top" id="topnav"></nav>
-  <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中文</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日本語</button></span></span>
+  <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日</button></span></span>
 </div></header>
 <main id="app"></main>
 <footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="credits.html">照片來源</a>・<a href="#/admin">民宿主人後台</a></span><span class="fosm">地圖資料 © OpenStreetMap 貢獻者</span></div></footer>
@@ -1735,13 +1808,13 @@ function pageMap(){const me=ui.me,center=me&&km(me,PLACES.home.ll)<60?me:PLACES.
     <div class="map big" id="bigmap" role="img" aria-label="澎湖景點地圖"></div>
     <div class="mchips">${["全部","海灘","自然地景","古蹟老街","室內・雨天","付費行程"].map(c=>`<button type="button" class="chip" data-act="mcat" data-v="${c}" aria-pressed="${(ui.mcat||"全部")===c}">${CATCOLOR[c]?`<i style="background:${CATCOLOR[c]}"></i>`:""}${({"自然地景":"地景","古蹟老街":"老街","室內・雨天":"雨天","付費行程":"行程"})[c]||c}</button>`).join("")}</div>
     <button class="mloc" type="button" data-act="locate" aria-label="我在哪"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>我在哪</span></button>
+    <a class="mpark" target="_blank" rel="noopener" href="${gPark(center)}"><b>P</b><span>停車</span></a>
   </div>
   <div class="wrap mapbody">
   ${far?`<p class="note">你目前不在澎湖，先用民宿位置當中心</p>`:""}
   <h2 class="mh2"><small>左右滑，點照片看位置</small>${me&&!far?"離你最近":"離民宿最近"}</h2>
   ${NCARDS(near)}
-  <div class="hbtns" style="margin-top:18px"><a class="btn big ghost" target="_blank" rel="noopener" href="${gPark(center)}">找附近停車場</a></div>
-  <p class="note" style="margin-top:12px">車程為估算，導航會開 Google 地圖</p></div>`}
+  <p class="mcred">地圖資料 © OpenStreetMap 貢獻者</p></div>`}
 function drawBig(el){if(!el||!window.L)return;const m=L.map(el,{scrollWheelZoom:false,zoomControl:false,touchZoom:true,bounceAtZoomLimits:false});window.BIGM=m;if(innerWidth>=980)L.control.zoom({position:"bottomleft"}).addTo(m);L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(m);
   const c=ui.mcat||"全部",seen=new Set(),pts=[];
   LIVE().forEach(a=>{if(a.isl)return;const k=AT[a.id],ll=LLof(k);if(!ll||k==="home")return;const paid=!a.free;if(c==="付費行程"?!paid:c!=="全部"&&a.cat!==c)return;if(seen.has(k+a.id))return;seen.add(k+a.id);pts.push(ll);
@@ -2018,10 +2091,10 @@ const ROW=(act,ic,t,d,ex="")=>`<button type="button" class="srow" data-act="${ac
 const SI=d=>`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const SIC={cal:'<rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/>',comp:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',route:'<path d="M5 19c4 0 4-14 8-14s4 14 6 14"/><circle cx="5" cy="19" r="1.5"/><circle cx="19" cy="19" r="1.5"/>',rain:'<path d="M3 12a9 9 0 0118 0z"/><path d="M12 12v7a2 2 0 01-4 0"/>',redo:'<path d="M20 12a8 8 0 11-2.3-5.7L20 8"/><path d="M20 3v5h-5"/>',nav:'<path d="M3 11l18-8-8 18-2-8z"/>',share:'<path d="M7 17L17 7M9 7h8v8"/>',ics:'<rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/>',pdf:'<path d="M6 9V3h12v6M6 18H4v-7h16v7h-2"/><rect x="6" y="14" width="12" height="7"/>',mail:'<rect x="3" y="5" width="18" height="14"/><path d="M3 6l9 7 9-7"/>',swap:'<path d="M4 8h14l-3-3M20 16H6l3 3"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',up:'<path d="M12 19V5M6 11l6-6 6 6"/>',down:'<path d="M12 5v14M6 13l6 6 6-6"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>'};
 const I=k=>SI(SIC[k]);
-function toolsSheet(){sheet("更多功能",`
+function toolsSheet(){setTimeout(()=>{const s=document.querySelector("#modal .sheet");if(s)s.classList.add("tsh")});sheet("更多功能",`
   <div class="sgrp"><small>改行程</small>${ROW("step",I("cal"),"改日期或人數","",'data-v="1"')}${ROW("step",I("comp"),"重選玩法","玩水、跳島、美食…",'data-v="2"')}${ROW("opt",I("route"),"調成最順的路","第 "+(ui.day+1)+" 天，少繞路")}${ROW("rainy",I("rain"),"下雨改室內","把海上行程換成室內或老街")}${ROW("remake",I("redo"),"全部重排","照現在的玩法重新排一次")}</div>
   <div class="sgrp"><small>出發當天</small>${ROW("follow",I("nav"),FOLLOW?"停止邊走邊導航":"邊走邊導航","跟著手機定位，一站一站帶你走")}</div>
-  <div class="sgrp"><small>分享與保存</small>${ROW("share",I("share"),"分享給同行朋友","傳一個連結，大家看同一份")}${ROW("ics",I("ics"),"加到手機行事曆","")}${ROW("print",I("pdf"),"存成 PDF","")}${ROW("gomine",I("mail"),"送出紀錄","看民宿確認到哪一步")}</div>`)}
+  <div class="sgrp"><small>分享與保存</small>${ROW("share",I("share"),"分享給朋友","傳一個連結，大家看同一份")}${ROW("ics",I("ics"),"加到行事曆","")}${ROW("print",I("pdf"),"存成 PDF","")}${ROW("gomine",I("mail"),"送出紀錄","看民宿確認到哪一步")}</div>`)}
 function stopSheet(uid){const it=plan.items.find(x=>x.uid===uid);if(!it)return;const a=it.id?A(it.id):null,f=it.free?FREE[it.free]:null,ll=LLof(placeOf(it)),nm=a?a.name:f.name;
   const its=dayItems(it.day),i=its.findIndex(x=>x.uid===uid);
   sheet(`<small class="sht">${it.time}</small>${esc(nm)}`,`<div class="sgrp">
