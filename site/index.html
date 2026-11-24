@@ -1285,6 +1285,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 #addbox .abpax .pax{background:transparent;border-color:var(--line2)!important}
 #addbox .abpax .pr{background:transparent}
 @media (max-width:979px) and (max-height:740px){#addbox .abpax .ctl{height:40px;grid-template-columns:40px 36px 40px}}
+/* 加到行程：人數縮成一行，點了開同一個人數視窗 */
+#addbox .abpx{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:0;background:transparent;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+#addbox .abpx .abv{flex:1;text-align:right;font-size:17px}
+#addbox .abpx .abc{font-size:24px;line-height:1;color:var(--mut,#77736b)}
+#addbox .abpx:active{background:rgba(0,0,0,.04)}
+body.addopen .modal{z-index:120}
 </style>
 </head>
 <body>
@@ -1481,6 +1487,7 @@ function openItem(uid){const it=plan.items.find(x=>x.uid===uid);if(!it||!it.id)r
   <h3 style="margin-top:22px;font-size:20px">想換成哪一個？</h3><p class="note" style="margin:2px 0 0">已經依類別分好，同類型的排最前面，點一下就換。</p>
   <div class="alts">${list.length?CATS.slice(1).filter(c=>list.some(x=>x.b.cat===c)).sort((c1,c2)=>(c1===a.cat?-1:c2===a.cat?1:0)).map(c=>`<div class="altgrp">${c}</div>`+list.filter(x=>x.b.cat===c).map(({b,t,w})=>`<button type="button" class="alt" data-act="swapto" data-v="${uid}" data-to="${b.id}"><span class="th" style="background-image:url(${IMGA(b)})"></span><span><b>${esc(b.name)}</b><span class="note">${b.dur?"約 "+b.dur+" 小時｜":""}${esc(PLACES[AT[b.id]].n)}・${ride()} ${t} 分鐘</span>${w.map(s=>`<span class="warn">${s}</span>`).join(" ")}</span><span class="price" style="font-weight:700;font-size:15px">${money(b.price)}</span></button>`).join("")).join(""):`<div class="empty">這個月份沒有可以替換的行程</div>`}</div>
   <button class="btn block ghost" type="button" data-act="close" style="margin-top:16px">關閉</button></div></div>`}
+function openTourPax(){document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:22px">幾位一起去？</h2><p class="note">分年齡是為了算對價錢</p>${paxEditor(ui.tour.pax,"t")}<button class="btn block" type="button" data-act="tpaxdone" style="margin-top:16px">完成</button></div></div>`}
 function openPax(){const x=ui.qpax=ui.qpax||Object.assign({},plan?plan.pax:defPax());
   document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:22px">幾位一起去？</h2><p class="note">分年齡是為了算對價錢</p>${paxEditor(x,"q")}<button class="btn block" type="button" data-act="paxdone" style="margin-top:16px">完成</button></div></div>`}
 const ICON={swap:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></svg>`,info:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>`,del:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>`,check:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`,plane:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14l18-7-6 13-3-6z"/></svg>`,sun:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 18h16M7 18a5 5 0 0 1 10 0M12 6v3M5.6 9.6l2 2M18.4 9.6l-2 2"/></svg>`,home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/></svg>`,bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"/></svg>`,food:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 7h3v11"/></svg>`};
@@ -1795,7 +1802,7 @@ function pageTour(id){
     ${a.isl?`<p class="note" style="margin:0">這個景點包含在跳島行程裡，${esc(a.limit)}。</p>`:ok?"":`<p class="pill bad" style="margin:0">你選的出發月份這項沒有出團</p>`}
     <div class="abq"><span class="abl">哪一天</span><div class="dates">${Array.from({length:Math.min(plan.days,5)},(_,i)=>{const d=dayDate(i);return `<button type="button" data-act="tday" data-v="${i}" aria-pressed="${ui.tour.day===i}">第 ${i+1} 天<b>${d.getMonth()+1}/${d.getDate()}</b></button>`}).join("")}</div></div>
     <div class="abq"><span class="abl">幾點</span><div class="slots">${slots.map((s,i)=>`<button type="button" data-act="slot" data-v="${i}" aria-pressed="${ui.tour.slot===i}">${s}</button>`).join("")}</div></div>
-    <details class="abpax" ${ui.paxOpen?"open":""} ontoggle="ui.paxOpen=this.open"><summary><span class="abl">幾個人</span><span class="abv">${paxText(ui.tour.pax)}</span><span class="abc">改</span></summary>${paxEditor(ui.tour.pax,"t")}</details>
+    <button type="button" class="abpx" data-act="tpaxopen"><span class="abl">幾個人</span><span class="abv">${paxText(ui.tour.pax)}</span><span class="abc" aria-hidden="true">›</span></button>
     ${w.length?`<p class="abw">${w.join("、")}</p>`:""}
 
     <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天<span class="abp">${a.free?costText(a):a.price==null?"價格洽詢":money(priceFor(a,ui.tour.pax))}</span></button>
@@ -1921,12 +1928,14 @@ document.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const act=b.dataset.act,v=b.dataset.v;
   if(act==="quickgo"){const px=Object.assign({},ui.qpax||(plan?plan.pax:defPax()));plan=generate({start:document.getElementById("q-start").value||nextSat(),days:+document.getElementById("q-days").value,pax:px,interests:plan?plan.interests:["玩水","美食"]});plan.made=false;ui.step=2;ui.day=0;ui.qpax=null;save();location.hash="#/plan";return}
   if(act==="paxopen"){openPax();return}
+  if(act==="tpaxopen"){openTourPax();return}
+  if(act==="tpaxdone"){document.getElementById("modal").innerHTML="";render();document.body.classList.add("addopen");return}
   if(act==="paxdone"){closeModal();if(plan&&plan.made){const ns=ui.qstart||plan.start,nd=ui.qdays||plan.days,np=ui.qpax||plan.pax;if(ns!==plan.start||nd!==plan.days||JSON.stringify(np)!==JSON.stringify(plan.pax)){const g=plan.guest,it=plan.interests;const r=generate({start:ns,days:nd,pax:Object.assign({},np),interests:it});if(r)plan=r;plan.guest=g;plan.made=true;plan.sent=null;ui.day=0;const m=monthOf(ns);if(!plan.items.some(x=>x.id&&!A(x.id).free&&A(x.id).cat!=="交通"))autoMake();save();toast("已經照新的日期人數重排")}ui.qstart=ui.qdays=ui.qpax=null}render();return}
   if(act==="dateopen"){const st=ui.qstart||(plan?plan.start:nextSat()),dy=ui.qdays||(plan?plan.days:3);ui.qstart=st;ui.qdays=dy;
     document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:22px">哪天到？玩幾天？</h2><div class="dlab">哪天到</div><label class="dpick"><b id="d-txt">${dlong(st)}</b><span>點這裡換日期</span><input type="date" id="d-start" value="${st}" onchange="if(this.value){ui.qstart=this.value;document.getElementById('d-txt').textContent=dlong(this.value)}"></label><div class="dlab">玩幾天</div><div class="days dsel">${[1,2,3,4,5].map(n=>`<button type="button" data-act="dsel" data-v="${n}" aria-pressed="${dy===n}"><b>${n} 天</b></button>`).join("")}</div><button class="btn block" type="button" data-act="paxdone" style="margin-top:18px">完成</button></div></div>`;return}
   if(act==="dsel"){ui.qdays=+v;document.querySelectorAll(".dsel button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===v));return}
   if(act==="pax"){const sc=b.dataset.s,x=sc==="q"?ui.qpax:sc==="t"?ui.tour.pax:sc==="g"?ui.gl.pax:plan.pax,k=b.dataset.k;x[k]=Math.max(0,x[k]+ +b.dataset.d);if(x.adult+x.senior<1)x.adult=1;
-    if(sc==="q"){openPax();return}if(sc==="p")save();render();return}
+    if(sc==="q"){openPax();return}if(sc==="t"){openTourPax();return}if(sc==="p")save();render();return}
   if(b.dataset.ac&&act!=="item")closeModal();
   if(act==="bgclose"){if(e.target===b)closeModal();return}
   if(act==="tools"){toolsSheet();return}
