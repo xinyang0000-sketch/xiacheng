@@ -1291,6 +1291,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 #addbox .abpx .abc{font-size:24px;line-height:1;color:var(--mut,#77736b)}
 #addbox .abpx:active{background:rgba(0,0,0,.04)}
 body.addopen .modal{z-index:120}
+/* 加到行程：跟其他視窗一樣置中 */
+.abbg{display:none}
+@media (max-width:979px){
+  .abbg{display:block;position:fixed;inset:0;z-index:89;background:rgba(30,31,31,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s var(--ez)}
+  body.addopen .abbg{opacity:1;pointer-events:auto}
+  #addbox{left:18px!important;right:18px!important;top:50%!important;bottom:auto!important;max-width:520px;margin:0 auto!important;max-height:calc(100svh - 36px)!important;border:1px solid var(--ink)!important;box-shadow:0 30px 80px rgba(30,31,31,.28)!important;padding-bottom:0!important;opacity:0;pointer-events:none;transform:translateY(calc(-50% + 24px)) scale(.98)!important;transition:transform .45s var(--ez),opacity .3s var(--ez)!important}
+  body.addopen #addbox{opacity:1;pointer-events:auto;transform:translateY(-50%)!important}
+  #addbox{padding-bottom:20px!important}
+  #addbox>.btn.block{position:static!important;margin:0!important;width:100%!important}
+}
 </style>
 </head>
 <body>
@@ -1797,6 +1807,7 @@ function pageTour(id){
     ${a.isl?"":`<div class="row2"><button class="btn small ghost" type="button" data-act="drive" data-lat="${LLof(AT[a.id])[0]}" data-lng="${LLof(AT[a.id])[1]}" data-name="${esc(a.name)}">${ICON.nav}導航過去</button></div>
     <div><h3 style="font-size:20px;margin-bottom:6px">附近還可以去</h3>${NCARDS(nearby(LLof(AT[a.id]),a.id,6),1)}</div>`}
   </div>
+  <div class="abbg" data-act="addclose" aria-hidden="true"></div>
   <aside class="panel sticky form" id="addbox">
     <div class="shd abhd"><b style="font-size:21px;font-family:var(--serif)">${esc(a.name)}<small class="abs">加到行程</small></b><button type="button" class="shx" data-act="addclose" aria-label="關閉">✕</button></div>
     ${a.isl?`<p class="note" style="margin:0">這個景點包含在跳島行程裡，${esc(a.limit)}。</p>`:ok?"":`<p class="pill bad" style="margin:0">你選的出發月份這項沒有出團</p>`}
