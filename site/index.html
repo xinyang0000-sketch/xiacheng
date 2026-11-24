@@ -1370,6 +1370,29 @@ body.addopen .modal{z-index:120}
 .doc h2:first-child{border-top:0;padding-top:0}
 .doc p{text-align:left!important}
 .route2 em{font-style:normal;white-space:nowrap}
+/* ===== 第二輪：膠囊分類、拿掉地圖 i、留白 ===== */
+.leaflet-control-attribution{display:none!important}
+.fosm{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+/* 地圖分類：六顆圓形膠囊，一排放滿 */
+.mchips{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px!important;left:10px!important;right:10px!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.mchips .chip{border-radius:999px!important;border:0!important;border-left:0!important;background:rgba(247,246,243,.96)!important;box-shadow:0 4px 14px rgba(30,31,31,.2)!important;min-height:40px!important;padding:0 2px!important;font-size:14.5px!important;gap:3px!important}
+.mchips .chip[aria-pressed="true"]{background:var(--ink)!important;color:#fff!important}
+/* 短的頁面：頁尾貼在選單上方，不在下面留一個洞 */
+body{min-height:100svh;display:flex;flex-direction:column}
+body>main#app{flex:1 0 auto;padding-bottom:16px!important}
+footer{padding-top:14px!important}
+/* 後台登入：卡片放在畫面中間，字不貼框 */
+.adminlogin{min-height:0!important;flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:20px}
+#app:has(>.adminlogin){display:flex;flex-direction:column}
+#app>.adminlogin{flex:1 0 auto;width:100%;box-sizing:border-box}
+.adminlogin form.stage{padding:22px 18px 22px!important;text-align:center}
+.adminlogin form.stage h2{margin:0 0 6px!important}
+.adminlogin .next{justify-content:center;display:flex}
+.adminlogin .next .btn{width:100%}
+/* 送出紀錄：左邊天數、右邊每一站，不留右半邊空白 */
+.dlist li{display:grid!important;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start}
+.dlist li>b{margin:0!important;font-size:15px!important;line-height:1.6;color:var(--muted)}
+.dlist .dr{line-height:1.6!important;padding:0 0 4px}
 </style>
 </head>
 <body>
@@ -1380,7 +1403,7 @@ body.addopen .modal{z-index:120}
   <span class="hdr-r"><span class="lang notranslate" role="group" aria-label="語言"><button type="button" data-lang="zh-TW">中文</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="ja">日本語</button></span></span>
 </div></header>
 <main id="app"></main>
-<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="credits.html">照片來源</a>・<a href="#/admin">民宿主人後台</a></span></div></footer>
+<footer><div class="wrap"><span class="serif" style="font-size:18px;color:var(--ink);letter-spacing:.14em">夏澄</span><span class="fmeta">LINE 客服每天回覆（時段待填）｜民宿登記證號：待填</span><span><a href="#/privacy">隱私權與服務說明</a>・<a href="credits.html">照片來源</a>・<a href="#/admin">民宿主人後台</a></span><span class="fosm">地圖資料 © OpenStreetMap 貢獻者</span></div></footer>
 <nav class="tabs" id="tabs"></nav>
 <div class="toast" id="toast" hidden></div>
 <div id="modal"></div>
@@ -1900,7 +1923,7 @@ function pageMine(){
     ${track(r.status)}
     ${r.owner_note?`<div class="reply"><b>民宿回覆</b>${esc(r.owner_note)}</div>`:""}
     <dl class="rmeta">${r.code?`<div><dt>查詢碼</dt><dd style="letter-spacing:.08em">${esc(r.code)}</dd></div>`:""}<div><dt>送出時間</dt><dd>${esc(r.created)}</dd></div><div><dt>天數人數</dt><dd>${r.days} 天・${r.people} 人</dd></div><div><dt>預估總價</dt><dd>${money(r.total)}</dd></div></dl>
-    <ul class="dlist">${(r.lines||[]).map(l=>{const k=l.indexOf("：");return k<0?`<li><span>${esc(l)}</span></li>`:`<li><b>${esc(l.slice(0,k))}</b>${l.slice(k+1).split("、").map(x=>{const m=x.match(/^(\d{1,2}:\d{2})\s*(.*)$/);return m?`<span class="dr"><i>${m[1]}</i>${esc(m[2])}</span>`:`<span class="dr"><i></i>${esc(x)}</span>`}).join("")}</li>`}).join("")}</ul>
+    <ul class="dlist">${(r.lines||[]).map(l=>{const k=l.indexOf("：");return k<0?`<li><span>${esc(l)}</span></li>`:`<li><b>${esc(l.slice(0,k)).replace(/天\s*/,"天<br>")}</b><div>${l.slice(k+1).split("、").map(x=>{const m=x.match(/^(\d{1,2}:\d{2})\s*(.*)$/);return m?`<span class="dr"><i>${m[1]}</i>${esc(m[2])}</span>`:`<span class="dr"><i></i>${esc(x)}</span>`}).join("")}</div></li>`}).join("")}</ul>
     <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn small" href="${lineUrl(r)}" target="_blank" rel="noopener">用 LINE 傳給民宿</a></div></div>`).join(""):`<div class="empty">還沒有送出的行程。<br><a href="#/plan">去排行程 →</a></div>`}</div></section><aside class="side">${SIDE()}</aside></div></div>`}
 function track(s){const st=["已送出","民宿確認","付款","出發"],cur=s==="已確認"?2:s==="取消"?-1:1;
   return `<div class="track ${cur<0?"cancel":""}" role="img" aria-label="目前進度：${s}">${st.map((t,i)=>`<div class="${cur<0?"":i<cur?"done":i===cur?"now":""}"><i>${cur>=0&&i<cur?ICON.check.replace('aria-hidden','width="16" height="16" aria-hidden'):i+1}</i>${t}</div>`).join("")}</div>`}
@@ -1923,8 +1946,7 @@ function pageLine(){const has=!!CFG.lineOA;return `<div class="wrap"><div class=
     <p class="lq">海況、改期，直接問最快</p>
     <a class="btn big lbtn" href="${(CFG.lineOA?`https://line.me/R/oaMessage/${encodeURIComponent(CFG.lineOA)}/?`:"https://line.me/R/msg/text/?")+encodeURIComponent("你好，我想問夏澄的行程")}" target="_blank" rel="noopener">用 LINE 傳訊息給民宿主人</a>
     ${has?`<p class="note">LINE 帳號 ${esc(CFG.lineOA)}</p>`:""}
-    <div class="lask">${["明天能不能出海？","可以改日期嗎？","有小孩適合玩什麼？"].map(q=>`<a href="${(CFG.lineOA?`https://line.me/R/oaMessage/${encodeURIComponent(CFG.lineOA)}/?`:"https://line.me/R/msg/text/?")+encodeURIComponent(q)}" target="_blank" rel="noopener"><span>${q}</span><i aria-hidden="true">›</i></a>`).join("")}</div>
-    <p class="note">點問題，會直接帶到 LINE</p>
+    <div class="lask">${["明天能不能出海？","可以改日期嗎？","有小孩適合玩什麼？","附近哪裡好停車？","退房後行李能寄放嗎？"].map(q=>`<a href="${(CFG.lineOA?`https://line.me/R/oaMessage/${encodeURIComponent(CFG.lineOA)}/?`:"https://line.me/R/msg/text/?")+encodeURIComponent(q)}" target="_blank" rel="noopener"><span>${q}</span><i aria-hidden="true">›</i></a>`).join("")}</div>
   </div></section><aside class="side">${SIDE(1)}</aside></div></div>`}
 function rchip(k){if(FREE[k])return `<span class="rchip"><span class="ic">${ICON[FREEICON[k]]}</span>${esc(FREE[k].name)}</span>`;const a=A(k);return `<span class="rchip"><span class="th" style="background-image:url(${IMGA(a)})"></span>${esc(a.name)}</span>`}
 function pageGuide(){const r=[["1 天","第一次來、時間不多",[["basalt","seafood","snorkel","sunset"]]],["2 天","最多人選",[["snorkel","sunset","squid"],["tidal","market","souvenir"]]],["3 天","想跳島的人",[["snorkel","sunset","squid"],["south","bbq"],["weir","market","souvenir"]]]];
