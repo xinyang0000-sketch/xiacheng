@@ -1542,6 +1542,28 @@ footer .fmeta,footer .fline{display:none!important}
   .ghome .photo .wxchip *{color:#fff!important}
   .ghome .photo h1{font-size:46px!important;margin-top:6px!important}
 }
+/* 參考價小字（CFG.refPrice=false 就全部消失） */
+.refp{display:inline-block;font-style:normal;font-family:var(--sans);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.04em;padding:0 5px;margin-left:6px;border:1px solid currentColor;border-radius:3px;opacity:.72;vertical-align:middle;white-space:nowrap}
+.abp .refp,.btn .refp{opacity:.85}
+.sbk .refp{margin:2px 0 0}
+.bnbph{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.bnbph figure{position:relative;margin:0;height:128px;background:#2a2c2c center/cover no-repeat;overflow:hidden}
+.bnbph figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(20,22,22,.7))}
+.bnbph figcaption{position:absolute;left:10px;bottom:8px;z-index:1;color:#fff;font-size:15px;font-weight:700}
+@media (min-width:980px){.bnbph figure{height:180px}}
+.lnd{text-align:center}
+.lndic{display:grid;place-items:center;width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:#06c755}
+.lnd h2{font-size:22px!important;margin:0 0 6px!important}
+.lndmsg{margin:10px 0 16px;padding:12px 14px;background:#fff;box-shadow:0 0 0 1px var(--line2);text-align:left;font-size:15px;line-height:1.6;white-space:pre-wrap;max-height:180px;overflow:auto}
+.ademo{display:block;margin:14px auto 0;min-height:44px;font-size:16px}
+.ademob{display:flex;flex-direction:column;gap:2px;margin:14px 0 4px;padding:12px 14px;background:#fff8e6;border-left:4px solid #b8862b}
+.ademob b{font-size:16px}.ademob span{font-size:15px;color:var(--muted)}
+/* 加到行程按鈕：一行放下「加入第 N 天＋價格＋參考價」 */
+#addbox>.btn.block{white-space:nowrap;gap:10px}
+#addbox .abp{display:inline-flex!important;align-items:center;white-space:nowrap;font-size:20px!important}
+#addbox .abp .refp{margin-left:6px}
+.stop .meta .refp,.stop small .refp{margin-left:4px}
+@media (max-width:979px){body:has(.adminlogin) .ihero{height:112px!important}body:has(.adminlogin) .ihero .eb{display:none}.ademo{margin-top:6px!important}}
 </style>
 </head>
 <body>
@@ -1559,8 +1581,8 @@ footer .fmeta,footer .fline{display:none!important}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script><script>if(window.L)L.Control.Attribution.prototype.options.prefix=false</script>
 <script>
-/* ===================== 資料（價格皆為示意） ===================== */
-const RGEN={"heart": "heart_0", "basalt": "bluecave_1", "snorkel": "mudou_1", "squid": "squid_2", "scooter": "bridge_1", "hero": "mudou_0", "dusk": "rainbow_2", "aerial": "chixi_1", "harbor": "waian_2", "food": "seafood_1", "village": "ekn_0"},RREAL={"scooter": "bridge_1", "car": "bridge_0", "transfer": "harbor_0", "south": "south4_0", "north": "mudou_0", "east": "tongpan_0", "qimei": "heart_0", "bluecave": "bluecave_0", "snorkel": "mudou_1", "banana": "sup_1", "jetski": "shanshui_1", "tube": "beach9_1", "sup": "sup_2", "kayak": "mudou_2", "ranch": "oyster_0", "squid": "squid_2", "tidal": "kuibi_2", "weir": "weir2_1", "basalt": "basalt_2", "seafood": "seafood_1", "souvenir": "cactus_1", "fireworks": "rainbow_1", "s_qingwan": "sunset_1", "s_shanshui": "beach9_0", "s_shili": "sup_0", "s_aimen": "sup_1", "s_lintou": "lintou_0", "s_dream": "sunset_2", "s_fenggui": "fenggui_1", "s_shetou": "shetou_0", "s_kuibi": "kuibi_2", "s_daguoye": "basalt_0", "s_whale": "whale_2", "s_chixi": "chixi_0", "s_tianhou": "tianhou_0", "s_central": "street_1", "s_guanyin": "rainbow_2", "s_juxing": "duxing_0", "s_shuncheng": "shuncheng_0", "s_erkan": "ekn_0", "s_xitai": "xiyu_2", "s_lighthouse": "light_0", "s_waian": "waian_0", "s_bridge": "bridge_0", "s_beichen": "market_0", "s_twinheart": "heart_1", "s_huazhai": "huazhai_1", "s_tongpan": "tongpan_2", "s_dongji": "dongji_1", "s_dongtai": "dongtai_1", "s_neian": "waian_2", "s_jibei_weir": "weir_1", "s_mudou": "mudou_0", "s_tiantai": "wangan_1", "s_jimu": "chixi_2", "s_jibei": "mudou_2", "s_xiaotw": "heart_2", "s_nanliao": "huazhai_0", "s_turtle": "wangan_0"},RPOOL={"海灘": ["shanshui_0", "sup_0", "sunset_2", "beach9_1"], "自然地景": ["chixi_1", "basalt_1", "whale_0", "sea_2", "xiji_0"], "古蹟老街": ["huazhai_2", "light_1", "dongtai_2", "ekn_1", "duxing_1"], "室內・雨天": ["qimei_1", "squid_1", "market_1"], "離島景點": ["south4_0", "tongpan_1", "dongji_2", "xiji_2", "hujing_1"]};
+/* ===================== 資料（價格為 2026 澎湖行情參考價，上線前換成業者實價） ===================== */
+const RGEN={"heart": "heart_0", "basalt": "bluecave_1", "snorkel": "mudou_1", "squid": "squid_2", "scooter": "n_scooter", "hero": "mudou_0", "dusk": "rainbow_2", "aerial": "chixi_1", "harbor": "waian_2", "food": "seafood_1", "village": "ekn_0"},RREAL={"scooter": "n_scooter", "car": "n_car", "transfer": "harbor_0", "south": "south4_0", "north": "mudou_1", "east": "tongpan_0", "qimei": "heart_0", "bluecave": "bluecave_0", "snorkel": "n_snorkel", "banana": "n_banana", "jetski": "n_jetski", "tube": "n_tube", "sup": "sup_2", "kayak": "n_kayak", "ranch": "oyster_0", "squid": "squid_2", "tidal": "n_tidal", "weir": "weir2_1", "basalt": "basalt_2", "seafood": "seafood_1", "souvenir": "cactus_1", "fireworks": "n_fireworks", "s_qingwan": "sunset_1", "s_shanshui": "beach9_0", "s_shili": "sup_0", "s_aimen": "sup_1", "s_lintou": "lintou_0", "s_dream": "sunset_2", "s_fenggui": "fenggui_1", "s_shetou": "shetou_0", "s_kuibi": "kuibi_2", "s_daguoye": "basalt_0", "s_whale": "whale_2", "s_chixi": "chixi_0", "s_tianhou": "tianhou_0", "s_central": "street_1", "s_guanyin": "rainbow_2", "s_juxing": "duxing_0", "s_shuncheng": "shuncheng_0", "s_erkan": "ekn_0", "s_xitai": "xiyu_2", "s_lighthouse": "light_0", "s_waian": "waian_0", "s_bridge": "bridge_0", "s_beichen": "market_0", "s_twinheart": "heart_1", "s_huazhai": "huazhai_1", "s_tongpan": "tongpan_2", "s_dongji": "dongji_1", "s_dongtai": "dongtai_1", "s_neian": "n_neian", "s_jibei_weir": "weir_1", "s_mudou": "mudou_0", "s_tiantai": "wangan_1", "s_jimu": "chixi_2", "s_jibei": "mudou_2", "s_xiaotw": "heart_2", "s_nanliao": "n_nanliao", "s_turtle": "wangan_0", "s_niuxin": "n_niuxin", "s_qingluo": "n_qingluo", "s_xi": "n_xi", "s_guoye": "n_guoye", "s_museum": "n_museum", "s_kaituo": "n_kaituo", "s_geo": "n_geo", "s_suogang": "n_suogang", "s_xujia": "n_xujia", "s_qimeiren": "n_qimeiren", "s_crab": "n_crab", "s_tianjtang": "sea_2"},RPOOL={"海灘": ["shanshui_0", "sup_0", "sunset_2", "beach9_1"], "自然地景": ["chixi_1", "basalt_1", "whale_0", "sea_2", "xiji_0"], "古蹟老街": ["huazhai_2", "light_1", "dongtai_2", "ekn_1", "duxing_1"], "室內・雨天": ["qimei_1", "squid_1", "market_1"], "離島景點": ["south4_0", "tongpan_1", "dongji_2", "xiji_2", "hujing_1"]};
 const IMG=n=>RGEN[n]?`img/p/${RGEN[n]}.webp`:`img/${n}.webp`;
 function hsh(t){let h=0;for(const c of t)h=(h*31+c.charCodeAt(0))>>>0;return h}
 const CATTINT={海灘:["#d9e6e4","#4f8a86"],自然地景:["#e3dccf","#7b6a55"],古蹟老街:["#ecd9cc","#a2461f"],"室內・雨天":["#dfe0e6","#5b6178"],離島景點:["#d6e4ea","#3f7488"]};
@@ -1577,28 +1599,28 @@ const INTENSE=["banana","jetski","tube"];
 const CHILD_RATE=0.8;
 const ACTS=[
  {id:"scooter",cat:"交通",name:"機車租借",dur:0,price:400,unit:"台／天",img:"scooter",months:ALL,desc:"民宿門口交車，騎著環島最自由。",inc:"安全帽、雨衣",limit:"需持有效機車駕照"},
- {id:"car",cat:"交通",name:"汽車租借",dur:0,price:2000,unit:"台／天",img:"scooter",months:ALL,desc:"帶長輩、小孩或下雨天最方便。",inc:"基本保險",limit:"需持有效汽車駕照"},
+ {id:"car",cat:"交通",name:"汽車租借",dur:0,price:1500,unit:"台／天",img:"scooter",months:ALL,desc:"帶長輩、小孩或下雨天最方便。",inc:"基本保險",limit:"需持有效汽車駕照"},
  {id:"transfer",cat:"交通",name:"機場或碼頭接送",dur:0.5,price:300,unit:"趟",img:"room",months:ALL,desc:"抵達就有人接，行李直接送到民宿。",inc:"車資",limit:"請提供航班或船班時間"},
- {id:"south",cat:"跳島",name:"南方四島",dur:7,price:1500,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"東吉、西吉、東西嶼坪與藍洞，一天走完四座島。",inc:"船票、導覽、保險",limit:"風浪過大會停航"},
+ {id:"south",cat:"跳島",name:"南方四島",dur:7,price:1350,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"東吉、西吉、東西嶼坪與藍洞，一天走完四座島。",inc:"船票、導覽、保險",limit:"風浪過大會停航"},
  {id:"north",cat:"跳島",name:"北海（吉貝、目斗嶼、險礁）",dur:6,price:1000,unit:"人",img:"snorkel",months:SUMMER,tags:["跳島","玩水"],desc:"白沙灘和淺海，玩水跳島一次滿足。",inc:"船票、保險",limit:"風浪過大會停航"},
- {id:"east",cat:"跳島",name:"東海（桶盤、虎井）",dur:4,price:800,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","導覽"],desc:"看玄武岩柱和沉城傳說，半天就能來回。",inc:"船票、保險",limit:"風浪過大會停航"},
- {id:"qimei",cat:"跳島",name:"七美望安",dur:8,price:1200,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"雙心石滬就在七美，望安有綠蠵龜。",inc:"船票、島上交通、保險",limit:"風浪過大會停航"},
- {id:"bluecave",cat:"跳島",name:"藍洞船",dur:2,price:600,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","輕鬆"],desc:"搭船進海蝕洞看藍色的光。",inc:"船票、保險",limit:"海況決定能否入洞"},
+ {id:"east",cat:"跳島",name:"東海（桶盤、虎井）",dur:4,price:1100,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","導覽"],desc:"看玄武岩柱和沉城傳說，半天就能來回。",inc:"船票、保險",limit:"風浪過大會停航"},
+ {id:"qimei",cat:"跳島",name:"七美望安",dur:8,price:1000,unit:"人",img:"heart",months:SUMMER,tags:["跳島"],desc:"雙心石滬就在七美，望安有綠蠵龜。",inc:"船票、島上交通、保險",limit:"風浪過大會停航"},
+ {id:"bluecave",cat:"跳島",name:"藍洞船",dur:2,price:1100,unit:"人",img:"basalt",months:SUMMER,tags:["跳島","輕鬆"],desc:"搭船進海蝕洞看藍色的光。",inc:"船票、保險",limit:"海況決定能否入洞"},
  {id:"snorkel",cat:"水上",name:"浮潛",dur:2,price:800,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"教練帶下水，不會游泳也能看珊瑚和魚。",inc:"面鏡、救生衣、教練、保險",limit:"年齡限制待業者確認"},
  {id:"banana",cat:"水上",name:"香蕉船",dur:0.5,price:400,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"朋友一起尖叫最好玩。",inc:"救生衣、保險",limit:"孕婦不建議"},
- {id:"jetski",cat:"水上",name:"水上摩托車",dur:0.5,price:800,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"教練駕駛，海上衝浪的速度感。",inc:"救生衣、保險",limit:"孕婦、心臟病不建議"},
- {id:"tube",cat:"水上",name:"拖曳浮胎",dur:0.5,price:500,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"坐在浮胎上被快艇拖著跑。",inc:"救生衣、保險",limit:"孕婦不建議"},
- {id:"sup",cat:"水上",name:"SUP 立槳",dur:2,price:900,unit:"人",img:"sunset",months:SUMMER,tags:["玩水","輕鬆"],desc:"站在板子上划過平靜海面，夕陽場最美。",inc:"板子、槳、救生衣、教練",limit:"需能自行站立"},
- {id:"kayak",cat:"水上",name:"透明獨木舟",dur:2,price:900,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水","輕鬆"],desc:"從透明船底看見海裡的魚。",inc:"獨木舟、救生衣、教練",limit:"兒童需大人陪同"},
- {id:"ranch",cat:"海上體驗",name:"海洋牧場",dur:2.5,price:600,unit:"人",img:"squid",months:ALL,tags:["美食","輕鬆","導覽"],desc:"烤蚵吃到飽、釣魚、餵魚，長輩小孩都喜歡。",inc:"烤蚵、釣具、船票",limit:"風浪過大會停航"},
- {id:"squid",cat:"海上體驗",name:"夜釣小管",dur:3,price:700,unit:"人",img:"squid",months:SUMMER,tags:["美食","玩水"],desc:"晚上出海，釣上來的小管直接煮成宵夜。",inc:"釣具、宵夜、保險",limit:"容易暈船者請先服藥"},
- {id:"tidal",cat:"生態文化",name:"潮間帶導覽",dur:2,price:400,unit:"人",img:"basalt",months:ALL,tags:["導覽","輕鬆"],desc:"退潮時跟著老師找螃蟹、海膽和寄居蟹。",inc:"導覽、雨鞋",limit:"依潮汐時間出發"},
+ {id:"jetski",cat:"水上",name:"水上摩托車",dur:0.5,price:600,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"教練駕駛，海上衝浪的速度感。",inc:"救生衣、保險",limit:"孕婦、心臟病不建議"},
+ {id:"tube",cat:"水上",name:"拖曳浮胎",dur:0.5,price:400,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水"],desc:"坐在浮胎上被快艇拖著跑。",inc:"救生衣、保險",limit:"孕婦不建議"},
+ {id:"sup",cat:"水上",name:"SUP 立槳",dur:2,price:1200,unit:"人",img:"sunset",months:SUMMER,tags:["玩水","輕鬆"],desc:"站在板子上划過平靜海面，夕陽場最美。",inc:"板子、槳、救生衣、教練",limit:"需能自行站立"},
+ {id:"kayak",cat:"水上",name:"透明獨木舟",dur:2,price:1200,unit:"人",img:"snorkel",months:SUMMER,tags:["玩水","輕鬆"],desc:"從透明船底看見海裡的魚。",inc:"獨木舟、救生衣、教練",limit:"兒童需大人陪同"},
+ {id:"ranch",cat:"海上體驗",name:"海洋牧場",dur:2.5,price:550,unit:"人",img:"squid",months:ALL,tags:["美食","輕鬆","導覽"],desc:"烤蚵吃到飽、釣魚、餵魚，長輩小孩都喜歡。",inc:"烤蚵、釣具、船票",limit:"風浪過大會停航"},
+ {id:"squid",cat:"海上體驗",name:"夜釣小管",dur:3,price:450,unit:"人",img:"squid",months:SUMMER,tags:["美食","玩水"],desc:"晚上出海，釣上來的小管直接煮成宵夜。",inc:"釣具、宵夜、保險",limit:"容易暈船者請先服藥"},
+ {id:"tidal",cat:"生態文化",name:"潮間帶導覽",dur:2,price:850,unit:"人",img:"basalt",months:ALL,tags:["導覽","輕鬆"],desc:"退潮時跟著老師找螃蟹、海膽和寄居蟹。",inc:"導覽、雨鞋",limit:"依潮汐時間出發"},
  {id:"weir",cat:"生態文化",name:"石滬導覽",dur:2,price:500,unit:"人",img:"heart",months:ALL,tags:["導覽"],desc:"認識澎湖人用石頭圍出來的捕魚陷阱。",inc:"導覽",limit:"依潮汐時間出發"},
  {id:"basalt",cat:"生態文化",name:"玄武岩地質導覽",dur:3,price:600,unit:"人",img:"basalt",months:ALL,tags:["導覽"],desc:"火山留下的柱狀玄武岩，壯觀又好拍。",inc:"導覽、交通",limit:"需步行約 1 公里"},
  {id:"seafood",cat:"餐飲",name:"海鮮套餐",dur:1.5,price:800,unit:"人",img:"sunset",months:ALL,tags:["美食"],desc:"合作餐廳的在地海鮮，替你先訂好位子。",inc:"套餐",limit:"海鮮過敏請先告知"},
  {id:"bbq",cat:"餐飲",name:"民宿 BBQ",dur:2,price:600,unit:"人",img:"sunset",months:ALL,tags:["美食","輕鬆"],desc:"在民宿頂樓邊看夕陽邊烤肉，住客限定。",inc:"食材、烤具",limit:"需前一天預訂"},
  {id:"souvenir",cat:"餐飲",name:"伴手禮預訂與宅配",dur:0.5,price:null,unit:"份",img:"room",months:ALL,desc:"黑糖糕、鹹餅、干貝醬，回家前一次訂好直接宅配。",inc:"代訂、宅配",limit:"價格依商品"},
- {id:"fireworks",cat:"季節活動",name:"花火節觀賞套票",dur:2,price:null,unit:"人",img:"sunset",months:[4,5,6],desc:"花火節期間的觀賞位置與接駁。",inc:"依當年活動公告",limit:"日期每年不同"}
+ {id:"fireworks",cat:"季節活動",name:"花火節觀賞套票",dur:2,price:400,unit:"人",img:"sunset",months:[4,5,6,7,8],desc:"花火節期間搭船到海上看煙火，視野最好、不用跟人擠，約 1 小時。",inc:"依當年活動公告",limit:"日期每年不同"}
 ];
 
 /* ===== 免費景點（位置為示意，正式版請民宿確認） ===== */
@@ -1618,11 +1640,14 @@ const CATINFO={交通:["scooter","機車、汽車、接送"],跳島:["heart","�
 const A=id=>ACTS.find(a=>a.id===id);
 
 /* ===================== 雲端設定 ===================== */
-const CFG={supa:"https://ojybxatauyzrnybslfqy.supabase.co",key:"sb_publishable_N-5AhqdtOVbW9yiF0c1swA_49gX3brn",sheet:"1W6ohYTb9GU6q86wsmfbeJHnb6Nuv647jdIbWNqAVeDc",lineOA:""};
+const CFG={supa:"https://ojybxatauyzrnybslfqy.supabase.co",key:"sb_publishable_N-5AhqdtOVbW9yiF0c1swA_49gX3brn",sheet:"1W6ohYTb9GU6q86wsmfbeJHnb6Nuv647jdIbWNqAVeDc",lineOA:"",refPrice:true /* 上線前改成 false：全站「參考價」小字會一起消失 */};
+const REF=()=>CFG.refPrice?'<i class="refp">參考價</i>':"";
 async function rpc(fn,body){const r=await fetch(CFG.supa+"/rest/v1/rpc/"+fn,{method:"POST",headers:{apikey:CFG.key,"Content-Type":"application/json"},body:JSON.stringify(body)});const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null}
 const VEND={交通:"機車行",跳島:"船公司",水上:"水上活動業者",海上體驗:"海洋牧場業者",生態文化:"導覽老師",餐飲:"合作餐廳",季節活動:"活動主辦"};
 const vendorOf=a=>(a.vendor&&!/待填/.test(a.vendor)?a.vendor:"")||VEND[a.cat]||"民宿";
-const LIVE=()=>ACTS.filter(a=>!a.off);
+/* 還沒找到正確照片的景點先不顯示（照片補上後從這裡拿掉） */
+const NOPHOTO=["s_windmill","s_wave","s_aquarium","s_wangan_beach","s_jibei","s_xiaotw"];
+const LIVE=()=>ACTS.filter(a=>!a.off&&!NOPHOTO.includes(a.id));
 function parseCSV(t){const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){row.push(f);f=""}else if(c==="\n"){row.push(f);rows.push(row);row=[];f=""}else if(c!=="\r")f+=c}if(f||row.length){row.push(f);rows.push(row)}return rows}
 function parseMonths(v){v=String(v||"").trim();if(!v||v.includes("全年"))return ALL;const out=new Set();v.split(/[,，、 ]+/).forEach(x=>{const m=x.match(/(\d+)\s*[-~–]\s*(\d+)/);if(m){let i=+m[1];const b=+m[2];for(let k=0;k<12;k++){out.add(i);if(i===b)break;i=i%12+1}}else if(+x>=1&&+x<=12)out.add(+x)});return out.size?[...out].sort((x,y)=>x-y):ALL}
 function applySheet(rows){if(!rows||rows.length<2)return;rows.slice(1).forEach(c=>{const [id,cat,name,price,unit,dur,months,desc,inc,limit,vendor,on]=c.map(x=>String(x??"").trim());if(!id)return;let a=A(id);
@@ -1723,7 +1748,7 @@ const PL=()=>plan||{pax:defPax(),days:1};
 function qty(a){const plan=PL(),x=plan.pax;if(a.unit==="台／天")return a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days;if(a.unit==="趟"||a.unit==="份")return 1;return heads(x)}
 function priceFor(a,x){const plan=PL();if(a.price==null)return null;if(a.unit==="人")return a.price*(x.adult+x.senior)+Math.round(a.price*CHILD_RATE)*x.child;if(a.unit==="台／天")return a.price*(a.id==="car"?plan.days:Math.ceil((x.adult+x.senior)/2)*plan.days);return a.price}
 function cost(it){if(!it.id)return 0;const v=priceFor(A(it.id),plan.pax);return v||0}
-function costText(a){const plan=PL();if(a.free)return a.limit.includes("購票")?"門票現場購買":"免費";if(a.price==null)return "價格洽詢";const x=plan.pax,t=money(priceFor(a,x));if(a.unit==="人")return t+"・"+(x.adult+x.senior+x.child)+" 人";if(a.unit==="台／天"){const n=Math.round(qty(a)/plan.days);return t+"・"+n+" 台 "+plan.days+" 天"}return t+"・"+qty(a)+" "+a.unit.replace(/／.*/,"")}
+function costText(a){const plan=PL();if(a.free)return a.limit.includes("購票")?"門票現場購買":"免費";if(a.price==null)return "價格洽詢";const x=plan.pax,t=money(priceFor(a,x));if(a.unit==="人")return t+"・"+(x.adult+x.senior+x.child)+" 人"+REF();if(a.unit==="台／天"){const n=Math.round(qty(a)/plan.days);return t+"・"+n+" 台 "+plan.days+" 天"+REF()}return t+"・"+qty(a)+" "+a.unit.replace(/／.*/,"")+REF()}
 function total(){return plan?plan.items.reduce((s,it)=>s+cost(it),0):0}
 function hasAsk(){return plan&&plan.items.some(it=>it.id&&A(it.id).price==null)}
 function alts(it){const a=A(it.id),m=monthOf(plan.start),inPlan=new Set(plan.items.map(x=>x.id)),its=dayItems(it.day),k=its.indexOf(it),prev=k>0?placeOf(its[k-1]):"home";
@@ -1896,7 +1921,7 @@ const NAV=[["#/","首頁","M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-
 function navs(route){const k="#/"+(route.split("/")[1]||"");
   document.getElementById("topnav").innerHTML=NAV.slice(0,5).map(([h,t])=>`<a href="${h}" class="${h===k?"on":""}">${t}</a>`).join("");
   document.getElementById("tabs").innerHTML=NAV.map(([h,t,d])=>`<a href="${h}" class="${h===k?"on":""}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>${t}</a>`).join("")}
-function itemRow(a){return `<div class="itemw">${favBtn(a)}<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"></span><span><b>${esc(a.name)}</b><span class="meta">${[a.dur?"約 "+a.dur+" 小時":"",a.months.length<12?a.months[0]+"–"+a.months.at(-1)+" 月":""].filter(Boolean).join("｜")||esc(a.cat)}</span><span class="where">${PIN}${a.isl?esc(a.area)+"・"+esc(a.limit):(a.area?esc(a.area)+"・":"")+"車程 "+travel("home",AT[a.id])+" 分"}</span></span><span class="price">${a.free?costText(a).replace("門票現場購買","現場購票"):money(a.price)}${a.free?"":`<small>／${a.unit}</small>`}</span></a></div>`}
+function itemRow(a){return `<div class="itemw">${favBtn(a)}<a class="item" href="#/tour/${a.id}"><span class="th" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"></span><span><b>${esc(a.name)}</b><span class="meta">${[a.dur?"約 "+a.dur+" 小時":"",a.months.length<12?a.months[0]+"–"+a.months.at(-1)+" 月":""].filter(Boolean).join("｜")||esc(a.cat)}</span><span class="where">${PIN}${a.isl?esc(a.area)+"・"+esc(a.limit):(a.area?esc(a.area)+"・":"")+"車程 "+travel("home",AT[a.id])+" 分"}</span></span><span class="price">${a.free?costText(a).replace("門票現場購買","現場購票"):money(a.price)}${a.free?"":`<small>／${a.unit}</small>${REF()}`}</span></a></div>`}
 
 /* ===================== 頁面 ===================== */
 function MORE(it,a,i,nx){const ll=LLof(placeOf(it)),nm=a?a.name:FREE[it.free].name;
@@ -1956,7 +1981,7 @@ function pageHome(){
   return `<div class="wrap"><section class="hero ghome ${made?"short":""}">
     <div class="photo" role="img" aria-label="澎湖的海"><div class="bg" style="background-image:url(${IMG("hero")})"></div>${(()=>{const w=wxOf(isoOf(new Date())),lv=seaLv(w);return w?`<div class="wxchip"><small>澎湖現在</small><b>${WXT(w.code)}　${w.tmin}–${w.tmax}°</b><span class="${lv}">${{ok:"適合出海",warn:"浪稍大",bad:"風浪大"}[lv]}</span></div>`:""})()}<div class="hov">${hd}<i class="dn" aria-hidden="true"></i></div></div>
     <div class="txt">${body}</div></section>
-  <section class="sec gperk"><h2>住夏澄才有</h2><ul><li><b>行程幫你排好</b><span>名額我們幫你訂</span></li><li><b>LINE 隨時問</b><span>海況、改期都能問</span></li><li><b>行李寄放</b><span>退房後照樣玩</span></li><li><b>頂樓 BBQ</b><span>可以加進行程</span></li></ul></section></div>`}
+  <section class="sec gperk"><h2>住夏澄才有</h2><div class="bnbph"><figure style="background-image:url(img/room.webp)"><figcaption>海景客廳</figcaption></figure><figure style="background-image:url(img/sunset.webp)"><figcaption>頂樓看夕陽 BBQ</figcaption></figure></div><ul><li><b>行程幫你排好</b><span>名額我們幫你訂</span></li><li><b>LINE 隨時問</b><span>海況、改期都能問</span></li><li><b>行李寄放</b><span>退房後照樣玩</span></li><li><b>頂樓 BBQ</b><span>可以加進行程</span></li></ul></section></div>`}
 function seaSection(){const w=wxOf(isoOf(new Date())),lv=seaLv(w);
   if(!w)return `<section class="sec" style="padding-top:72px"><div class="csea"><h2>今天的海況<small>${window.WXFAIL?"暫時讀不到預報，請稍後再看":"讀取天氣預報中…"}</small></h2><div><small>天氣</small><b>—</b></div><div><small>風力</small><b>—</b></div><div><small>浪高</small><b>—</b></div><div><small>跳島出航</small><b>—</b></div></div></section>`;
   const T={ok:["今天適合出海","照常","var(--ok)"],warn:["今天浪稍大，出海要注意","可能停航","#9a6a12"],bad:["今天不適合出海","多半停航","var(--bad)"]}[lv];
@@ -2000,7 +2025,7 @@ function pagePlan(){
   const grp={交通:0,行程:0,吃的:0};plan.items.forEach(it=>{if(!it.id)return;const c=A(it.id).cat;grp[c==="交通"?"交通":c==="餐飲"?"吃的":"行程"]+=cost(it)});
   const GC={交通:"#b9b6ae",行程:"#1e1f1f",吃的:"#1f5f73"},tt=Math.max(1,total());
   const sum=`<div class="total"><span class="sm">${plan.days} 天・${people()} 人（${paxText(plan.pax)}）</span><span class="big">${money(total())}</span>
-      <details class="costd"><summary>看花費明細</summary><div class="stack" role="img" aria-label="花費比例">${Object.entries(grp).filter(([,v])=>v).map(([k,v])=>`<i style="width:${v/tt*100}%;background:${GC[k]}"></i>`).join("")}</div>
+      <details class="costd"><summary>看花費明細</summary>${CFG.refPrice?`<p class="note" style="margin:0 0 6px">以下金額為澎湖行情參考價，民宿確認後以實際報價為準</p>`:""}<div class="stack" role="img" aria-label="花費比例">${Object.entries(grp).filter(([,v])=>v).map(([k,v])=>`<i style="width:${v/tt*100}%;background:${GC[k]}"></i>`).join("")}</div>
       <div class="legend">${Object.entries(grp).map(([k,v])=>`<div><em style="--c:${GC[k]}">${k}</em><b>${money(v)}</b></div>`).join("")}</div>
       <span class="sm">平均每人約 ${money(Math.round(total()/Math.max(1,people())))}${hasAsk()?"，另有洽詢項目":""}<br>兒童 8 折、幼兒免費；住宿另外付款</span></details>
       <span class="free">${ICON.check.replace('stroke-width="3"','stroke-width="3" width="18" height="18" style="vertical-align:-3px"')} 現在不用付錢，民宿確認後才付</span>
@@ -2016,7 +2041,7 @@ function pagePlan(){
     ${printall}
   </section>
   <aside class="side">${sum}</aside></div></div>
-  <div class="dockbar"><span><b>${money(total())}</b><small>民宿 LINE 確認後才付錢</small></span><button class="btn" type="button" data-act="send">送出預訂</button></div>`}
+  <div class="dockbar"><span><b>${money(total())}${REF()}</b><small>民宿 LINE 確認後才付錢</small></span><button class="btn" type="button" data-act="send">送出預訂</button></div>`}
 
 const FLT=[["elder","適合長輩",a=>!INTENSE.includes(a.id)&&a.id!=="sup"&&!/小路|步行/.test(a.limit||"")],["kid","小孩可以玩",a=>!MINAGE[a.id]||MINAGE[a.id]<=6],["rain","下雨天也能去",a=>a.cat==="室內・雨天"||["seafood","souvenir","car","transfer"].includes(a.id)],["free","免費",a=>a.price===0]];
 function pageTours(){
@@ -2043,7 +2068,7 @@ function pageTour(id){
   <div class="detail"><div style="display:flex;flex-direction:column;gap:18px">
     <div class="dphoto" style="background-image:url(${IMGA(a)})" role="img" aria-label="${esc(a.name)}"><a class="dback" href="#/tours">← 全部玩法</a></div>
     <div class="titlerow"><h1 style="font-size:clamp(28px,3.4vw,38px)">${esc(a.name)}</h1>${favBtn(a,1)}</div>
-    <div class="kv2"><div><small>要多久</small><b>${a.dur?"約 "+a.dur+" 小時":"整天可用"}</b></div><div><small>${a.free?"費用":"價格"}</small><b>${a.free?costText(a):money(a.price)+" / "+a.unit}</b></div><div><small>年齡</small><b>${MINAGE[a.id]?MINAGE[a.id]+" 歲以上":"不限"}${INTENSE.includes(a.id)?"，長輩不建議":""}</b></div><div><small>${a.free?"在哪裡":"集合地點"}</small><b>${a.isl?esc(a.area):esc(PLACES[AT[a.id]].n)}</b></div></div>
+    <div class="kv2"><div><small>要多久</small><b>${a.dur?"約 "+a.dur+" 小時":"整天可用"}</b></div><div><small>${a.free?"費用":"價格"}</small><b>${a.free?costText(a):money(a.price)+" / "+a.unit+REF()}</b></div><div><small>年齡</small><b>${MINAGE[a.id]?MINAGE[a.id]+" 歲以上":"不限"}${INTENSE.includes(a.id)?"，長輩不建議":""}</b></div><div><small>${a.free?"在哪裡":"集合地點"}</small><b>${a.isl?esc(a.area):esc(PLACES[AT[a.id]].n)}</b></div></div>
     <div><span class="ph-title" style="margin-bottom:8px">哪幾個月有${a.months.length===12?"（全年都有）":""}</span><div class="months" role="img" aria-label="開放月份 ${a.months.join("、")} 月">${ALL.map(n=>`<span class="${a.months.includes(n)?"on":""} ${n===monthOf(plan.start)?"me":""}">${n}</span>`).join("")}</div><span class="note" style="display:block;margin-top:6px">深色＝有開；框起來的是你出發的月份</span></div>
     <p class="lead" style="color:var(--ink)">${esc(a.desc)}</p>
     <dl class="info"><div><dt>費用包含</dt><dd>${esc(a.inc)}</dd></div>${a.isl?"":`<div><dt>注意事項</dt><dd>${esc(a.limit)}</dd></div>`}<div><dt>怎麼去</dt><dd>${a.isl?esc(a.limit):esc(PLACES[AT[a.id]].n)+"，從夏澄"+ride()+"約 "+travel("home",AT[a.id])+" 分鐘"}</dd></div>${a.free&&!a.isl?"":`<div><dt>取消與停航</dt><dd>海況不佳停航，可改期或退款</dd></div>`}</dl>
@@ -2061,9 +2086,9 @@ function pageTour(id){
     <button type="button" class="abpx" data-act="tpaxopen"><span class="abl">幾個人</span><span class="abv">${paxText(ui.tour.pax)}</span><span class="abc" aria-hidden="true">›</span></button>
     ${w.length?`<p class="abw">${w.join("、")}</p>`:""}
 
-    <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天<span class="abp">${a.free?costText(a):a.price==null?"價格洽詢":money(priceFor(a,ui.tour.pax))}</span></button>
+    <button class="btn block" type="button" data-act="addtour" data-v="${a.id}" data-slot="${slots[ui.tour.slot]||slots[0]}" ${ok?"":"disabled"}>加入第 ${ui.tour.day+1} 天<span class="abp">${a.free?costText(a):a.price==null?"價格洽詢":money(priceFor(a,ui.tour.pax))+REF()}</span></button>
   </aside></div></div>
-  <div class="dockbar tourdock"><span><b>${esc(a.name)}</b><small>${a.free?costText(a):a.price==null?"價格洽詢":money(a.price)+"／"+a.unit}</small></span><button class="btn" type="button" data-act="toadd">加到行程</button></div>`}
+  <div class="dockbar tourdock"><span><b>${esc(a.name)}</b><small>${a.free?costText(a):a.price==null?"價格洽詢":money(a.price)+"／"+a.unit+REF()}</small></span><button class="btn" type="button" data-act="toadd">加到行程</button></div>`}
 
 function reqFromCloud(o){const d=new Date(o.created_at);return {id:o.code,code:o.code,title:`${o.days} 天行程（${fmtDay(new Date(o.start+"T00:00:00"))} 出發）`,name:o.name,phone:"",created:`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,days:o.days,people:o.pax?heads(Object.assign(defPax(),o.pax)):0,paxText:o.pax?paxText(Object.assign(defPax(),o.pax)):"",total:o.total,status:o.status,lines:o.lines||[],owner_note:o.owner_note||""}}
 async function refreshMine(){const list=reqs.filter(r=>r.code);let ch=false;for(const r of list){try{const o=await rpc("xc_get",{p_code:r.code});if(o&&(o.status!==r.status||(o.owner_note||"")!==(r.owner_note||""))){r.status=o.status;r.owner_note=o.owner_note||"";ch=true}}catch(e){}}if(ch){save();if(location.hash.startsWith("#/mine"))render()}}
@@ -2115,34 +2140,42 @@ function guestLink(){const g=ui.gl,u=new URL(location.href.split("#")[0]);return
 function pageAdmin(){
   const key=LS.get("xc-admin","");
   const head=`<div style="padding-top:28px"><h1 style="font-size:clamp(28px,3.6vw,40px)">民宿主人後台</h1></div>`;
-  if(!key)return `<div class="wrap adminlogin" style="max-width:520px">${head}<form class="stage" style="margin-top:20px" onsubmit="return false"><h2 style="font-size:22px">輸入後台密碼</h2><p class="note">輸入一次，這台手機就會記住</p>
-    <div class="field"><input class="dateinput" id="akey" type="password" autocomplete="current-password" placeholder="後台密碼" style="max-width:none"></div>${ui.aerr?`<p class="warn" style="margin-top:10px">密碼不對，請再試一次</p>`:""}<div class="next"><button class="btn" type="button" data-act="alogin">進入後台</button></div></form><div class="acan"><b>登入後可以</b><ul><li><span>1</span>看客人送來的行程和人數</li><li><span>2</span>標記確認、付款、出發進度</li><li><span>3</span>寫回覆，客人在送出紀錄就看得到</li></ul></div></div>`;
+  if(!key&&!ui.ademo)return `<div class="wrap adminlogin" style="max-width:520px">${head}<form class="stage" style="margin-top:20px" onsubmit="return false"><h2 style="font-size:22px">輸入後台密碼</h2><p class="note">輸入一次，這台手機就會記住</p>
+    <div class="field"><input class="dateinput" id="akey" type="password" autocomplete="current-password" placeholder="後台密碼" style="max-width:none"></div>${ui.aerr?`<p class="warn" style="margin-top:10px">密碼不對，請再試一次</p>`:""}<div class="next"><button class="btn" type="button" data-act="alogin">進入後台</button></div><button type="button" class="linkbtn ademo" data-act="ademo">先看示範畫面（不用密碼）</button></form><div class="acan"><b>登入後可以</b><ul><li><span>1</span>看客人送來的行程和人數</li><li><span>2</span>標記確認、付款、出發進度</li><li><span>3</span>寫回覆，客人在送出紀錄就看得到</li></ul></div></div>`;
+  if(ui.ademo&&!ui.arows)ui.arows=demoRows();
   if(!ui.arows){if(!ui.aload){ui.aload=1;rpc("xc_admin_list",{p_key:key}).then(rows=>{ui.arows=rows||[];ui.aload=0;ui.aerr=0;render()}).catch(()=>{ui.aload=0;ui.aerr=1;LS.set("xc-admin","");render()})}
     return `<div class="wrap">${head}<p class="lead" style="margin-top:20px">讀取需求單中…</p></div>`}
   const rows=ui.arows,cnt={};rows.forEach(r=>(r.items||[]).forEach(it=>cnt[it.name]=(cnt[it.name]||0)+1));
   const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,8),mx=top.length?top[0][1]:1;
   ui.gl=ui.gl||{start:nextSat(),days:3,pax:defPax(),name:""};const g=ui.gl;
-  return `<div class="wrap">${head}<p class="lead">客人送出的需求都在這裡，改狀態後客人的「送出紀錄」會跟著更新。<button type="button" class="linkbtn" data-act="arefresh">重新整理</button>・<button type="button" class="linkbtn" data-act="alogout">登出</button></p>
+  return `<div class="wrap">${head}${ui.ademo?`<div class="ademob"><b>示範畫面</b><span>下面 3 筆是假的客人，正式上線後會是真的預訂。可以直接點點看。</span></div>`:""}<p class="lead">客人送出的需求都在這裡，改狀態後客人的「送出紀錄」會跟著更新。${ui.ademo?"":`<button type="button" class="linkbtn" data-act="arefresh">重新整理</button>・`}<button type="button" class="linkbtn" data-act="alogout">${ui.ademo?"離開示範":"登出"}</button></p>
   <div class="weather" style="margin-top:20px"><div class="box"><span>待確認</span><b>${rows.filter(r=>r.status==="待確認").length} 筆</b></div><div class="box"><span>已確認</span><b>${rows.filter(r=>r.status==="已確認").length} 筆</b></div><div class="box"><span>取消</span><b>${rows.filter(r=>r.status==="取消").length} 筆</b></div><div class="box"><span>全部</span><b>${rows.length} 筆</b></div></div>
+  <h2 style="margin-top:36px;font-size:24px">需求單</h2>
+  <div class="rlist">${rows.length?rows.map(r=>{const d=new Date(r.created_at),vg=vendorGroups(r);return `<div class="acard"><div class="ah"><span><b>${esc(r.name||"（未留名）")}</b><span class="note">${esc(r.phone||"")}${r.line_id?"｜LINE "+esc(r.line_id):""}｜查詢碼 ${esc(r.code)}</span></span><select data-act="astatus" data-v="${r.code}" aria-label="修改狀態" class="stsel">${["待確認","已確認","取消"].map(x=>`<option ${r.status===x?"selected":""}>${x}</option>`).join("")}</select></div>
+    <div class="note" style="margin:6px 0">${d.getMonth()+1}/${d.getDate()} 送出｜${r.days} 天｜${r.pax?paxText(Object.assign(defPax(),r.pax)):""}｜預估 ${money(r.total)}${REF()}</div>
+    ${r.note?`<div class="reply"><b>客人備註</b>${esc(r.note)}</div>`:""}
+    <ul class="dlist">${(r.lines||[]).map(l=>{const k=l.indexOf("：");return k<0?`<li><span>${esc(l)}</span></li>`:`<li><b>${esc(l.slice(0,k))}</b><span>${esc(l.slice(k+1))}</span></li>`}).join("")}</ul>
+    <div class="vbtns"><span class="note">問業者名額：</span>${Object.keys(vg).map(v=>`<button type="button" class="op" data-act="vcopy" data-v="${r.code}" data-vendor="${esc(v)}">${ICON.swap.replace(/<path[^>]*>/,'<path d="M8 8h11v13H8zM5 16V3h11"/>')}複製給${esc(v)}（${vg[v].length}）</button>`).join("")||'<span class="note">沒有付費項目</span>'}</div>
+    <div class="anote"><input class="dateinput" id="an-${r.code}" placeholder="回覆客人（會顯示在客人的送出紀錄）" value="${esc(r.owner_note||"")}" style="max-width:none"><button class="btn small ghost" type="button" data-act="anote" data-v="${r.code}">儲存回覆</button></div></div>`}).join(""):`<div class="empty">還沒有客人送出需求</div>`}</div>
   <section class="stage" style="max-width:none;margin-top:28px"><h2 style="font-size:24px">產生客人專屬連結</h2><p class="note">客人在 Booking、Agoda 訂好房後，把訂單上的日期和人數填進來，產生連結用 LINE 傳給他。客人打開時，日期人數已經填好。</p>
     <div class="glgrid"><label>入住日期<input class="dateinput" type="date" id="gl-start" value="${g.start}"></label><label>天數<select class="dateinput" id="gl-days">${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${g.days===n?"selected":""}>${n} 天</option>`).join("")}</select></label><label>客人稱呼<input class="dateinput" id="gl-name" value="${esc(g.name)}" placeholder="例：王小姐"></label></div>
     <div class="field">${paxEditor(g.pax,"g")}</div>
     <div class="next"><button class="btn" type="button" data-act="glmake">產生連結</button></div>
     ${g.link?`<div class="glout"><input class="dateinput" readonly value="${esc(g.link)}" style="max-width:none"><div class="row2" style="margin-top:10px"><button class="btn small" type="button" data-act="glcopy">複製連結</button><a class="btn small ghost" target="_blank" rel="noopener" href="https://line.me/R/msg/text/?${encodeURIComponent((g.name?g.name+"您好，":"您好，")+"這是夏澄幫你準備的行程規劃頁，日期人數已經填好，挑想怎麼玩就能排出每天的行程：\n"+g.link)}">用 LINE 傳</a></div></div>`:""}
   </section>
-  <h2 style="margin-top:36px;font-size:24px">需求單</h2>
-  <div class="rlist">${rows.length?rows.map(r=>{const d=new Date(r.created_at),vg=vendorGroups(r);return `<div class="acard"><div class="ah"><span><b>${esc(r.name||"（未留名）")}</b><span class="note">${esc(r.phone||"")}${r.line_id?"｜LINE "+esc(r.line_id):""}｜查詢碼 ${esc(r.code)}</span></span><select data-act="astatus" data-v="${r.code}" aria-label="修改狀態" class="stsel">${["待確認","已確認","取消"].map(x=>`<option ${r.status===x?"selected":""}>${x}</option>`).join("")}</select></div>
-    <div class="note" style="margin:6px 0">${d.getMonth()+1}/${d.getDate()} 送出｜${r.days} 天｜${r.pax?paxText(Object.assign(defPax(),r.pax)):""}｜示意 ${money(r.total)}</div>
-    ${r.note?`<div class="reply"><b>客人備註</b>${esc(r.note)}</div>`:""}
-    <ul class="dlist">${(r.lines||[]).map(l=>{const k=l.indexOf("：");return k<0?`<li><span>${esc(l)}</span></li>`:`<li><b>${esc(l.slice(0,k))}</b><span>${esc(l.slice(k+1))}</span></li>`}).join("")}</ul>
-    <div class="vbtns"><span class="note">問業者名額：</span>${Object.keys(vg).map(v=>`<button type="button" class="op" data-act="vcopy" data-v="${r.code}" data-vendor="${esc(v)}">${ICON.swap.replace(/<path[^>]*>/,'<path d="M8 8h11v13H8zM5 16V3h11"/>')}複製給${esc(v)}（${vg[v].length}）</button>`).join("")||'<span class="note">沒有付費項目</span>'}</div>
-    <div class="anote"><input class="dateinput" id="an-${r.code}" placeholder="回覆客人（會顯示在客人的送出紀錄）" value="${esc(r.owner_note||"")}" style="max-width:none"><button class="btn small ghost" type="button" data-act="anote" data-v="${r.code}">儲存回覆</button></div></div>`}).join(""):`<div class="empty">還沒有客人送出需求</div>`}</div>
   <h2 style="margin-top:36px;font-size:24px">熱門行程</h2><p class="note">依全部需求單統計。</p>
   <div class="box bars" style="margin-top:10px">${top.length?top.map(([n,c])=>`<div class="bar"><span>${esc(n)}</span><i style="width:${Math.max(6,c/mx*100)}%"></i><b>${c}</b></div>`).join(""):`<span class="note">有需求單之後就會出現。</span>`}</div></div>`}
 
+
+/* 後台示範資料（只在「先看示範畫面」出現，不會寫進雲端） */
+function demoRows(){const d=n=>{const x=new Date();x.setDate(x.getDate()-n);return x.toISOString()},it=(day,date,time,id)=>{const a=A(id);return {day,date,time,id,name:a.name,vendor:vendorOf(a)}};
+  return [
+  {code:"K7P2QX",name:"王小姐",phone:"0912-345-678",status:"待確認",created_at:d(0),days:3,pax:{adult:2,senior:0,child:1,infant:0},total:9590,note:"小朋友 7 歲，第一次浮潛",lines:["第 1 天 6/12（六）：11:30 汽車租借、14:00 浮潛、19:00 海鮮套餐","第 2 天 6/13（日）：08:00 南方四島","第 3 天 6/14（一）：09:00 潮間帶導覽"],items:[it(0,"6/12（六）","11:30","car"),it(0,"6/12（六）","14:00","snorkel"),it(0,"6/12（六）","19:00","seafood"),it(1,"6/13（日）","08:00","south"),it(2,"6/14（一）","09:00","tidal")],owner_note:""},
+  {code:"M3D8WA",name:"陳先生一家",phone:"0928-111-222",status:"已確認",created_at:d(1),days:2,pax:{adult:4,senior:2,child:0,infant:0},total:7200,note:"有兩位長輩，行程想輕鬆一點",lines:["第 1 天 6/20（六）：14:00 海洋牧場、19:30 夜釣小管","第 2 天 6/21（日）：10:00 民宿 BBQ"],items:[it(0,"6/20（六）","14:00","ranch"),it(0,"6/20（六）","19:30","squid"),it(1,"6/21（日）","10:00","bbq")],owner_note:"已幫您訂好 6/20 海洋牧場 14:00，請 13:30 到南海遊客中心報到"},
+  {code:"R5T1ZN",name:"林同學",phone:"0955-666-777",status:"待確認",created_at:d(2),days:4,pax:{adult:5,senior:0,child:0,infant:0},total:16000,note:"",lines:["第 1 天 7/3（五）：10:00 機車租借","第 2 天 7/4（六）：09:00 北海（吉貝、目斗嶼、險礁）","第 3 天 7/5（日）：13:00 水上摩托車、15:30 香蕉船","第 4 天 7/6（一）：09:00 SUP 立槳"],items:[it(0,"7/3（五）","10:00","scooter"),it(1,"7/4（六）","09:00","north"),it(2,"7/5（日）","13:00","jetski"),it(2,"7/5（日）","15:30","banana"),it(3,"7/6（一）","09:00","sup")],owner_note:""}]}
 /* ===================== 送出需求 ===================== */
 function openSend(){
-  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:24px">送出預訂</h2>${(()=>{const pay=plan.items.filter(it=>it.id&&!A(it.id).free),fr=plan.items.filter(it=>it.free||(it.id&&A(it.id).free));return `<div class="sbk"><div><small>民宿幫你訂</small><b>${pay.length} 項</b></div><div><small>預估費用</small><b>${money(total())}</b></div><div><small>免費自己去</small><b>${fr.length} 站</b></div></div><p class="sbn">${pay.slice(0,4).map(it=>esc(A(it.id).name)).join("・")}${pay.length>4?` 等 ${pay.length} 項`:""}</p>`})()}<ol class="flow3 fh"><li><i>1</i>民宿收到</li><li><i>2</i>確認名額<br>LINE 回你</li><li><i>3</i>你確認了<br>才付錢</li></ol>
+  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt" style="font-size:24px">送出預訂</h2>${(()=>{const pay=plan.items.filter(it=>it.id&&!A(it.id).free),fr=plan.items.filter(it=>it.free||(it.id&&A(it.id).free));return `<div class="sbk"><div><small>民宿幫你訂</small><b>${pay.length} 項</b></div><div><small>預估費用</small><b>${money(total())}</b>${REF()}</div><div><small>免費自己去</small><b>${fr.length} 站</b></div></div><p class="sbn">${pay.slice(0,4).map(it=>esc(A(it.id).name)).join("・")}${pay.length>4?` 等 ${pay.length} 項`:""}</p>`})()}<ol class="flow3 fh"><li><i>1</i>民宿收到</li><li><i>2</i>確認名額<br>LINE 回你</li><li><i>3</i>你確認了<br>才付錢</li></ol>
   <form class="form" id="sf"><label>怎麼稱呼你<input id="s-name" required autocomplete="name" value="${esc(plan.guest||"")}" placeholder="例：王小姐"></label><label>手機（選填）<input id="s-phone" inputmode="tel" autocomplete="tel"></label><label>想補充的事（選填）<textarea id="s-note" rows="2" placeholder="例：有長輩、有人會暈船"></textarea></label>
   <p class="note" style="margin:0">送出即表示你同意<a href="#/privacy" data-act="close">隱私權與服務說明</a>。</p><div class="row2"><button class="btn ghost" type="button" data-act="close">取消</button><button class="btn" type="submit" id="s-go">送出</button></div></form></div></div>`;
   document.getElementById("sf").onsubmit=async e=>{e.preventDefault();const go=document.getElementById("s-go");go.disabled=true;go.textContent="送出中…";
@@ -2213,11 +2246,13 @@ document.addEventListener("click",e=>{
   if(act==="lookup"){const c=(document.getElementById("lk").value||"").trim().toUpperCase();if(c.length<4){toast("請輸入 6 碼查詢碼");return}
     rpc("xc_get",{p_code:c}).then(o=>{if(!o){toast("找不到這組查詢碼");return}reqs=reqs.filter(x=>x.code!==o.code);reqs.push(reqFromCloud(o));save();render();toast("已找到你的行程")}).catch(()=>toast("網路有問題，稍後再試"));return}
   if(act==="alogin"){const k=document.getElementById("akey").value.trim();if(!k)return;LS.set("xc-admin",k);ui.arows=null;ui.aerr=0;render();return}
-  if(act==="alogout"){LS.set("xc-admin","");ui.arows=null;render();return}
+  if(act==="ademo"){ui.ademo=1;ui.arows=null;render();scrollTo(0,0);return}
+  if(act==="alogout"){LS.set("xc-admin","");ui.ademo=0;ui.arows=null;render();return}
   if(act==="arefresh"){ui.arows=null;render();return}
   if(act==="glmake"){const g=ui.gl;g.start=document.getElementById("gl-start").value||g.start;g.days=+document.getElementById("gl-days").value;g.name=document.getElementById("gl-name").value.trim();g.link=guestLink();render();return}
   if(act==="glcopy"){copyText(ui.gl.link,"已複製連結");return}
   if(act==="vcopy"){const r=(ui.arows||[]).find(x=>x.code===v);if(r)copyText(vendorMsg(r,b.dataset.vendor),"已複製，貼到和業者的 LINE 就好");return}
+  if(act==="anote"&&ui.ademo){const r=(ui.arows||[]).find(x=>x.code===v);if(r)r.owner_note=document.getElementById("an-"+v).value.trim();toast("已儲存，客人那邊會看到（示範）");return}
   if(act==="anote"){const t=document.getElementById("an-"+v).value.trim(),r=(ui.arows||[]).find(x=>x.code===v);rpc("xc_admin_set",{p_key:LS.get("xc-admin",""),p_code:v,p_status:r?r.status:"待確認",p_note:t}).then(()=>{if(r)r.owner_note=t;toast("已儲存，客人那邊會看到")}).catch(()=>toast("儲存失敗，請重新整理"));return}
   if(act==="swapto"){const it=plan.items.find(x=>x.uid===v);if(it){it.id=b.dataset.to;retime(it.day);save();closeModal();render();toast("已換成「"+A(it.id).name+"」")}return}
   if(act==="opt"){const s=optimize(ui.day);save();render();toast(s>0?"已依距離重排，少騎約 "+s+" 分鐘":"目前已經是最順的排法");return}
@@ -2251,6 +2286,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if
 document.addEventListener("toggle",e=>{if(e.target.id==="cfg")ui.cfgOpen=e.target.open},true);
 document.addEventListener("change",e=>{
   const t=e.target;
+  if(t.dataset&&t.dataset.act==="astatus"&&ui.ademo){const r=(ui.arows||[]).find(x=>x.code===t.dataset.v);if(r)r.status=t.value;toast("狀態已改成「"+t.value+"」（示範）");render();return}
   if(t.dataset&&t.dataset.act==="astatus"){const c=t.dataset.v,r=(ui.arows||[]).find(x=>x.code===c);rpc("xc_admin_set",{p_key:LS.get("xc-admin",""),p_code:c,p_status:t.value,p_note:null}).then(()=>{if(r)r.status=t.value;toast("狀態已改成「"+t.value+"」")}).catch(()=>toast("儲存失敗，請重新整理"));return}
   if(t.id==="p-start"){plan.start=t.value||plan.start;if(plan.made){generate(plan);ui.day=0}save();render()}
 });
@@ -2315,5 +2351,11 @@ function attrFix(){if(window.L&&L.Control&&L.Control.Attribution)L.Control.Attri
   document.querySelectorAll(".leaflet-control-attribution:not([data-c])").forEach(el=>{el.dataset.c=1;el.classList.add("mini");el.addEventListener("click",e=>{if(el.classList.contains("mini")){e.preventDefault();el.classList.remove("mini");setTimeout(()=>el.classList.add("mini"),5000)}})})}
 attrFix();new MutationObserver(attrFix).observe(document.body,{childList:true,subtree:true});
 </script>
-</body>
+
+<script>
+/* 示範版：民宿 LINE 帳號還沒接上前，按 LINE 會先說明（CFG.lineOA 填好就自動失效） */
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="https://line.me/"]');if(!a||CFG.lineOA||location.hash.startsWith("#/admin"))return;e.preventDefault();e.stopPropagation();
+  let msg="";try{msg=decodeURIComponent(a.href.split("/?")[1]||"")}catch(_){}
+  document.getElementById("modal").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet lnd"><span class="lndic"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6C21.4 14.2 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg></span><h2 id="mt">這裡會打開夏澄的 LINE</h2><p class="note">正式上線後，客人按下去就直接進到民宿的 LINE 聊天室，下面這段文字會自動帶進去：</p>${msg?`<div class="lndmsg">${msg.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]).slice(0,300)}</div>`:""}<button class="btn block" type="button" data-act="close">知道了</button></div></div>`},true);
+</script></body>
 </html>
